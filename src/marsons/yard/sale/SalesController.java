@@ -188,8 +188,9 @@ public class SalesController implements Initializable {
                                 Calendar mycal = new GregorianCalendar(Integer.parseInt(startArr[0]), 
                                         Integer.parseInt(startArr[1])-1, Integer.parseInt(startArr[2]));
                                
-                                System.out.println(Integer.parseInt(startArr[1]) - cal.MONTH -1);
-                               int quarter =(LocalDate.now().plusMonths(Integer.parseInt(startArr[1]) - cal.MONTH -1).get(IsoFields.QUARTER_OF_YEAR));
+                                
+                                
+                               int quarter =(LocalDate.now().plusMonths(6).get(IsoFields.QUARTER_OF_YEAR));
                                String q1startDate = null, q1endDate= null, q2startDate= null, q2endDate= null, q3startDate= null, q3endDate= null, q4startDate= null, q4endDate = null;
                                System.out.println(quarter); 
                                if (quarter == 1){

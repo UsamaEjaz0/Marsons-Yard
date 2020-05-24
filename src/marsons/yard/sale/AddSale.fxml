@@ -184,12 +184,11 @@
                   <Font size="14.0" />
                </font>
             </Text>
-            <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="4">
+            <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="4">
                <GridPane.margin>
                   <Insets left="5.0" />
                </GridPane.margin>
             </ChoiceBox>
-            <Button fx:id="addUnit" mnemonicParsing="false" text="Add" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
             <ComboBox fx:id="itemName" editable="true" prefHeight="25.0" prefWidth="187.0" promptText="Item" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets left="20.0" />
