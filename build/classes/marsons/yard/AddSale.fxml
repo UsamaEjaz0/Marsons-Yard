@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" fx:id="screen" onMouseClicked="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.AddSaleController">
+   <children>
+      <Pane layoutX="125.0" layoutY="68.0" prefHeight="80.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="16.0" layoutY="20.0" text="Sale">
+               <font>
+                  <Font name="Calibri" size="30.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="saleType" layoutX="81.0" layoutY="25.0" prefHeight="25.0" prefWidth="126.0" />
+         </children>
+      </Pane>
+      <Label layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Customer">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <ChoiceBox fx:id="customerList" layoutX="19.0" layoutY="136.0" prefHeight="25.0" prefWidth="148.0" />
+      <TextField fx:id="billingName" layoutX="198.0" layoutY="136.0" prefHeight="25.0" prefWidth="151.0" promptText="(Optional)" />
+      <Label layoutX="201.0" layoutY="106.0" prefHeight="27.0" prefWidth="95.0" text="Billing Name">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <GridPane layoutX="952.0" layoutY="95.0" prefHeight="182.0" prefWidth="292.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Invoice Number">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Invoice Date" GridPane.rowIndex="1">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Payment Terms" GridPane.rowIndex="2">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label text="Due Date" GridPane.rowIndex="3">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="invNum" GridPane.columnIndex="1" />
+            <DatePicker fx:id="invDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dueDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="paymentTerms" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+         </children>
+      </GridPane>
+      <Pane layoutX="196.0" layoutY="314.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="65.0" prefWidth="1350.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="10.0" prefWidth="308.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="395.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label alignment="CENTER" text="#" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="Item" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Description" GridPane.columnIndex="2" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Quantity" GridPane.columnIndex="3" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Unit" GridPane.columnIndex="4" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Price/Unit" GridPane.columnIndex="5" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label text="Amount" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="3" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="4" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="5" />
+                  <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" />
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
+      <GridPane layoutX="-2.0" layoutY="369.0" prefHeight="53.0" prefWidth="1350.0">
+         <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="10.0" prefWidth="308.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="395.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         </columnConstraints>
+         <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+         </rowConstraints>
+         <children>
+            <Label alignment="CENTER" text="1." GridPane.halignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="1" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="2" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="3" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="4" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="5" />
+            <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" />
+            <ChoiceBox fx:id="itemName" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets left="40.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <Button fx:id="addItem" mnemonicParsing="false" text="Add New" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets right="20.0" />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="desc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+            <TextField fx:id="quantity" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <TextField fx:id="priceOfUnit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+            <Text fx:id="amount" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" GridPane.columnIndex="6" GridPane.halignment="CENTER">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="4">
+               <GridPane.margin>
+                  <Insets left="5.0" />
+               </GridPane.margin>
+            </ChoiceBox>
+            <Button fx:id="addUnit" mnemonicParsing="false" text="Add" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
+         </children>
+      </GridPane>
+      <Button fx:id="save" layoutX="1220.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1D88FC;" text="Save" textFill="WHITE">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="cancel" layoutX="1110.0" layoutY="658.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: white; -fx-border-color: #1D88FC; -fx-border-width: 2;" text="Cancel" textFill="#1d88fc">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
