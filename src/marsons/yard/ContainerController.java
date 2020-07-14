@@ -31,6 +31,12 @@ public class ContainerController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
+    private Button vendors;
+
+    @FXML
+    private Button customers;
+    
+    @FXML
     private Button salesPaymentInt;
     @FXML
     private Button purchases;
@@ -83,6 +89,16 @@ public class ContainerController implements Initializable {
         else if(event.getSource()== salesPaymentInt){
             fxmlLoader object = new fxmlLoader();
             Pane view = object.getPage("SalesPaymentIn");
+            pane.setCenter(view);
+        }
+        else if (event.getSource()== customers){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Customers");
+            pane.setCenter(view);
+        }
+        else if (event.getSource()== vendors){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Vendor");
             pane.setCenter(view);
         }
 
