@@ -52,7 +52,6 @@
                                              <children>
                                                 <Button fx:id="sales" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="253.0" text="Sales Invoices" />
                                                 <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Sales Returns/ Cr. Note" GridPane.rowIndex="5" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Button" GridPane.rowIndex="6" />
                                                 <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Delivery Challan" GridPane.rowIndex="4" />
                                                 <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="25.0" prefWidth="253.0" text="Sale Order" GridPane.rowIndex="3" />
                                                 <Button fx:id="salesPaymentInt" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="253.0" text="Payment In" GridPane.rowIndex="2" />
