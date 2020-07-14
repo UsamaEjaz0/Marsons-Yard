@@ -10,6 +10,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -73,6 +75,25 @@ public class AddCustomerController implements Initializable {
             Statement st = con.createStatement();
             st.executeUpdate(query);
             con.close();
+            Stage stage = (Stage) save.getScene().getWindow();
+            stage.close();
+        }
+        if (event.getSource()== saveAndNew){
+            String query = "INSERT INTO `customers`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
+                    + "VALUES ('"+Cname.getText()+"','"+NTN.getText()+"','"+pNum.getText()+"','"+addr.getText()+"','"+sAddr.getText()+"',"
+                    + "'"+cBalance.getText()+"','"+pGroup.getValue() + "','"+email.getText()+"','"+asOf.getValue()+"')";
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+            con.close();
+            Cname.setText("");
+            NTN.setText("");
+            pNum.setText("");
+            addr.setText("");
+            sAddr.setText("");
+            cBalance.setText("");
+            
+            email.setText("");
+            asOf.setValue(LocalDate.now());
         }
     }
 

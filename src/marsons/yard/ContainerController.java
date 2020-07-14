@@ -49,6 +49,9 @@ public class ContainerController implements Initializable {
     private Button sales;
     
     @FXML
+    private Button sProviders;
+    
+    @FXML
     private BorderPane  pane;
     
     @FXML
@@ -101,7 +104,11 @@ public class ContainerController implements Initializable {
             Pane view = object.getPage("Vendor");
             pane.setCenter(view);
         }
-
+        else if (event.getSource()== sProviders){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("ServiceProviders");
+            pane.setCenter(view);
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

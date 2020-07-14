@@ -67,7 +67,7 @@
                   <TextField fx:id="email" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button fx:id="saveAndNew" layoutX="540.0" layoutY="461.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #0B8FC5;" text="SAVE &amp; NEW" textFill="WHITE">
+            <Button fx:id="saveAndNew" layoutX="540.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="36.0" prefWidth="119.0" style="-fx-background-color: #0B8FC5;" text="SAVE &amp; NEW" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>

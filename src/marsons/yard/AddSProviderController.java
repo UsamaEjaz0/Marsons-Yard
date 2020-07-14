@@ -28,12 +28,9 @@ import javafx.stage.Stage;
  *
  * @author uejaz
  */
-public class AddVendorController implements Initializable {
+public class AddSProviderController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    ObservableList pGroupList = FXCollections.observableArrayList();
+   ObservableList pGroupList = FXCollections.observableArrayList();
     @FXML
     private TextField Cname;
 
@@ -66,21 +63,10 @@ public class AddVendorController implements Initializable {
 
     @FXML
     private Button saveAndNew;
-    
-    Connection con;
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        pGroupList.add("General");
-        pGroup.getItems().addAll(pGroupList);
-        
-        con = MyConnection.getConnection();
-    }    
     @FXML
     void handleAction(ActionEvent event) throws SQLException {
         if(event.getSource()== save){
-            
-            String query = "INSERT INTO `vendors`(`Name`, `NTN`, `phone`, `Address`, `ShippingAddress`, `cBalance`, `pGroup`, `Email`, `AsOf`)  "
+            String query = "INSERT INTO `serviceproviders`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
                     + "VALUES ('"+Cname.getText()+"','"+NTN.getText()+"','"+pNum.getText()+"','"+addr.getText()+"','"+sAddr.getText()+"',"
                     + "'"+cBalance.getText()+"','"+pGroup.getValue() + "','"+email.getText()+"','"+asOf.getValue()+"')";
             Statement st = con.createStatement();
@@ -88,9 +74,10 @@ public class AddVendorController implements Initializable {
             con.close();
             Stage stage = (Stage) save.getScene().getWindow();
             stage.close();
+           
         }
-        if( event.getSource() == saveAndNew){
-            String query = "INSERT INTO `vendors`(`Name`, `NTN`, `phone`, `Address`, `ShippingAddress`, `cBalance`, `pGroup`, `Email`, `AsOf`)  "
+        if(event.getSource()== saveAndNew){
+            String query = "INSERT INTO `serviceproviders`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
                     + "VALUES ('"+Cname.getText()+"','"+NTN.getText()+"','"+pNum.getText()+"','"+addr.getText()+"','"+sAddr.getText()+"',"
                     + "'"+cBalance.getText()+"','"+pGroup.getValue() + "','"+email.getText()+"','"+asOf.getValue()+"')";
             Statement st = con.createStatement();
@@ -105,8 +92,16 @@ public class AddVendorController implements Initializable {
             
             email.setText("");
             asOf.setValue(LocalDate.now());
-            
         }
     }
 
+    Connection con;
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        pGroupList.add("General");
+        pGroup.getItems().addAll(pGroupList);
+        
+        con = MyConnection.getConnection();
+    }    
+    
 }
