@@ -73,8 +73,33 @@ public class ContainerController implements Initializable {
 
     @FXML
     private Button paymentOut;
+    
+    @FXML
+    private Button direct;
+
+    @FXML
+    private Button indirect;
+
+    @FXML
+    private Button overheads;
+    
     @FXML
     void handleAction(ActionEvent event) throws IOException {
+        if(event.getSource() == direct){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("DirectVariable");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == indirect){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Indirect");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == overheads){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Overheads");
+            pane.setCenter(view);
+        }
          if(event.getSource() == miscItem){
             fxmlLoader object = new fxmlLoader();
             Pane view = object.getPage("AddMiscItem");

@@ -107,9 +107,9 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="248.0" text="Direct/ Variable" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="249.0" text="Indirect/ Semi-Variable" GridPane.rowIndex="1" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="254.0" text="Overheads" GridPane.rowIndex="2" />
+                                                <Button fx:id="direct" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="248.0" text="Direct/ Variable" />
+                                                <Button fx:id="indirect" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="249.0" text="Indirect/ Semi-Variable" GridPane.rowIndex="1" />
+                                                <Button fx:id="overheads" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="254.0" text="Overheads" GridPane.rowIndex="2" />
                                              </children>
                                           </GridPane>
                                        </children>

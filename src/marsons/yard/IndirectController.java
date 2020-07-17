@@ -17,12 +17,11 @@ import javafx.scene.control.Button;
  *
  * @author uejaz
  */
-public class DirectVariableController implements Initializable {
+public class IndirectController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private Button addExpense;
 

@@ -17,18 +17,17 @@ import javafx.scene.control.Button;
  *
  * @author uejaz
  */
-public class DirectVariableController implements Initializable {
+public class OverheadsController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
-    
     @FXML
     private Button addExpense;
 
     @FXML
     void handleAction(ActionEvent event) {
-
+        
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {

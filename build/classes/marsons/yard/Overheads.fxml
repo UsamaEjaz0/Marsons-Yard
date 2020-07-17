@@ -14,13 +14,13 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="marsons.yard.DirectVariableController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="marsons.yard.OverheadsController">
    <children>
       <AnchorPane id="AnchorPane" prefHeight="663.0" prefWidth="1092.0">
          <children>
             <Pane layoutX="7.0" layoutY="6.0" prefHeight="663.0" prefWidth="280.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="812.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Button fx:id="addExpense" layoutX="93.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="41.0" prefWidth="168.0" style="-fx-background-color: #F3A33A;" text="Add Direct Expense" textFill="WHITE">
+                  <Button fx:id="addExpense" layoutX="93.0" layoutY="40.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="41.0" prefWidth="168.0" style="-fx-background-color: #F3A33A;" text="Add Overheads" textFill="WHITE">
                      <font>
                         <Font size="15.0" />
                      </font>
