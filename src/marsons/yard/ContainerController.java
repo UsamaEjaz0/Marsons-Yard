@@ -68,8 +68,23 @@ public class ContainerController implements Initializable {
 
     @FXML
     private Button tools;
+     @FXML
+    private Button miscItem;
+
+    @FXML
+    private Button paymentOut;
     @FXML
     void handleAction(ActionEvent event) throws IOException {
+         if(event.getSource() == miscItem){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("AddMiscItem");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == paymentOut){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("PaymentOut");
+            pane.setCenter(view);
+        }
         if(event.getSource() == miscParty){
             fxmlLoader object = new fxmlLoader();
             Pane view = object.getPage("Misc");
