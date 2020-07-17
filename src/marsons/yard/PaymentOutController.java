@@ -7,30 +7,18 @@ package marsons.yard;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 
 /**
  * FXML Controller class
  *
  * @author uejaz
  */
-public class AddMiscItemController implements Initializable {
+public class PaymentOutController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
-    @FXML
-    private Button addItem;
-
-    @FXML
-    void handleAction(ActionEvent event) {
-
-    }
-
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
