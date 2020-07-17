@@ -81,7 +81,7 @@
                                              </rowConstraints>
                                              <children>
                                                 <Button fx:id="vendors" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="247.0" text="Vendors/ Suppliers" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="247.0" text="Misc" GridPane.rowIndex="3" />
+                                                <Button fx:id="miscParty" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="247.0" text="Misc" GridPane.rowIndex="3" />
                                                 <Button fx:id="sProviders" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="247.0" text="Service Providers" GridPane.rowIndex="2" />
                                                 <Button fx:id="customers" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="247.0" text="Clients/Customers" GridPane.rowIndex="1" />
                                              </children>
@@ -134,9 +134,9 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                              </rowConstraints>
                                              <children>
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="251.0" text="Purchase Inventory/ Raw Material" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="259.0" text="Stock Inventory/ Finished Goods" GridPane.rowIndex="1" />
-                                                <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="253.0" text="Tools &amp; Equipment" GridPane.rowIndex="2" />
+                                                <Button fx:id="PInventory" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="251.0" text="Purchase Inventory/ Raw Material" />
+                                                <Button fx:id="SStock" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="259.0" text="Stock Inventory/ Finished Goods" GridPane.rowIndex="1" />
+                                                <Button fx:id="tools" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleAction" prefHeight="27.0" prefWidth="253.0" text="Tools &amp; Equipment" GridPane.rowIndex="2" />
                                                 <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="27.0" prefWidth="250.0" text="Misc" GridPane.rowIndex="3" />
                                              </children>
                                           </GridPane>

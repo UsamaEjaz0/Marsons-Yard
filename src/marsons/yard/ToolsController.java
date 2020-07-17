@@ -17,7 +17,7 @@ import javafx.scene.control.Button;
  *
  * @author uejaz
  */
-public class SStockController implements Initializable {
+public class ToolsController implements Initializable {
 
     /**
      * Initializes the controller class.

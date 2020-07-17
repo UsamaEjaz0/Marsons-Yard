@@ -71,7 +71,7 @@ public class AddMiscController implements Initializable {
     @FXML
     void handleAction(ActionEvent event) throws SQLException {
 if(event.getSource()== save){
-            String query = "INSERT INTO `customers`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
+            String query = "INSERT INTO `miscparty`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
                     + "VALUES ('"+Cname.getText()+"','"+NTN.getText()+"','"+pNum.getText()+"','"+addr.getText()+"','"+sAddr.getText()+"',"
                     + "'"+cBalance.getText()+"','"+pGroup.getValue() + "','"+email.getText()+"','"+asOf.getValue()+"')";
             Statement st = con.createStatement();
@@ -81,7 +81,7 @@ if(event.getSource()== save){
             stage.close();
         }
         if (event.getSource()== saveAndNew){
-            String query = "INSERT INTO `customers`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
+            String query = "INSERT INTO `miscparty`(`Name`, `NTN`, `Phone`, `Address`, `ShippingAddr`, `Balance`, `pGroup`, `Email`, `As of`) "
                     + "VALUES ('"+Cname.getText()+"','"+NTN.getText()+"','"+pNum.getText()+"','"+addr.getText()+"','"+sAddr.getText()+"',"
                     + "'"+cBalance.getText()+"','"+pGroup.getValue() + "','"+email.getText()+"','"+asOf.getValue()+"')";
             Statement st = con.createStatement();

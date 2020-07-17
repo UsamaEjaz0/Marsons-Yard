@@ -56,8 +56,40 @@ public class ContainerController implements Initializable {
     
     @FXML
     private Button addSale;
+    
+    @FXML
+    private Button miscParty;
+    
+    @FXML
+    private Button PInventory;
+    
+    @FXML
+    private Button SStock;
+
+    @FXML
+    private Button tools;
     @FXML
     void handleAction(ActionEvent event) throws IOException {
+        if(event.getSource() == miscParty){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Misc");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == PInventory){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("PInventory");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == SStock){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("SStock");
+            pane.setCenter(view);
+        }
+        if(event.getSource() == tools){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("Tools");
+            pane.setCenter(view);
+        }
         if(event.getSource() == sales){
             fxmlLoader object = new fxmlLoader();
             Pane view = object.getPage("Sales");
