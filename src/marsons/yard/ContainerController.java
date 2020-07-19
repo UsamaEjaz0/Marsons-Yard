@@ -87,56 +87,56 @@ public class ContainerController implements Initializable {
     void handleAction(ActionEvent event) throws IOException {
         if(event.getSource() == direct){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("DirectVariable");
+            Pane view = object.getPage("directExpense/DirectVariable");
             pane.setCenter(view);
         }
         if(event.getSource() == indirect){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Indirect");
+            Pane view = object.getPage("indirectExpense/Indirect");
             pane.setCenter(view);
         }
         if(event.getSource() == overheads){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Overheads");
+            Pane view = object.getPage("overheadExpense/Overheads");
             pane.setCenter(view);
         }
          if(event.getSource() == miscItem){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("AddMiscItem");
+            Pane view = object.getPage("miscItem/AddMiscItem");
             pane.setCenter(view);
         }
         if(event.getSource() == paymentOut){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("PaymentOut");
+            Pane view = object.getPage("purchase/PaymentOut");
             pane.setCenter(view);
         }
         if(event.getSource() == miscParty){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Misc");
+            Pane view = object.getPage("miscParty/Misc");
             pane.setCenter(view);
         }
         if(event.getSource() == PInventory){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("PInventory");
+            Pane view = object.getPage("inventory/PInventory");
             pane.setCenter(view);
         }
         if(event.getSource() == SStock){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("SStock");
+            Pane view = object.getPage("stock/SStock");
             pane.setCenter(view);
         }
         if(event.getSource() == tools){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Tools");
+            Pane view = object.getPage("tools/Tools");
             pane.setCenter(view);
         }
         if(event.getSource() == sales){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Sales");
+            Pane view = object.getPage("sale/Sales");
             pane.setCenter(view);
         }
         else if (event.getSource() == addSale){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddSale.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("sale/AddSale.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
@@ -144,7 +144,7 @@ public class ContainerController implements Initializable {
             stage.show();
         }
         else if (event.getSource() == addPurchase){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddPurchase.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("purchase/AddPurchase.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root1));  
@@ -153,32 +153,32 @@ public class ContainerController implements Initializable {
         }
         else if (event.getSource() == purchases){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Purchases");
+            Pane view = object.getPage("purchase/Purchases");
             pane.setCenter(view);
         }
         else if (event.getSource() == quotation){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("quotations");
+            Pane view = object.getPage("sale/quotations");
             pane.setCenter(view);
         } 
         else if(event.getSource()== salesPaymentInt){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("SalesPaymentIn");
+            Pane view = object.getPage("sale/SalesPaymentIn");
             pane.setCenter(view);
         }
         else if (event.getSource()== customers){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Customers");
+            Pane view = object.getPage("customer/Customers");
             pane.setCenter(view);
         }
         else if (event.getSource()== vendors){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("Vendor");
+            Pane view = object.getPage("vendor/Vendor");
             pane.setCenter(view);
         }
         else if (event.getSource()== sProviders){
             fxmlLoader object = new fxmlLoader();
-            Pane view = object.getPage("ServiceProviders");
+            Pane view = object.getPage("serviceProvider/ServiceProviders");
             pane.setCenter(view);
         }
     }
