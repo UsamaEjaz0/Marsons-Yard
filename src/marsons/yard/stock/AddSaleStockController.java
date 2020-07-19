@@ -66,6 +66,7 @@ public class AddSaleStockController implements Initializable {
 
     @FXML
     void handleAction(ActionEvent event) throws SQLException {
+        con = MyConnection.getConnection();
         if(event.getSource()== save){
             String query = "INSERT INTO `salestock`(`itemName`, `itemCode`, `salePrice`, `openingQty`, `minStock`, `unit`, `purchasePrice`, `atPrice`, `date`) "
                     + "VALUES ('"+itemName.getText()+"','"+code.getText()+"','"+salePrice.getText()+"','"+qty.getText()+"','"+minStock.getText()+"',"
@@ -100,7 +101,7 @@ public class AddSaleStockController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
-        con = MyConnection.getConnection();
+        
     }     
     
 }

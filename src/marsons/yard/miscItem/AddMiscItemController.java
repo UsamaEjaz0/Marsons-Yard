@@ -32,20 +32,19 @@ public class AddMiscItemController implements Initializable {
 
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-if (event.getSource()== addItem){
+        if (event.getSource() == addItem) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddFourthMiscItem.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-       
-            stage.show(); 
+            stage.setScene(new Scene(root1));
+
+            stage.show();
         }
     }
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

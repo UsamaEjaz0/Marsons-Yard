@@ -5,7 +5,12 @@
  */
 package marsons.yard.directExpense;
 
+import connection.MyConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -69,20 +75,52 @@ public class AddDirectVariableController implements Initializable {
 
     @FXML
     private DatePicker date;
+    
+    @FXML
+    private Button saveAndNew;
 
     @FXML
     void ComputeAmount(MouseEvent event) {
-        
+                amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
+
     }
 
     @FXML
-    void handleAction(ActionEvent event) {
-
+    void handleAction(ActionEvent event) throws SQLException {
+        con = MyConnection.getConnection();
+        if(event.getSource()== save){
+            String query = "INSERT INTO `directexpense`(`type`, `category`, `itemName`, `description`, `date`, `quantity`, `pricePerUnit`, `amount`, `paymentType`) "
+                    + "VALUES ('"+expType.getValue()+"','"+expenseCat.getValue()+"','"+itemName.getValue()+"','"+desc.getText()+"','"+date.getValue()+"',"
+                    + "'"+quantity.getText()+"','"+priceOfUnit.getText() + "','"+amount.getText()+"','"+paymentType.getValue()+"')";
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+            con.close();
+            Stage stage = (Stage) save.getScene().getWindow();
+            stage.close();
+        }
+        if (event.getSource()== saveAndNew){
+            String query = "INSERT INTO `directexpense`(`type`, `category`, `itemName`, `description`, `date`, `quantity`, `pricePerUnit`, `amount`, `paymentType`) "
+                    + "VALUES ('"+expType.getValue()+"','"+expenseCat.getValue()+"','"+itemName.getValue()+"','"+desc.getText()+"','"+date.getValue()+"',"
+                    + "'"+quantity.getText()+"','"+priceOfUnit.getText() + "','"+amount.getText()+"','"+paymentType.getValue()+"')";
+            Statement st = con.createStatement();
+            st.executeUpdate(query);
+            con.close();
+            
+            desc.setText("");
+            
+            quantity.setText("");
+            priceOfUnit.setText("");
+            amount.setText("");
+            date.setValue(LocalDate.now());
+        }
     }
-
+    
+    Connection con;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+        
+        
+    }       
     
 }
