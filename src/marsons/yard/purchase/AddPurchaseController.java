@@ -5,7 +5,11 @@
  */
 package marsons.yard.purchase;
 
+import connection.MyConnection;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -85,12 +89,28 @@ public class AddPurchaseController implements Initializable {
 
     @FXML
     void ComputeAmount(MouseEvent event) {
+        amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
 
     }
+    Connection con;
+@FXML
+    void handleAction(ActionEvent event) throws SQLException {
+        try {
+            if (event.getSource() == save) {
+                con = MyConnection.getConnection();
+                String query = "INSERT INTO `purchase`(`purchaseType`, `vendorName`, `billingName`, `itemName`, `description`, `billNum`, `billDate`, `paymentTerm`, `dueDate`, `qty`, `unit`, `pricePerUnit`, `amount`) "
+                        + "VALUES ('" + purchaseType.getValue() + "','" + customerList.getValue() + "','" + billingName.getText() + "',"
+                        + "'" + itemName.getValue() + "','" + desc.getText() + "','" + invNum.getText() + "'"
+                        + ",'" + invDate.getValue() + "','" + paymentTerms.getValue() + "','" + dueDate.getValue() + "','" + quantity.getText() + "',"
+                        + "'" + priceOfUnit.getText() + "','" + unit.getValue() + "','" + amount.getText() + "')";
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+                con.close();
 
-    @FXML
-    void handleAction(ActionEvent event) {
-
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
