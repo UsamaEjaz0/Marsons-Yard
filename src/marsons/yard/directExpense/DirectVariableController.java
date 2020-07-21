@@ -44,7 +44,8 @@ public class DirectVariableController implements Initializable {
     private Button addCat;
     @FXML
     private Button addExpense;
-public void expenseTable() {
+
+    public void expenseTable() {
         Connection c;
         data = FXCollections.observableArrayList();
         try {
@@ -59,19 +60,19 @@ public void expenseTable() {
                         return new SimpleStringProperty(param.getValue().get(j).toString());
                     }
                 });
- 
+
                 expenseTable.getColumns().addAll(col);
                 System.out.print(col);
-                
+
             }
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     row.add(rs.getString(i));
                 }
-                
+
                 data.add(row);
- 
+
             }
             expenseTable.setItems(data);
         } catch (Exception e) {
@@ -79,21 +80,23 @@ public void expenseTable() {
             System.out.println("Error on Building Data");
         }
     }
+
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-if (event.getSource() == addExpense){
+        if (event.getSource() == addExpense) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddDirectVariable.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
+            stage.setScene(new Scene(root1));
             stage.setMaximized(true);
             stage.show();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         expenseTable();
-    }    
-    
+    }
+
 }

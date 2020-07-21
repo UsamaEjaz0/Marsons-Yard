@@ -29,7 +29,7 @@ public class PInventoryController implements Initializable {
      */
     @FXML
     private Button addItem;
-
+    
     @FXML
     void handleAction(ActionEvent event) throws IOException {
         if (event.getSource()== addItem){

@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -27,6 +28,11 @@ public class VendorController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    @FXML
+    private TableView vendorTable;
+
+    @FXML
+    private TableView vendorTransactionsTable;
      @FXML
     private Button addVendor;
 

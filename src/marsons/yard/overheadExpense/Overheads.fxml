@@ -58,11 +58,10 @@
                      </font>
                   </Label>
                   <TextField layoutX="15.0" layoutY="63.0" prefHeight="25.0" prefWidth="246.0" promptText="Search" />
-                  <TableView layoutX="7.0" layoutY="127.0" prefHeight="347.0" prefWidth="786.0">
-                     <columns>
-                        <TableColumn prefWidth="300.0" text="Date" />
-                        <TableColumn prefWidth="327.0" text="Amount" />
-                     </columns>
+                  <TableView fx:id="expenseTable" layoutX="7.0" layoutY="127.0" prefHeight="347.0" prefWidth="786.0" tableMenuButtonVisible="true">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                   <Button fx:id="addExpense" layoutX="678.0" layoutY="22.0" mnemonicParsing="false" onAction="#handleAction" style="-fx-background-color: #1789FC;" text="Add Expense" textFill="WHITE">
                      <font>

@@ -10,10 +10,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,7 +26,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -40,12 +44,13 @@ public class CustomersController implements Initializable {
      */
     //TABLE VIEW AND DATA
     private ObservableList<ObservableList> data;
- 
+
     @FXML
     private TableView customerTable;
     @FXML
     private TableView customerTransactionTable;
- 
+    
+
     public void customerTable() {
         Connection c;
         data = FXCollections.observableArrayList();
@@ -61,19 +66,19 @@ public class CustomersController implements Initializable {
                         return new SimpleStringProperty(param.getValue().get(j).toString());
                     }
                 });
- 
+
                 customerTable.getColumns().addAll(col);
                 System.out.print(col);
-                
+
             }
             while (rs.next()) {
                 ObservableList<String> row = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     row.add(rs.getString(i));
                 }
-                
+
                 data.add(row);
- 
+
             }
             customerTable.setItems(data);
         } catch (Exception e) {
@@ -81,12 +86,13 @@ public class CustomersController implements Initializable {
             System.out.println("Error on Building Data");
         }
     }
-    public void buildSalesTransactionsTable() {
+   
+    public void buildSalesTransactionsTable(String name) {
         Connection c;
         data = FXCollections.observableArrayList();
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT * from customers";
+            String SQL = "SELECT * from customers where Name = '"+name+"'";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -96,7 +102,7 @@ public class CustomersController implements Initializable {
                         return new SimpleStringProperty(param.getValue().get(j).toString());
                     }
                 });
- 
+
                 customerTransactionTable.getColumns().addAll(col);
             }
             while (rs.next()) {
@@ -104,9 +110,9 @@ public class CustomersController implements Initializable {
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     row.add(rs.getString(i));
                 }
-              
+
                 data.add(row);
- 
+
             }
             customerTransactionTable.setItems(data);
         } catch (Exception e) {
@@ -114,29 +120,36 @@ public class CustomersController implements Initializable {
             System.out.println("Error on Building Data");
         }
     }
-     @FXML
+    @FXML
     private Button addCustomer;
-    
-   
 
-    
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-        if(event.getSource()== addCustomer){
+        if (event.getSource() == addCustomer) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Add Customer.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-       
-            stage.show(); 
+            stage.setScene(new Scene(root1));
+
+            stage.show();
         }
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-         buildSalesTransactionsTable();
-         customerTable();
-         
-    }    
+        customerTable();
+         customerTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                ObservableList x = (ObservableList) (customerTable.getSelectionModel().getSelectedItems().get(0));
+                customerTransactionTable.getColumns().clear();
+                buildSalesTransactionsTable(x.get(0)+"");
+                
+            }
+        });
+        
+
+    }
     
+
 }
