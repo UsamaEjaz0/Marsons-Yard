@@ -8,6 +8,7 @@ package marsons.yard.sale;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 /**
@@ -22,14 +24,15 @@ import javafx.stage.Stage;
  *
  * @author uejaz
  */
-public class SalesController implements Initializable {
+public class SalesController implements Initializable  {
 
     /**
      * Initializes the controller class.
      */
     @FXML
     private Button addSale;
-
+    
+   
     @FXML
     void handleAction(ActionEvent event) throws IOException {
         if(event.getSource() == addSale){
@@ -46,5 +49,6 @@ public class SalesController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
     
 }

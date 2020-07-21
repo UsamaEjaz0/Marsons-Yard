@@ -12,6 +12,7 @@
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/miscParty/AddMisc.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/serviceProvider/ServiceProviders.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/Purchases.fxml</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/PurchasesController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/AddQuotation.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/directExpense/DirectVariable.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/indirectExpense/AddIndirectController.java</file>
@@ -21,6 +22,7 @@
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/AddSale.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/directExpense/AddDirectVariable.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/indirectExpense/Indirect.fxml</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/PaymentOutController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/indirectExpense/AddIndirect.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/miscItem/AddFourthMiscItemController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/miscItem/AddMiscItem.fxml</file>
@@ -30,6 +32,7 @@
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/overheadExpense/Overheads.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/inventory/PInventory.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/stock/AddSaleStock.fxml</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/AddPaymentOutController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/SalesAddPaymentIn.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/directExpense/AddDirectVariableController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/SalesAddPaymentInController.java</file>
@@ -45,6 +48,7 @@
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/AddPaymentOut.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/connection/MyConnection.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/customer/Customers.fxml</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/AddPurchaseController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/quotations.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/serviceProvider/AddSProvider.fxml</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/PaymentOut.fxml</file>
