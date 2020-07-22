@@ -24,11 +24,10 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <TableView layoutX="12.0" layoutY="127.0" prefHeight="509.0" prefWidth="263.0">
-                     <columns>
-                        <TableColumn prefWidth="124.33332824707031" text="Item" />
-                        <TableColumn prefWidth="134.6666717529297" text="Quantity" />
-                     </columns>
+                  <TableView fx:id="pItemTable" layoutX="12.0" layoutY="127.0" prefHeight="509.0" prefWidth="263.0" tableMenuButtonVisible="true">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy>
                   </TableView>
                </children>
             </Pane>

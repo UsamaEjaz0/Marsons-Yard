@@ -23,7 +23,10 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <TableView fx:id="vendorTable" layoutX="12.0" layoutY="127.0" prefHeight="509.0" prefWidth="263.0" />
+                  <TableView fx:id="vendorTable" layoutX="12.0" layoutY="127.0" prefHeight="509.0" prefWidth="263.0" tableMenuButtonVisible="true">
+                     <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                     </columnResizePolicy></TableView>
                </children>
             </Pane>
             <Pane layoutX="301.0" layoutY="10.0" prefHeight="161.0" prefWidth="801.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="492.0" AnchorPane.leftAnchor="291.0" AnchorPane.rightAnchor="0.0">

@@ -5,9 +5,16 @@
  */
 package marsons.yard.vendor;
 
+import connection.MyConnection;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -28,14 +37,50 @@ public class VendorController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    private ObservableList<ObservableList> data;
     @FXML
     private TableView vendorTable;
-
+   
     @FXML
     private TableView vendorTransactionsTable;
      @FXML
     private Button addVendor;
+public void vendorTable() {
+        Connection c;
+        data = FXCollections.observableArrayList();
+        try {
+            c = MyConnection.getConnection();
+            String SQL = "SELECT Name,cBalance from vendors";
+            ResultSet rs = c.createStatement().executeQuery(SQL);
+            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                final int j = i;
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        return new SimpleStringProperty(param.getValue().get(j).toString());
+                    }
+                });
 
+                vendorTable.getColumns().addAll(col);
+                System.out.print(col);
+
+            }
+            while (rs.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    row.add(rs.getString(i));
+                }
+
+                data.add(row);
+
+            }
+            vendorTable.setItems(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
+    }
+   
     @FXML
     void handleAction(ActionEvent event) throws IOException {
         if(event.getSource()== addVendor){
@@ -51,6 +96,7 @@ public class VendorController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        vendorTable();
     }    
     
 }
