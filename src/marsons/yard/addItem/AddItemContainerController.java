@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package marsons.yard.sale;
+package marsons.yard.addItem;
 
 import connection.MyConnection;
 import java.io.IOException;
@@ -11,7 +11,6 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
-import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,23 +32,22 @@ import javafx.util.Callback;
  *
  * @author uejaz
  */
-public class SalesController implements Initializable  {
+public class AddItemContainerController implements Initializable {
 
     /**
      * Initializes the controller class.
      */
     private ObservableList<ObservableList> data;
     @FXML
-    private Button addSale;
-    
+    private TableView miscItemTable;
     @FXML
-    private TableView saleTransactions;
-    public void salesTable() {
+    private Button addItem;
+public void miscTable() {
         Connection c;
         data = FXCollections.observableArrayList();
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT * from sales";
+            String SQL = "SELECT name, openingQty from miscitems";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -60,8 +58,8 @@ public class SalesController implements Initializable  {
                     }
                 });
 
-                saleTransactions.getColumns().addAll(col);
-                
+                miscItemTable.getColumns().addAll(col);
+                System.out.print(col);
 
             }
             while (rs.next()) {
@@ -73,30 +71,29 @@ public class SalesController implements Initializable  {
                 data.add(row);
 
             }
-            saleTransactions.setItems(data);
+            miscItemTable.setItems(data);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }
     }
-   
+
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-        if(event.getSource() == addSale){
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddSale.fxml"));
+        if (event.getSource() == addItem) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddItemScreen.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-            stage.setMaximized(true);
+            stage.setScene(new Scene(root1));
+
             stage.show();
         }
-
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        salesTable();
-    }    
-
+        miscTable();
+    }   
     
 }

@@ -31,6 +31,8 @@ public class ContainerController implements Initializable {
      * Initializes the controller class.
      */
     @FXML
+    private Button addItem;
+    @FXML
     private Button vendors;
 
     @FXML
@@ -85,6 +87,11 @@ public class ContainerController implements Initializable {
     
     @FXML
     void handleAction(ActionEvent event) throws IOException {
+        if(event.getSource() == addItem){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("addItem/addItemContainer");
+            pane.setCenter(view);
+        }
         if(event.getSource() == direct){
             fxmlLoader object = new fxmlLoader();
             Pane view = object.getPage("directExpense/DirectVariable");
