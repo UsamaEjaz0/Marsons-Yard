@@ -44,14 +44,14 @@
                   <Label text="MINIMUM STOCK" GridPane.rowIndex="6" />
                   <Label text="OPENING QUANTITY" GridPane.rowIndex="3" />
                   <TextField fx:id="itemName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="179.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" />
-                  <TextField fx:id="salePrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="186.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                  <TextField fx:id="minStock" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="193.0" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+                  <TextField fx:id="salePrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="173.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <TextField fx:id="minStock" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="193.0" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <GridPane.margin>
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </TextField>
-                  <TextField fx:id="qty" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="106.0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <TextField fx:id="code" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="182.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <TextField fx:id="qty" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="106.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <TextField fx:id="code" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="182.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label text="SELECT UNIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="PURCHASE PRICE" GridPane.rowIndex="5" />
                   <Label text="DATE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
@@ -59,36 +59,36 @@
                         <Insets />
                      </GridPane.margin>
                   </Label>
-                  <DatePicker fx:id="date" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <DatePicker fx:id="date" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                   <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
-                  <TextField fx:id="pPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="139.0" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
+                  <TextField fx:id="pPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="139.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                   <Button fx:id="selectUnit" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="124.0" text="SELECT UNIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label text="AT PRICE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="146.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                  <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <Label text="PRIMARY ITEM" GridPane.columnIndex="1" />
-                  <TextField fx:id="pItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="198.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+                  <TextField fx:id="pItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="198.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
                      <GridPane.margin>
                         <Insets right="30.0" />
                      </GridPane.margin>
                   </TextField>
                   <Label fx:id="cat" text="CATEGORY" GridPane.rowIndex="2" />
-                  <TextField fx:id="mainCat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="180.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <TextField fx:id="mainCat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="180.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                   </TextField>
-                  <Text fx:id="s1" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" text="NONE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <Text fx:id="s1" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="35.0" />
                      </GridPane.margin>
                   </Text>
-                  <Text fx:id="s3" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" text="NONE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
+                  <Text fx:id="s3" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets top="35.0" />
                      </GridPane.margin>
                   </Text>
-                  <Text fx:id="s2" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" text="NONE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                  <Text fx:id="qtyDef" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="105.13671875" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                  <Text fx:id="s2" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <Text fx:id="qtyDef" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="105.13671875" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                </children>
             </GridPane>
             <Button fx:id="saveAndNew" layoutX="558.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #0B8FC5;" text="SAVE &amp; NEW" textFill="WHITE">

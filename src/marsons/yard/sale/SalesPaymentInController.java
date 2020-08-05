@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package marsons.yard.sale;
 
 import connection.MyConnection;
@@ -40,9 +35,10 @@ public class SalesPaymentInController implements Initializable {
     private ObservableList<ObservableList> data;
     @FXML
     private Button addPaymentIn;
-    
+
     @FXML
     private TableView paymentInTable;
+
     public void paymentInTable() {
         Connection c;
         data = FXCollections.observableArrayList();
@@ -78,20 +74,21 @@ public class SalesPaymentInController implements Initializable {
             System.out.println("Error on Building Data");
         }
     }
-   
+
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SalesAddPaymentIn.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-           
-            stage.show(); 
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("SalesAddPaymentIn.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+
+        stage.show();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         paymentInTable();
-    }    
-    
+    }
+
 }
