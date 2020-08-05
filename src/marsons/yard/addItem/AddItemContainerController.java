@@ -42,12 +42,13 @@ public class AddItemContainerController implements Initializable {
     private TableView miscItemTable;
     @FXML
     private Button addItem;
-public void miscTable() {
+
+    public void miscTable() {
         Connection c;
         data = FXCollections.observableArrayList();
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT name, openingQty from miscitems";
+            String SQL = "SELECT name, openingQty from items";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -94,6 +95,6 @@ public void miscTable() {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         miscTable();
-    }   
-    
+    }
+
 }
