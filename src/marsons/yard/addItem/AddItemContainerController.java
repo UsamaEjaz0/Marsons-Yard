@@ -141,6 +141,7 @@ public class AddItemContainerController implements Initializable {
         miscTable();
 
         itemTable.setOnMouseClicked((MouseEvent event) -> {
+           try { 
             if (event.getClickCount() > 0) {
                 ObservableList x = (ObservableList) (itemTable.getSelectionModel().getSelectedItems().get(0));
                 itemTransactionTable.getColumns().clear();
@@ -151,7 +152,7 @@ public class AddItemContainerController implements Initializable {
                 ObservableList x = (ObservableList) (itemTable.getSelectionModel().getSelectedItems().get(0));
                 System.out.print(x.get(0) + " " + x.get(1));
 
-                try {
+                
                     EditItemController e = new EditItemController();
                         e.setEditData((String) x.get(0), (String)x.get(1));
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditItem.fxml"));
@@ -164,10 +165,10 @@ public class AddItemContainerController implements Initializable {
                     stage.show();
 
                     
-                } catch (IOException ex) {
-                    Logger.getLogger(AddItemContainerController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                } 
 
+            } catch (Exception ex) {
+                Logger.getLogger(AddItemContainerController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }

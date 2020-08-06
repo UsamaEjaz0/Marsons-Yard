@@ -43,9 +43,9 @@ public class EditItemController implements Initializable {
     private ObservableList<Object> editItemList;
     static String iName, pName;
     boolean check;
-  
+
     static String a = "", b = "", c = "", d = "", e = "", f = "", g = "", h = "";
-    
+
     @FXML
     private ComboBox<String> categoryList;
     @FXML
@@ -92,18 +92,18 @@ public class EditItemController implements Initializable {
     private Button update;
     Connection con;
 
-    public void setEditData(String name, String pname){
+    public void setEditData(String name, String pname) {
         iName = name;
         pName = pname;
-        
-        
-        
 
     }
+
     @FXML
     void handleAction(ActionEvent event) throws SQLException, IOException {
         con = MyConnection.getConnection();
         if (event.getSource() == selectUnit) {
+            UnitController uc = new UnitController();
+            uc.setUnits(a, b, c, d, e, f, g);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("unit.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
@@ -113,18 +113,17 @@ public class EditItemController implements Initializable {
             check = true;
         }
         if (event.getSource() == update) {
-            String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
-                    + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
-                    + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
-                    + "','" + d + "','" + e + "','" + f + "','" + g + "')";
+            String query = "UPDATE `items` SET `Name`='" + itemName.getText() + "' ,`ComponentOf`='" + pItems.getValue() + "',`MainCat`= '" + categoryList.getValue() + "',`ItemCode`= '" + code.getText() + "',"
+                    + "`SalePrice`= '" + salePrice.getText() + "' ,`OpeningQty`= '" + qty.getText() + "' ,`MinStock`= '" + minStock.getText() + "' ,`pUnit`= '" + a + "' ,`pPrice`= '" + pPrice.getText() + "' ,`AtPrice`= '" + atPrice.getText() + "',"
+                    + "`Date`= '" + date.getValue() + "' ,`sUnitOne`= '" + b + "' ,`sUnitTwo`= '" + c + "' ,`sUnitThree`= '" + d + "' ,`conversionOne`= '" + e + "' ,"
+                    + "`conversionTwo`= '" + f + "' ,`conversionThree`= '" + g + "' where name = '" + itemName.getText() + "' and ComponentOf = '" + pItems.getValue() + "'";
             Statement st = con.createStatement();
             st.executeUpdate(query);
             con.close();
             Stage stage = (Stage) update.getScene().getWindow();
             stage.close();
         }
-       
+
     }
 
     @Override
@@ -137,56 +136,66 @@ public class EditItemController implements Initializable {
         s3.setText("");
 
         check = false;
-        
+
         itemName.setText(iName);
         pItems.setValue(pName);
         Connection c;
         try {
             c = MyConnection.getConnection();
-           
 
-            String SQL = "SELECT * from items where name = '" + iName+ "' and ComponentOf = '" + pName + "'";
+            String SQL = "SELECT * from items where name = '" + iName + "' and ComponentOf = '" + pName + "'";
             ResultSet rs = c.createStatement().executeQuery(SQL);
 
             while (rs.next()) {
                 editItemList = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     editItemList.add(rs.getString(i));
-                } 
+                }
                 System.out.println(editItemList);
             }
-            
+
             categoryList.setValue((String) editItemList.get(2));
             code.setText((String) editItemList.get(3));
             salePrice.setText((String) editItemList.get(4));
             qty.setText((String) editItemList.get(5));
             minStock.setText((String) editItemList.get(6));
-            
+
             a = (String) editItemList.get(7);
-            
+
             pPrice.setText((String) editItemList.get(8));
             atPrice.setText((String) editItemList.get(9));
-            
-            String dt = (String) editItemList.get(10); 
+
+            String dt = (String) editItemList.get(10);
             System.out.println(dt);
-            
+
             LocalDate localDate = LocalDate.parse(dt);
             date.setValue(localDate);
-            
+
             b = (String) editItemList.get(11);
             this.c = (String) editItemList.get(12);
             d = (String) editItemList.get(13);
             e = (String) editItemList.get(14);
             f = (String) editItemList.get(15);
             g = (String) editItemList.get(16);
-            
-            
-            
-            
-            
+
             s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-            s2.setText("1 " + a + "=" + f + " " + c);
+            s2.setText("1 " + a + "=" + f + " " + this.c);
             s3.setText("1 " + a + "=" + g + " " + d);
+            
+            
+            
+            System.out.println(b);
+            System.out.println(this.c);
+            System.out.println(d);
+            if (b.contains("NONE") || b == "") {
+                s1.setText("");
+            }
+            if (this.c.contains("NONE") || this.c == "") {
+                s2.setText("");
+            }
+            if (d.contains("NONE") || d == "") {
+                s3.setText("");
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
@@ -210,30 +219,30 @@ public class EditItemController implements Initializable {
     }
 
     public void setUnitData(MouseEvent event) {
-        
-        
-        if (true) {
-            s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-            s2.setText("1 " + a + "=" + f + " " + c);
-            s3.setText("1 " + a + "=" + g + " " + d);
-            if (b == "NONE") {
-                s1.setText("");
-            }
-            if (c == "NONE") {
-                s2.setText("");
-            }
-            if (d == "NONE") {
-                s3.setText("");
-            }
 
-        }
+//         if (b == "NONE" || b == "") {
+//                    s1.setText("");
+//                    
+//                }else{
+//                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+//                }
+//                if (c == "NONE" || c == "") {
+//                    s2.setText("");
+//                }else{
+//                    s2.setText("1 " + a + "=" + f + " " + c);
+//                }
+//                if (d == "NONE" || d == "") {
+//                    s3.setText("");
+//                }else{
+//                    s3.setText("1 " + a + "=" + g + " " + d);
+//                }
     }
-public void init() {
+
+    public void init() {
 
         Connection c;
         try {
             c = MyConnection.getConnection();
-           
 
             String SQL2 = "SELECT distinct ComponentOf from items";
             ResultSet rs2 = c.createStatement().executeQuery(SQL2);
@@ -245,8 +254,7 @@ public void init() {
                 }
 
                 pItems.getItems().addAll(pItemList);
-                
-                
+
             }
             String SQL = "SELECT distinct ComponentOf from items";
             ResultSet rs = c.createStatement().executeQuery(SQL);
@@ -258,57 +266,52 @@ public void init() {
                 }
 
                 categoryList.getItems().addAll(cList);
-                
-                
+
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }
 
     }
-  
+
     @FXML
     void setData(MouseEvent event) {
         try {
-            
-            if (true) {
-                s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-                s2.setText("1 " + a + "=" + f + " " + c);
-                s3.setText("1 " + a + "=" + g + " " + d);
-                if (b == "NONE") {
-                    s1.setText("");
-                }
-                if (c == "NONE") {
-                    s2.setText("");
-                }
-                if (d == "NONE") {
-                    s3.setText("");
-                }
 
-            }
+            
+                
+                
+//                
+//                if (b == "NONE" || b == "") {
+//                    s1.setText("");
+//                    
+//                }else{
+//                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+//                }
+//                if (c == "NONE" || c == "") {
+//                    s2.setText("");
+//                }else{
+//                    s2.setText("1 " + a + "=" + f + " " + c);
+//                }
+//                if (d == "NONE" || d == "") {
+//                    s3.setText("");
+//                }else{
+//                    s3.setText("1 " + a + "=" + g + " " + d);
+//                }
+
+            
             if (e != "" && qty.getText() != "") {
                 double dummy = Double.parseDouble(qty.getText()) / Double.parseDouble(e);
                 double roundOff = (double) Math.round(dummy * 1000) / 1000;
                 qtyDef.setText(String.valueOf(roundOff) + " " + a);
             }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
         } catch (Exception e) {
 
             System.out.println(e);
         }
-    }    
-    
+    }
+
 }

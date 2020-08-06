@@ -13,8 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="marsons.yard.addItem.EditItemController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.addItem.EditItemController">
    <children>
       <AnchorPane id="AnchorPane" onMouseClicked="#setUnitData" onMouseMoved="#setData" prefHeight="540.0" prefWidth="745.0" style="-fx-background-color: white;">
          <children>
@@ -53,7 +52,7 @@
                   </TextField>
                   <TextField fx:id="qty" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="106.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <TextField fx:id="code" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="182.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-                  <Label text="SELECT UNIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label text="EDIT UNIT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="PURCHASE PRICE" GridPane.rowIndex="5" />
                   <Label text="DATE" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
                      <GridPane.margin>
@@ -62,7 +61,7 @@
                   </Label>
                   <DatePicker fx:id="date" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                   <TextField fx:id="pPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="139.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                  <Button fx:id="selectUnit" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="124.0" text="SELECT UNIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="selectUnit" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="124.0" text="EDIT UNIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label text="AT PRICE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <Label text="PRIMARY ITEM" GridPane.columnIndex="1" />

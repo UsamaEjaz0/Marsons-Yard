@@ -49,7 +49,7 @@ public class AddItemScreenController implements Initializable {
 
     boolean check;
     static String a = "", b = "", c = "", d = "", e = "", f = "", g = "", h = "";
-    
+
     @FXML
     private ComboBox<String> categoryList;
     @FXML
@@ -92,8 +92,6 @@ public class AddItemScreenController implements Initializable {
     @FXML
     private TextField atPrice;
 
-
-
     @FXML
     private Button saveAndNew;
 
@@ -105,6 +103,9 @@ public class AddItemScreenController implements Initializable {
     void handleAction(ActionEvent event) throws SQLException, IOException {
         con = MyConnection.getConnection();
         if (event.getSource() == selectUnit) {
+
+            UnitController uc = new UnitController();
+            uc.setUnits(a, b, c, d, e, f, g);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("unit.fxml"));
             Parent root1 = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
@@ -180,24 +181,24 @@ public class AddItemScreenController implements Initializable {
             s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
             s2.setText("1 " + a + "=" + f + " " + c);
             s3.setText("1 " + a + "=" + g + " " + d);
-            if (b == "NONE") {
+            if (b == "NONE" || b == "") {
                 s1.setText("");
             }
-            if (c == "NONE") {
+            if (c == "NONE" || c == "") {
                 s2.setText("");
             }
-            if (d == "NONE") {
+            if (d == "NONE" || d == "") {
                 s3.setText("");
             }
 
         }
     }
-public void init() {
+
+    public void init() {
 
         Connection c;
         try {
             c = MyConnection.getConnection();
-           
 
             String SQL2 = "SELECT distinct ComponentOf from items";
             ResultSet rs2 = c.createStatement().executeQuery(SQL2);
@@ -209,8 +210,7 @@ public void init() {
                 }
 
                 pItems.getItems().addAll(pItemList);
-                
-                
+
             }
             String SQL = "SELECT distinct ComponentOf from items";
             ResultSet rs = c.createStatement().executeQuery(SQL);
@@ -222,18 +222,16 @@ public void init() {
                 }
 
                 categoryList.getItems().addAll(cList);
-                
-                
+
             }
-            
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }
 
     }
-  
+
     @FXML
     void setData(MouseEvent event) {
         try {
@@ -241,13 +239,13 @@ public void init() {
                 s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
                 s2.setText("1 " + a + "=" + f + " " + c);
                 s3.setText("1 " + a + "=" + g + " " + d);
-                if (b == "NONE") {
+                if (b == "NONE" || b == "") {
                     s1.setText("");
                 }
-                if (c == "NONE") {
+                if (c == "NONE" || c == "") {
                     s2.setText("");
                 }
-                if (d == "NONE") {
+                if (d == "NONE" || d == "") {
                     s3.setText("");
                 }
 

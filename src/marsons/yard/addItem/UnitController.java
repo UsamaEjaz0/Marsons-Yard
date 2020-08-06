@@ -31,7 +31,7 @@ public class UnitController implements Initializable {
      * Initializes the controller class.
      */
     ObservableList units = FXCollections.observableArrayList();
-    
+    static String bUnit, sUnit1, sUnit2, sUnit3, conversion1, conversion2, conversion3;
     
     @FXML
     private Button save;
@@ -76,6 +76,15 @@ public class UnitController implements Initializable {
     private Text sUnitText2;
 
 
+    public void setUnits(String a, String b, String c, String d, String e, String f, String g){
+        bUnit =a;
+        sUnit1 = b;
+        sUnit2 = c;
+        sUnit3 = d;
+        conversion1 = e;
+        conversion2 = f;
+        conversion3 = g;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -86,17 +95,21 @@ public class UnitController implements Initializable {
         sUnit2TextField.getItems().addAll(units);
         sUnit3TextField.getItems().addAll(units);
         
-        bUnitTextField.setValue("NONE");
-        sUnit1TextField.setValue("NONE");
-        sUnit2TextField.setValue("NONE");
-        sUnit3TextField.setValue("NONE");
+        bUnitTextField.setValue(bUnit);
+        sUnit1TextField.setValue(sUnit1);
+        sUnit2TextField.setValue(sUnit2);
+        sUnit3TextField.setValue(sUnit3);
         
-        bUnitText1.setText("NONE");
-        bUnitText2.setText("NONE");
-        bUnitText3.setText("NONE");
-        sUnitText1.setText("NONE");
-        sUnitText2.setText("NONE");
-        sUnitText3.setText("NONE");
+        conv1.setText(conversion1);
+        conv2.setText(conversion2);
+        conv3.setText(conversion3);
+        
+        bUnitText1.setText(bUnit);
+        bUnitText2.setText(bUnit);
+        bUnitText3.setText(bUnit);
+        sUnitText1.setText(sUnit1);
+        sUnitText2.setText(sUnit2);
+        sUnitText3.setText(sUnit3);
 
         bUnitTextField.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
             @Override
