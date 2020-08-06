@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -61,18 +60,12 @@
                      </GridPane.margin>
                   </Label>
                   <DatePicker fx:id="date" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                  <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" />
                   <TextField fx:id="pPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="139.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                   <Button fx:id="selectUnit" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="124.0" text="SELECT UNIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label text="AT PRICE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <Label text="PRIMARY ITEM" GridPane.columnIndex="1" />
                   <Label fx:id="cat" text="CATEGORY" GridPane.rowIndex="2" />
-                  <TextField fx:id="mainCat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="180.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin>
-                  </TextField>
                   <Text fx:id="s1" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets bottom="35.0" />
@@ -86,6 +79,7 @@
                   <Text fx:id="s2" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <Text fx:id="qtyDef" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="105.13671875" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                   <ComboBox fx:id="pItems" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
+                  <ComboBox fx:id="categoryList" editable="true" prefHeight="25.0" prefWidth="179.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <Button fx:id="saveAndNew" layoutX="558.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="36.0" prefWidth="116.0" style="-fx-background-color: #0B8FC5;" text="SAVE &amp; NEW" textFill="WHITE">

@@ -45,10 +45,13 @@ public class AddItemScreenController implements Initializable {
      * Initializes the controller class.
      */
     private ObservableList<String> pItemList;
+    private ObservableList<String> cList;
+
     boolean check;
     static String a = "", b = "", c = "", d = "", e = "", f = "", g = "", h = "";
     
-    
+     @FXML
+    private ComboBox<String> categoryList;
     @FXML
     private ComboBox<String> pItems;
     @FXML
@@ -89,8 +92,7 @@ public class AddItemScreenController implements Initializable {
     @FXML
     private TextField atPrice;
 
-    @FXML
-    private TextField mainCat;
+
 
     @FXML
     private Button saveAndNew;
@@ -114,7 +116,7 @@ public class AddItemScreenController implements Initializable {
         if (event.getSource() == save) {
             String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                     + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                     + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                     + "','" + d + "','" + e + "','" + f + "','" + g + "')";
             Statement st = con.createStatement();
@@ -126,7 +128,7 @@ public class AddItemScreenController implements Initializable {
         if (event.getSource() == saveAndNew) {
             String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                     + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                     + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                     + "','" + d + "','" + e + "','" + f + "','" + g + "')";
             Statement st = con.createStatement();
@@ -197,7 +199,7 @@ public void init() {
             c = MyConnection.getConnection();
            
 
-            String SQL2 = "SELECT ComponentOf from items";
+            String SQL2 = "SELECT distinct ComponentOf from items";
             ResultSet rs2 = c.createStatement().executeQuery(SQL2);
 
             while (rs2.next()) {
@@ -207,7 +209,24 @@ public void init() {
                 }
 
                 pItems.getItems().addAll(pItemList);
+                
+                
             }
+            String SQL = "SELECT distinct ComponentOf from items";
+            ResultSet rs = c.createStatement().executeQuery(SQL);
+
+            while (rs.next()) {
+                cList = FXCollections.observableArrayList();
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    cList.add(rs.getString(i));
+                }
+
+                categoryList.getItems().addAll(cList);
+                
+                
+            }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
