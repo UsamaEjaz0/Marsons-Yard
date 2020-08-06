@@ -43,6 +43,7 @@ public class AddItemContainerController implements Initializable {
      * Initializes the controller class.
      */
     private ObservableList<ObservableList> data;
+    String componentOf;
 
     @FXML
     private TableView itemTable;
@@ -54,10 +55,10 @@ public class AddItemContainerController implements Initializable {
     public void miscTable() {
         Connection c;
         data = FXCollections.observableArrayList();
-        String[] itemColNames = {"Item", "Quantity"};
+        String[] itemColNames = {"Item","Primary Item", "Quantity"};
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT name, openingQty from items";
+            String SQL = "SELECT name,componentOf, openingQty from items";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -148,15 +149,21 @@ public class AddItemContainerController implements Initializable {
             }
             if (event.getClickCount() == 2) {
                 ObservableList x = (ObservableList) (itemTable.getSelectionModel().getSelectedItems().get(0));
-                System.out.print(x.get(0));
+                System.out.print(x.get(0) + " " + x.get(1));
 
                 try {
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddItemScreen.fxml"));
+                    EditItemController e = new EditItemController();
+                        e.setEditData((String) x.get(0), (String)x.get(1));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditItem.fxml"));
+
                     Parent root1 = (Parent) fxmlLoader.load();
                     Stage stage = new Stage();
                     stage.setScene(new Scene(root1));
+                      
 
                     stage.show();
+
+                    
                 } catch (IOException ex) {
                     Logger.getLogger(AddItemContainerController.class.getName()).log(Level.SEVERE, null, ex);
                 }

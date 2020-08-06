@@ -162,6 +162,10 @@ public class UnitController implements Initializable {
         a.setData(bUnitTextField.getValue(),sUnit1TextField.getValue(), sUnit2TextField.getValue()
         ,sUnit3TextField.getValue(), conv1.getText(), conv2.getText(), conv3.getText());
         
+        EditItemController e = new EditItemController() ;
+        e.setData(bUnitTextField.getValue(),sUnit1TextField.getValue(), sUnit2TextField.getValue()
+        ,sUnit3TextField.getValue(), conv1.getText(), conv2.getText(), conv3.getText());
+        
         Stage stage = (Stage) save.getScene().getWindow();
         stage.close();
     }

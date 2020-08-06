@@ -50,7 +50,7 @@ public class AddItemScreenController implements Initializable {
     boolean check;
     static String a = "", b = "", c = "", d = "", e = "", f = "", g = "", h = "";
     
-     @FXML
+    @FXML
     private ComboBox<String> categoryList;
     @FXML
     private ComboBox<String> pItems;
