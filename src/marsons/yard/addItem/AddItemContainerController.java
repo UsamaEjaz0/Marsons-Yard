@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -38,10 +39,13 @@ public class AddItemContainerController implements Initializable {
      * Initializes the controller class.
      */
     private ObservableList<ObservableList> data;
+    private ObservableList<ObservableList> pItemList;
     @FXML
-    private TableView miscItemTable;
+    private TableView itemTable;
     @FXML
     private Button addItem;
+    @FXML
+    private TableView itemTransactionTable;
 
     public void miscTable() {
         Connection c;
@@ -59,7 +63,7 @@ public class AddItemContainerController implements Initializable {
                     }
                 });
 
-                miscItemTable.getColumns().addAll(col);
+                itemTable.getColumns().addAll(col);
                 System.out.print(col);
 
             }
@@ -72,7 +76,7 @@ public class AddItemContainerController implements Initializable {
                 data.add(row);
 
             }
-            miscItemTable.setItems(data);
+            itemTable.setItems(data);
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error on Building Data");
@@ -90,11 +94,52 @@ public class AddItemContainerController implements Initializable {
             stage.show();
         }
     }
+    public void buildItemTransactionsTable(String name) {
+        Connection c;
+        data = FXCollections.observableArrayList();
+        try {
+            c = MyConnection.getConnection();
+            String SQL = "SELECT * from items where Name = '"+name+"'";
+            ResultSet rs = c.createStatement().executeQuery(SQL);
+            for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+                final int j = i;
+                TableColumn col = new TableColumn(rs.getMetaData().getColumnName(i + 1));
+                col.setCellValueFactory(new Callback<TableColumn.CellDataFeatures<ObservableList, String>, ObservableValue<String>>() {
+                    public ObservableValue<String> call(TableColumn.CellDataFeatures<ObservableList, String> param) {
+                        return new SimpleStringProperty(param.getValue().get(j).toString());
+                    }
+                });
+
+                itemTransactionTable.getColumns().addAll(col);
+            }
+            while (rs.next()) {
+                ObservableList<String> row = FXCollections.observableArrayList();
+                for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
+                    row.add(rs.getString(i));
+                }
+
+                data.add(row);
+
+            }
+            itemTransactionTable.setItems(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         miscTable();
+         itemTable.setOnMouseClicked((MouseEvent event) -> {
+            if (event.getClickCount() > 0) {
+                ObservableList x = (ObservableList) (itemTable.getSelectionModel().getSelectedItems().get(0));
+                itemTransactionTable.getColumns().clear();
+                buildItemTransactionsTable(x.get(0)+"");
+                
+            }
+        });
     }
 
 }
