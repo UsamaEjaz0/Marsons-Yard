@@ -220,22 +220,22 @@ public class EditItemController implements Initializable {
 
     public void setUnitData(MouseEvent event) {
 
-//         if (b == "NONE" || b == "") {
-//                    s1.setText("");
-//                    
-//                }else{
-//                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-//                }
-//                if (c == "NONE" || c == "") {
-//                    s2.setText("");
-//                }else{
-//                    s2.setText("1 " + a + "=" + f + " " + c);
-//                }
-//                if (d == "NONE" || d == "") {
-//                    s3.setText("");
-//                }else{
-//                    s3.setText("1 " + a + "=" + g + " " + d);
-//                }
+         if (b == "NONE" || b == "") {
+                    s1.setText("");
+                    
+                }else{
+                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+                }
+                if (c == "NONE" || c == "") {
+                    s2.setText("");
+                }else{
+                    s2.setText("1 " + a + "=" + f + " " + c);
+                }
+                if (d == "NONE" || d == "") {
+                    s3.setText("");
+                }else{
+                    s3.setText("1 " + a + "=" + g + " " + d);
+                }
     }
 
     public void init() {
@@ -282,32 +282,40 @@ public class EditItemController implements Initializable {
 
             
                 
-                
-//                
-//                if (b == "NONE" || b == "") {
-//                    s1.setText("");
-//                    
-//                }else{
-//                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-//                }
-//                if (c == "NONE" || c == "") {
-//                    s2.setText("");
-//                }else{
-//                    s2.setText("1 " + a + "=" + f + " " + c);
-//                }
-//                if (d == "NONE" || d == "") {
-//                    s3.setText("");
-//                }else{
-//                    s3.setText("1 " + a + "=" + g + " " + d);
-//                }
+                              
+                if (b == "NONE" || b == "") {
+                    s1.setText("");
+                    
+                }else{ 
+                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+                }
+                if (c == "NONE" || c == "") {
+                    s2.setText("");
+                    
+                }else{
+                    s2.setText("1 " + a + "=" + f + " " + c);
+                }
+                if (d == "NONE" || d == "") {
+                    s3.setText("");
+                }else{
+                    s3.setText("1 " + a + "=" + g + " " + d);
+                }
 
+                
+                if (b=="NONE" || b==""){
+                    e="0";
+                    
+                }
             
-            if (e != "" && qty.getText() != "") {
+           if (e != "" && qty.getText() != "") {
+                if (Double.parseDouble(e)!= 0.0){
                 double dummy = Double.parseDouble(qty.getText()) / Double.parseDouble(e);
                 double roundOff = (double) Math.round(dummy * 1000) / 1000;
-                qtyDef.setText(String.valueOf(roundOff) + " " + a);
-            }
-
+                qtyDef.setText(String.valueOf(roundOff) + " " + a);}
+                else{
+                    qtyDef.setText("0");
+                }
+           }
         } catch (Exception e) {
 
             System.out.println(e);

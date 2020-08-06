@@ -143,6 +143,14 @@ public class AddItemScreenController implements Initializable {
             pPrice.setText("");
             minStock.setText("");
             atPrice.setText("");
+            a="";
+            b="";
+            c="";
+            d="";
+            e="";
+            f="";
+            g="";
+            h="";
             date.setValue(LocalDate.now());
         }
     }
@@ -249,11 +257,18 @@ public class AddItemScreenController implements Initializable {
                     s3.setText("");
                 }
 
-            }
-            if (e != "" && qty.getText() != "") {
+            }if (b=="NONE" || b==""){
+                    e="0";
+                    
+                }
+            if (e != "" && qty.getText() != "" ) {
+                if (Double.parseDouble(e)!= 0.0){
                 double dummy = Double.parseDouble(qty.getText()) / Double.parseDouble(e);
                 double roundOff = (double) Math.round(dummy * 1000) / 1000;
-                qtyDef.setText(String.valueOf(roundOff) + " " + a);
+                qtyDef.setText(String.valueOf(roundOff) + " " + a);}
+                else{
+                    qtyDef.setText("0");
+                }
             }
         } catch (Exception e) {
 
