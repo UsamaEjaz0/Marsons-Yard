@@ -67,11 +67,6 @@
                   <Label text="AT PRICE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
                   <Label text="PRIMARY ITEM" GridPane.columnIndex="1" />
-                  <TextField fx:id="pItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="16.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
-                     <GridPane.margin>
-                        <Insets right="30.0" />
-                     </GridPane.margin>
-                  </TextField>
                   <Label fx:id="cat" text="CATEGORY" GridPane.rowIndex="2" />
                   <TextField fx:id="mainCat" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="180.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>

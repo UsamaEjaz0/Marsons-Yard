@@ -10,10 +10,13 @@ import connection.MyConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +25,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
@@ -40,8 +44,13 @@ public class AddItemScreenController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    private ObservableList<String> pItemList;
     boolean check;
     static String a = "", b = "", c = "", d = "", e = "", f = "", g = "", h = "";
+    
+    
+    @FXML
+    private ComboBox<String> pItems;
     @FXML
     private Text s1;
 
@@ -81,9 +90,6 @@ public class AddItemScreenController implements Initializable {
     private TextField atPrice;
 
     @FXML
-    private TextField pItem;
-
-    @FXML
     private TextField mainCat;
 
     @FXML
@@ -108,7 +114,7 @@ public class AddItemScreenController implements Initializable {
         if (event.getSource() == save) {
             String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                     + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                    + "VALUES ('" + itemName.getText() + "','" + pItem.getText() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                     + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                     + "','" + d + "','" + e + "','" + f + "','" + g + "')";
             Statement st = con.createStatement();
@@ -120,7 +126,7 @@ public class AddItemScreenController implements Initializable {
         if (event.getSource() == saveAndNew) {
             String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                     + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                    + "VALUES ('" + itemName.getText() + "','" + pItem.getText() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                    + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + mainCat.getText() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                     + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                     + "','" + d + "','" + e + "','" + f + "','" + g + "')";
             Statement st = con.createStatement();
@@ -142,7 +148,7 @@ public class AddItemScreenController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         date.setValue(LocalDate.now());
-
+        init();
         s1.setText("");
         s2.setText("");
         s3.setText("");
@@ -184,7 +190,30 @@ public class AddItemScreenController implements Initializable {
 
         }
     }
+public void init() {
 
+        Connection c;
+        try {
+            c = MyConnection.getConnection();
+           
+
+            String SQL2 = "SELECT ComponentOf from items";
+            ResultSet rs2 = c.createStatement().executeQuery(SQL2);
+
+            while (rs2.next()) {
+                pItemList = FXCollections.observableArrayList();
+                for (int i = 1; i <= rs2.getMetaData().getColumnCount(); i++) {
+                    pItemList.add(rs2.getString(i));
+                }
+
+                pItems.getItems().addAll(pItemList);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Error on Building Data");
+        }
+
+    }
   
     @FXML
     void setData(MouseEvent event) {

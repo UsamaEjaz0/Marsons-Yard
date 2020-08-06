@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .text-field {
-    -fx-background-color: #FFFFFF, -fx-background ;
+    -fx-background-color: -fx-text-box-border, -fx-background ;
     -fx-background-insets: 0, 0 0 1 0 ;
     -fx-background-radius: 0 ;
 }

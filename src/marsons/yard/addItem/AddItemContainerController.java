@@ -39,7 +39,9 @@ public class AddItemContainerController implements Initializable {
      * Initializes the controller class.
      */
     private ObservableList<ObservableList> data;
-    private ObservableList<ObservableList> pItemList;
+    
+    
+    
     @FXML
     private TableView itemTable;
     @FXML
