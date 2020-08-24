@@ -213,9 +213,9 @@
          </font>
       </Button>
       <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
-      <TableView fx:id="itemTable" layoutX="13.0" layoutY="446.0" prefHeight="200.0" prefWidth="1325.0">
+      <TableView fx:id="itemTable" layoutX="13.0" layoutY="456.0" prefHeight="190.0" prefWidth="1325.0">
         <columns>
-          <TableColumn fx:id="srCol" prefWidth="75.0" text="Sr" />
+          <TableColumn fx:id="Delete" prefWidth="75.0" text="Button" />
           <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
             <TableColumn fx:id="pItemCol" prefWidth="241.0" text="PrimaryItem" />
             <TableColumn fx:id="descCol" prefWidth="353.0" text="Description" />
@@ -225,6 +225,7 @@
             <TableColumn fx:id="amountCol" prefWidth="121.0" text="Amount" />
         </columns>
       </TableView>
-      <Button fx:id="addRow" layoutX="18.0" layoutY="658.0" mnemonicParsing="false" onAction="#loadData" text="Add Item" />
+      <Button fx:id="addRow" layoutX="1261.0" layoutY="422.0" mnemonicParsing="false" onAction="#loadData" prefHeight="25.0" prefWidth="78.0" text="Add Item" />
+      <Button layoutX="31.0" layoutY="656.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="95.0" text="Delete Item" />
    </children>
 </AnchorPane>

@@ -70,7 +70,7 @@ public class AddSaleController implements Initializable {
      */
 
     @FXML
-    private TableColumn<Items, String> srCol;
+    private TableColumn<Items, Button> Delete;
     @FXML
     private TableColumn<Items, String> iNameCol;
     @FXML
@@ -543,6 +543,9 @@ public class AddSaleController implements Initializable {
                 FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
                 myWriter.write(String.valueOf(count));
                 myWriter.close();
+                
+                Stage stage = (Stage) save.getScene().getWindow();
+            stage.close();
 
             }
         } catch (Exception e) {
@@ -561,7 +564,7 @@ public class AddSaleController implements Initializable {
             System.out.println("Compute Amount : " + e);
         }
     }
-
+    
     private void openAddParty() throws IOException {
         System.out.print("Clicked");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quotations.fxml"));
@@ -571,30 +574,37 @@ public class AddSaleController implements Initializable {
 
         stage.show();
     }
-
+   @FXML
+    void deleteItem(ActionEvent event) {
+        itemTable.getItems().removeAll(itemTable.getSelectionModel().getSelectedItems());
+    }
     @FXML
     void loadData(ActionEvent event) {
-        //srCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Sr"));
+        itemTable.setEditable(true);
         iNameCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Name"));
         pItemCol.setCellValueFactory(new PropertyValueFactory<Items, String>("PrimaryItem"));
         descCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Description"));
         qtyCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Quantity"));
         unitCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Unit"));
         ppuCol.setCellValueFactory(new PropertyValueFactory<Items, String>("PricePerUnit"));
-        amountCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Amount"));
-        itemTable.setEditable(false);
+        amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
+        //Delete.setCellValueFactory(new PropertyValueFactory("b"));
+        
         ObservableList<String> itemData = FXCollections.observableArrayList();
         itemData.add(itemName.getValue());
         itemData.add(primaryItem.getValue());
         itemData.add(desc.getText());
         itemData.add(quantity.getText());
-        itemData.add("D");
+        itemData.add(unit.getValue());
         itemData.add(priceOfUnit.getText());
         itemData.add(amount.getText());
-        Items i = new Items(itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), "D", priceOfUnit.getText(), amount.getText());
+        Items i = new Items( itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), unit.getValue(), priceOfUnit.getText(), amount.getText());
+        
+        
         itemTable.getItems().addAll(i);
-
-        System.out.println(itemTable.getItems().get(0).getPrimaryItem());
+        System.out.print(itemTable);
+        
+        
 
         desc.setText("");
         quantity.setText("");
