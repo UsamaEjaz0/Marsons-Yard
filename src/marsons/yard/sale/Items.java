@@ -10,16 +10,27 @@ package marsons.yard.sale;
  * @author uejaz
  */
 public class Items {
-    String name, description, quantity, unit, pricePerUnit, amount;
+    String name, primaryItem, description, quantity, unit, pricePerUnit, amount;
 
-    public Items( String name, String description, String quantity, String unit, String pricePerUnit, String amount) {
+    public Items( String name, String primaryItem, String description, String quantity, String unit, String pricePerUnit, String amount) {
         this.name = name;
         this.description = description;
         this.quantity = quantity;
         this.unit = unit;
         this.pricePerUnit = pricePerUnit;
         this.amount = amount;
+        this.primaryItem = primaryItem;
     }
+
+    public String getPrimaryItem() {
+        return primaryItem;
+    }
+
+    public void setPrimaryItem(String primaryItem) {
+        this.primaryItem = primaryItem;
+    }
+
+    
 
     public String getName() {
         return name;

@@ -88,7 +88,7 @@ public class UnitController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        units.addAll("NONE", "TONNES", "BAGS", "BOTTLES", "BOXES");
+        units.addAll("NONE", "TONNES", "BAGS", "BOTTLES", "BOXES", "KGS", "MUND");
 
         bUnitTextField.getItems().addAll(units);
         sUnit1TextField.getItems().addAll(units);

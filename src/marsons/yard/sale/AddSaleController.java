@@ -61,6 +61,10 @@ public class AddSaleController implements Initializable {
     ObservableList unitList = FXCollections.observableArrayList();
     ObservableList itemList = FXCollections.observableArrayList();
     ObservableList invPrefixList = FXCollections.observableArrayList();
+    ObservableList pItemList = FXCollections.observableArrayList();
+    ObservableList iList = FXCollections.observableArrayList();
+    ObservableList pList = FXCollections.observableArrayList();
+     ObservableList convList = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
@@ -69,6 +73,8 @@ public class AddSaleController implements Initializable {
     private TableColumn<Items, String> srCol;
     @FXML
     private TableColumn<Items, String> iNameCol;
+    @FXML
+    private TableColumn<Items, String> pItemCol;
 
     @FXML
     private TableColumn<Items, String> descCol;
@@ -145,6 +151,8 @@ public class AddSaleController implements Initializable {
     private TableView<Items> itemTable;
     @FXML
     private Button addRow;
+    @FXML
+    private ComboBox<String> primaryItem;
 
     Connection con;
 
@@ -156,31 +164,44 @@ public class AddSaleController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
         init();
+
         new AutoCompleteComboBoxListener<>(itemName);
-        addParty.setOnAction(new EventHandler<ActionEvent>() {
+
+        addParty.setOnAction(
+                new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent event) {
+            public void handle(ActionEvent event
+            ) {
                 System.out.println("Hello World!");
             }
-        });
-        paymentTermsList.addAll("Custom", "Due on Receipt", "Net 15", "Net 30", "Net 45", "Net 60");
-        saleTypeList.addAll("Cash", "Credit");
+        }
+        );
+        paymentTermsList.addAll(
+                "Custom", "Due on Receipt", "Net 15", "Net 30", "Net 45", "Net 60");
+        saleTypeList.addAll(
+                "Cash", "Credit");
 
-        saleType.getItems().addAll(saleTypeList);
-        saleType.setValue("Cash");
-        paymentTerms.getItems().addAll(paymentTermsList);
-        paymentTerms.setValue("Due on Receipt");
+        saleType.getItems()
+                .addAll(saleTypeList);
+        saleType.setValue(
+                "Cash");
+        paymentTerms.getItems()
+                .addAll(paymentTermsList);
+        paymentTerms.setValue(
+                "Due on Receipt");
         customerList.buttonCellProperty();
-        
-        
-        //itemName.getItems().addAll(itemList);
 
+        //itemName.getItems().addAll(itemList);
         invDate.setValue(LocalDate.now());
         dueDate.setValue(LocalDate.now());
-        invPrefixList.addAll("SR-INV");
-        invPrefix.getItems().addAll(invPrefixList);
-        invPrefix.setValue("SR-INV");
+        invPrefixList.addAll(
+                "SR-INV");
+        invPrefix.getItems()
+                .addAll(invPrefixList);
+        invPrefix.setValue(
+                "SR-INV");
 
         try {
             File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
@@ -189,57 +210,235 @@ public class AddSaleController implements Initializable {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AddSaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        unit.getItems().addAll(unitList);
+
         String date = invDate.getValue().toString();
         String year = date.substring(2, 4);
         String month = date.substring(5, 7);
         String defaultInvoiceNum1 = year + "-" + month + "-" + String.valueOf(count);
+
         invNum.setText(defaultInvoiceNum1);
 
-        invDate.valueProperty().addListener((ov, oldValue, newValue) -> {
-            String date1 = newValue.toString();
-            System.out.println(newValue);
-            String year1 = date1.substring(2, 4);
-            String month1 = date1.substring(5, 7);
-            System.out.print(year1 + month1);
-            String defaultInvoiceNum = year + "-" + month + "-" + String.valueOf(count);
-            invNum.setText(defaultInvoiceNum);
-        });
-        paymentTerms.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                if ((paymentTerms.getItems().get((Integer) number2)) == "Due on Receipt") {
-                    dueDate.setValue(invDate.getValue());
-                } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 15") {
-                    dueDate.setValue(invDate.getValue().plusDays(15));
-                } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 30") {
-                    dueDate.setValue(invDate.getValue().plusDays(30));
-                } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 45") {
-                    dueDate.setValue(invDate.getValue().plusDays(45));
-                } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 60") {
-                    dueDate.setValue(invDate.getValue().plusDays(60));
-                } else if ((paymentTerms.getItems().get((Integer) number2)) == "Custom") {
-                    dueDate.setValue(invDate.getValue());
+        invDate.valueProperty()
+                .addListener((ov, oldValue, newValue) -> {
+                    String date1 = newValue.toString();
+                    System.out.println(newValue);
+                    String year1 = date1.substring(2, 4);
+                    String month1 = date1.substring(5, 7);
+                    System.out.print(year1 + month1);
+                    String defaultInvoiceNum = year + "-" + month + "-" + String.valueOf(count);
+                    invNum.setText(defaultInvoiceNum);
                 }
-            }
-        });
-        saleType.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                if ((saleType.getItems().get((Integer) number2)) == "Cash") {
-                    customerLabel.setText("Customer");
-                } else if ((saleType.getItems().get((Integer) number2)) == "Credit") {
-                    customerLabel.setText("Customer*");
+                );
+        paymentTerms.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2
+                    ) {
+                        if ((paymentTerms.getItems().get((Integer) number2)) == "Due on Receipt") {
+                            dueDate.setValue(invDate.getValue());
+                        } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 15") {
+                            dueDate.setValue(invDate.getValue().plusDays(15));
+                        } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 30") {
+                            dueDate.setValue(invDate.getValue().plusDays(30));
+                        } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 45") {
+                            dueDate.setValue(invDate.getValue().plusDays(45));
+                        } else if ((paymentTerms.getItems().get((Integer) number2)) == "Net 60") {
+                            dueDate.setValue(invDate.getValue().plusDays(60));
+                        } else if ((paymentTerms.getItems().get((Integer) number2)) == "Custom") {
+                            dueDate.setValue(invDate.getValue());
+                        }
+                    }
+                }
+                );
 
+        saleType.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2
+                    ) {
+                        if ((saleType.getItems().get((Integer) number2)) == "Cash") {
+                            customerLabel.setText("Customer");
+                        } else if ((saleType.getItems().get((Integer) number2)) == "Credit") {
+                            customerLabel.setText("Customer*");
+
+                        }
+                    }
                 }
-            }
-        });
-        customerList.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
-            @Override
-            public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2) {
-                System.out.println(customerList.getValue());
-            }
-        });
+                );
+        
+        
+        unit.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    double ppu;
+                    boolean check = true;
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2) {
+                        try {
+                            String baseUnit = unit.getItems().get(0);
+                            double qty = Double.parseDouble(quantity.getText());
+                            if (check){
+                            ppu = Double.parseDouble(priceOfUnit.getText());
+                            check = false;
+                            }
+                            String newUnit = unit.getItems().get((Integer) observableValue.getValue());
+                            
+                            String SQL3 = "";
+                            if (observableValue.getValue().equals(1)){
+                                SQL3 = "select conversionOne from items where pUnit = '"+baseUnit+"' and sUnitOne = '"+newUnit+"'";
+                            }
+                            else if (observableValue.getValue().equals(2)){
+                                SQL3 = "select conversionTwo from items where pUnit = '"+baseUnit+"' and sUnitTwo = '"+newUnit+"'";
+                            }
+                            else if (observableValue.getValue().equals(3)){
+                                SQL3 = "select conversionThree from items where pUnit = '"+baseUnit+"' and sUnitThree = '"+newUnit+"'";
+                            }
+                            else {
+                                priceOfUnit.setText(String.valueOf(ppu));
+                            } 
+                            
+                            
+                            System.out.println("Base Unit " + baseUnit);
+                            System.out.println("New Unit " + newUnit);
+                            
+                            
+                            Connection c = MyConnection.getConnection();
+                            
+                            ResultSet rs3 = c.createStatement().executeQuery(SQL3);
+
+                            while (rs3.next()) {
+                                convList = FXCollections.observableArrayList();
+                                for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
+                                    convList.add(rs3.getString(i));
+                                }
+
+                            }
+                            
+                            double conv = eval((String)convList.get(0));
+                            System.out.println(conv);
+                            priceOfUnit.setText(String.valueOf(ppu/ conv));
+                        } catch (Exception e) {
+                            System.out.println(e);
+                        }
+                    }
+                }
+                );
+        itemName.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2
+                    ) {
+                        try {
+                            
+                            unit.getItems().clear();
+                            Connection c = MyConnection.getConnection();
+                            String SQL3 = "SELECT `pUnit` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select`sUnitOne` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select `sUnitTwo` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select `sUnitThree` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "'";
+                            ResultSet rs3 = c.createStatement().executeQuery(SQL3);
+                            while (rs3.next()) {
+                                unitList = FXCollections.observableArrayList();
+                                for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
+                                    if (rs3.getString(i) != "[NONE]" && rs3.getString(i) != "[]") {
+                                        System.out.println(rs3.getString(i));
+                                        unitList.add(rs3.getString(i));
+                                    }
+                                }
+                                if (unitList.get(0).equals("NONE") || unitList.get(0).equals("")) {
+
+                                } else {
+                                    unit.getItems().addAll(unitList);
+                                }
+                            }
+                            if (observableValue.getValue().equals(-1)) {
+
+                            } else {
+                                primaryItem.getItems().clear();
+
+                                String SQL2 = "select ComponentOf from items where name = '" + itemName.getValue() + "'";
+                                ResultSet rs2 = c.createStatement().executeQuery(SQL2);
+                                while (rs2.next()) {
+                                    System.out.println("HERE");
+                                    pList = FXCollections.observableArrayList();
+                                    for (int i = 1; i <= rs2.getMetaData().getColumnCount(); i++) {
+                                        if (rs2.getString(i) != "[NONE]" && rs2.getString(i) != "[]") {
+                                            System.out.println(rs2.getString(i));
+                                            pList.add(rs2.getString(i));
+                                        }
+
+                                    }
+                                    if (pList.get(0).equals("NONE") || pList.get(0).equals("")) {
+
+                                    } else {
+                                        primaryItem.getItems().addAll(pList);
+                                    }
+                                }
+                            }
+                            unit.getSelectionModel().selectFirst();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(AddSaleController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+                );
+        primaryItem.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2
+                    ) {
+
+                        try {
+                            unit.getItems().clear();
+                            System.out.println("Clicked P Item");
+                            Connection c = MyConnection.getConnection();
+                            String SQL3 = "SELECT `pUnit` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select`sUnitOne` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select `sUnitTwo` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
+                                    + "select `sUnitThree` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "'";
+                            ResultSet rs3 = c.createStatement().executeQuery(SQL3);
+                            System.out.println(primaryItem.getValue());
+                            System.out.println(itemName.getValue());
+
+                            while (rs3.next()) {
+                                System.out.println("HERE");
+                                unitList = FXCollections.observableArrayList();
+                                for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
+                                    if (rs3.getString(i) != "[NONE]" && rs3.getString(i) != "[]") {
+                                        System.out.println(rs3.getString(i));
+                                        unitList.add(rs3.getString(i));
+                                    }
+                                    System.out.println(unitList);
+
+                                }
+                                if (unitList.get(0).equals("NONE") || unitList.get(0).equals("")) {
+
+                                } else {
+                                    unit.getItems().addAll(unitList);
+                                }
+
+                            }
+                        } catch (SQLException ex) {
+                            Logger.getLogger(AddSaleController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        unit.getSelectionModel().selectFirst();
+                    }
+                }
+                );
+        customerList.getSelectionModel()
+                .selectedIndexProperty().addListener(new ChangeListener<Number>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Number> observableValue, Number number,
+                            Number number2
+                    ) {
+                        System.out.println(customerList.getValue());
+                    }
+                }
+                );
 
     }
 
@@ -268,9 +467,21 @@ public class AddSaleController implements Initializable {
                 for (int i = 1; i <= rs2.getMetaData().getColumnCount(); i++) {
                     itemList.add(rs2.getString(i));
                 }
-                
+
                 itemName.getItems().addAll(itemList);
                 System.out.println(itemList);
+            }
+            String SQL3 = "select distinct ComponentOf from items";
+            ResultSet rs3 = c.createStatement().executeQuery(SQL3);
+
+            while (rs3.next()) {
+                pItemList = FXCollections.observableArrayList();
+                for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
+                    pItemList.add(rs3.getString(i));
+                }
+
+                primaryItem.getItems().addAll(pItemList);
+
             }
 //            String SQL2 = "select distinct name from items";
 //            ResultSet rs2 = c.createStatement().executeQuery(SQL2);
@@ -293,7 +504,7 @@ public class AddSaleController implements Initializable {
     @FXML
     void handleAction(ActionEvent event) throws SQLException {
         try {
-            if (event.getSource()== addItem){
+            if (event.getSource() == addItem) {
                 //To be added
             }
             if (event.getSource() == save) {
@@ -316,11 +527,12 @@ public class AddSaleController implements Initializable {
                     String unit = itemTable.getItems().get(j).getUnit();
                     String pricePerUnit = itemTable.getItems().get(j).getPricePerUnit();
                     String amount = itemTable.getItems().get(j).getAmount();
+                    String itemSource = itemTable.getItems().get(j).getPrimaryItem();
 
-                    String query1 = "INSERT INTO `salesinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`) "
-                            + "VALUES ('" + iNum + "','" + iName + "','" + desc+ "',"
-                        + "'" + quantity + "','" + unit + "','" + pricePerUnit + "'"
-                        + ",'" + amount + "')";
+                    String query1 = "INSERT INTO `salesinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
+                            + "VALUES ('" + iNum + "','" + iName + "','" + desc + "',"
+                            + "'" + quantity + "','" + unit + "','" + pricePerUnit + "'"
+                            + ",'" + amount + "','" + itemSource + "')";
                     Statement st1 = con.createStatement();
                     st1.executeUpdate(query1);
                 }
@@ -341,7 +553,10 @@ public class AddSaleController implements Initializable {
     @FXML
     void ComputeAmount(MouseEvent event) {
         try {
-            amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
+            if (quantity.getText() != "" && priceOfUnit.getText() != "") {
+                amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
+            }
+
         } catch (Exception e) {
             System.out.println("Compute Amount : " + e);
         }
@@ -361,37 +576,115 @@ public class AddSaleController implements Initializable {
     void loadData(ActionEvent event) {
         //srCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Sr"));
         iNameCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Name"));
+        pItemCol.setCellValueFactory(new PropertyValueFactory<Items, String>("PrimaryItem"));
         descCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Description"));
         qtyCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Quantity"));
         unitCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Unit"));
         ppuCol.setCellValueFactory(new PropertyValueFactory<Items, String>("PricePerUnit"));
         amountCol.setCellValueFactory(new PropertyValueFactory<Items, String>("Amount"));
-        itemTable.setEditable(true);
+        itemTable.setEditable(false);
         ObservableList<String> itemData = FXCollections.observableArrayList();
         itemData.add(itemName.getValue());
+        itemData.add(primaryItem.getValue());
         itemData.add(desc.getText());
         itemData.add(quantity.getText());
         itemData.add("D");
         itemData.add(priceOfUnit.getText());
         itemData.add(amount.getText());
-        Items i = new Items(itemName.getValue(), desc.getText(), quantity.getText(), "D", priceOfUnit.getText(), amount.getText());
+        Items i = new Items(itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), "D", priceOfUnit.getText(), amount.getText());
         itemTable.getItems().addAll(i);
 
-        System.out.println(itemTable.getItems().size());
+        System.out.println(itemTable.getItems().get(0).getPrimaryItem());
+
         desc.setText("");
         quantity.setText("");
         priceOfUnit.setText("");
         amount.setText("");
-        
-        
-        
 
     }
-    
+    public static double eval(final String str) {
+    return new Object() {
+        int pos = -1, ch;
+
+        void nextChar() {
+            ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+        }
+
+        boolean eat(int charToEat) {
+            while (ch == ' ') nextChar();
+            if (ch == charToEat) {
+                nextChar();
+                return true;
+            }
+            return false;
+        }
+
+        double parse() {
+            nextChar();
+            double x = parseExpression();
+            if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
+            return x;
+        }
+
+        // Grammar:
+        // expression = term | expression `+` term | expression `-` term
+        // term = factor | term `*` factor | term `/` factor
+        // factor = `+` factor | `-` factor | `(` expression `)`
+        //        | number | functionName factor | factor `^` factor
+
+        double parseExpression() {
+            double x = parseTerm();
+            for (;;) {
+                if      (eat('+')) x += parseTerm(); // addition
+                else if (eat('-')) x -= parseTerm(); // subtraction
+                else return x;
+            }
+        }
+
+        double parseTerm() {
+            double x = parseFactor();
+            for (;;) {
+                if      (eat('*')) x *= parseFactor(); // multiplication
+                else if (eat('/')) x /= parseFactor(); // division
+                else return x;
+            }
+        }
+
+        double parseFactor() {
+            if (eat('+')) return parseFactor(); // unary plus
+            if (eat('-')) return -parseFactor(); // unary minus
+
+            double x;
+            int startPos = this.pos;
+            if (eat('(')) { // parentheses
+                x = parseExpression();
+                eat(')');
+            } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+                x = Double.parseDouble(str.substring(startPos, this.pos));
+            } else if (ch >= 'a' && ch <= 'z') { // functions
+                while (ch >= 'a' && ch <= 'z') nextChar();
+                String func = str.substring(startPos, this.pos);
+                x = parseFactor();
+                if (func.equals("sqrt")) x = Math.sqrt(x);
+                else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
+                else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
+                else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
+                else throw new RuntimeException("Unknown function: " + func);
+            } else {
+                throw new RuntimeException("Unexpected: " + (char)ch);
+            }
+
+            if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
+
+            return x;
+        }
+    }.parse();
+}
 
 }
 
- class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
+class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
     private ComboBox comboBox;
     private StringBuilder sb;
@@ -418,21 +711,21 @@ public class AddSaleController implements Initializable {
     @Override
     public void handle(KeyEvent event) {
 
-        if(event.getCode() == KeyCode.UP) {
+        if (event.getCode() == KeyCode.UP) {
             caretPos = -1;
             moveCaret(comboBox.getEditor().getText().length());
             return;
-        } else if(event.getCode() == KeyCode.DOWN) {
-            if(!comboBox.isShowing()) {
+        } else if (event.getCode() == KeyCode.DOWN) {
+            if (!comboBox.isShowing()) {
                 comboBox.show();
             }
             caretPos = -1;
             moveCaret(comboBox.getEditor().getText().length());
             return;
-        } else if(event.getCode() == KeyCode.BACK_SPACE) {
+        } else if (event.getCode() == KeyCode.BACK_SPACE) {
             moveCaretToPos = true;
             caretPos = comboBox.getEditor().getCaretPosition();
-        } else if(event.getCode() == KeyCode.DELETE) {
+        } else if (event.getCode() == KeyCode.DELETE) {
             moveCaretToPos = true;
             caretPos = comboBox.getEditor().getCaretPosition();
         }
@@ -444,10 +737,10 @@ public class AddSaleController implements Initializable {
         }
 
         ObservableList list = FXCollections.observableArrayList();
-        for (int i=0; i<data.size(); i++) {
-            if(data.get(i).toString().toLowerCase().startsWith(
-                AutoCompleteComboBoxListener.this.comboBox
-                .getEditor().getText().toLowerCase())) {
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).toString().toLowerCase().startsWith(
+                    AutoCompleteComboBoxListener.this.comboBox
+                            .getEditor().getText().toLowerCase())) {
                 list.add(data.get(i));
             }
         }
@@ -455,21 +748,23 @@ public class AddSaleController implements Initializable {
 
         comboBox.setItems(list);
         comboBox.getEditor().setText(t);
-        if(!moveCaretToPos) {
+        if (!moveCaretToPos) {
             caretPos = -1;
         }
         moveCaret(t.length());
-        if(!list.isEmpty()) {
+        if (!list.isEmpty()) {
             comboBox.show();
         }
     }
 
     private void moveCaret(int textLength) {
-        if(caretPos == -1) {
+        if (caretPos == -1) {
             comboBox.getEditor().positionCaret(textLength);
         } else {
             comboBox.getEditor().positionCaret(caretPos);
         }
         moveCaretToPos = false;
     }
- }
+    
+
+}

@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="screen" onMouseClicked="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.AddSaleController">
+<AnchorPane id="AnchorPane" fx:id="screen" onMouseMoved="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.AddSaleController">
    <children>
       <Pane layoutX="125.0" layoutY="68.0" prefHeight="80.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -190,9 +190,14 @@
                </GridPane.margin>
             </ChoiceBox>
             <Button fx:id="addUnit" mnemonicParsing="false" text="Add" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
-            <ComboBox fx:id="itemName" editable="true" prefHeight="25.0" prefWidth="187.0" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+            <ComboBox fx:id="itemName" editable="true" prefHeight="25.0" prefWidth="187.0" promptText="Item" GridPane.columnIndex="1" GridPane.halignment="LEFT">
                <GridPane.margin>
                   <Insets left="20.0" />
+               </GridPane.margin>
+            </ComboBox>
+            <ComboBox fx:id="primaryItem" prefHeight="25.0" prefWidth="112.0" promptText="Primary Item" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+               <GridPane.margin>
+                  <Insets left="100.0" />
                </GridPane.margin>
             </ComboBox>
          </children>
@@ -211,8 +216,9 @@
       <TableView fx:id="itemTable" layoutX="13.0" layoutY="446.0" prefHeight="200.0" prefWidth="1325.0">
         <columns>
           <TableColumn fx:id="srCol" prefWidth="75.0" text="Sr" />
-          <TableColumn fx:id="iNameCol" prefWidth="449.33331298828125" text="Name" />
-            <TableColumn fx:id="descCol" prefWidth="282.0" text="Description" />
+          <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
+            <TableColumn fx:id="pItemCol" prefWidth="241.0" text="PrimaryItem" />
+            <TableColumn fx:id="descCol" prefWidth="353.0" text="Description" />
             <TableColumn fx:id="qtyCol" prefWidth="184.0" text="Quantity" />
             <TableColumn fx:id="unitCol" prefWidth="120.0" text="Unit" />
             <TableColumn fx:id="ppuCol" prefWidth="108.0" text="PricePerUnit" />

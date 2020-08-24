@@ -181,9 +181,7 @@ public class EditItemController implements Initializable {
             s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
             s2.setText("1 " + a + "=" + f + " " + this.c);
             s3.setText("1 " + a + "=" + g + " " + d);
-            
-            
-            
+
             System.out.println(b);
             System.out.println(this.c);
             System.out.println(d);
@@ -220,22 +218,22 @@ public class EditItemController implements Initializable {
 
     public void setUnitData(MouseEvent event) {
 
-         if (b == "NONE" || b == "") {
-                    s1.setText("");
-                    
-                }else{
-                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-                }
-                if (c == "NONE" || c == "") {
-                    s2.setText("");
-                }else{
-                    s2.setText("1 " + a + "=" + f + " " + c);
-                }
-                if (d == "NONE" || d == "") {
-                    s3.setText("");
-                }else{
-                    s3.setText("1 " + a + "=" + g + " " + d);
-                }
+        if (b == "NONE" || b == "") {
+            s1.setText("");
+
+        } else {
+            s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+        }
+        if (c == "NONE" || c == "") {
+            s2.setText("");
+        } else {
+            s2.setText("1 " + a + "=" + f + " " + c);
+        }
+        if (d == "NONE" || d == "") {
+            s3.setText("");
+        } else {
+            s3.setText("1 " + a + "=" + g + " " + d);
+        }
     }
 
     public void init() {
@@ -280,46 +278,143 @@ public class EditItemController implements Initializable {
     void setData(MouseEvent event) {
         try {
 
-            
-                
-                              
-                if (b == "NONE" || b == "") {
-                    s1.setText("");
-                    
-                }else{ 
-                    s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
-                }
-                if (c == "NONE" || c == "") {
-                    s2.setText("");
-                    
-                }else{
-                    s2.setText("1 " + a + "=" + f + " " + c);
-                }
-                if (d == "NONE" || d == "") {
-                    s3.setText("");
-                }else{
-                    s3.setText("1 " + a + "=" + g + " " + d);
-                }
+            if (b == "NONE" || b == "") {
+                s1.setText("");
 
-                
-                if (b=="NONE" || b==""){
-                    e="0";
-                    
-                }
-            
-           if (e != "" && qty.getText() != "") {
-                if (Double.parseDouble(e)!= 0.0){
-                double dummy = Double.parseDouble(qty.getText()) / Double.parseDouble(e);
-                double roundOff = (double) Math.round(dummy * 1000) / 1000;
-                qtyDef.setText(String.valueOf(roundOff) + " " + a);}
-                else{
-                    qtyDef.setText("0");
-                }
-           }
+            } else {
+                s1.setText("1 " + a + "=" + e + " " + b + " (Default)");
+            }
+            if (c == "NONE" || c == "") {
+                s2.setText("");
+
+            } else {
+                s2.setText("1 " + a + "=" + f + " " + c);
+            }
+            if (d == "NONE" || d == "") {
+                s3.setText("");
+            } else {
+                s3.setText("1 " + a + "=" + g + " " + d);
+            }
+
+            if (b == "NONE" || b == "") {
+                e = "0";
+
+            }
+
+            if (e != "" && qty.getText() != "") {
+                    double conv = eval(e);
+                    double dummy = Double.parseDouble(qty.getText()) * conv;
+                    double roundOff = (double) Math.round(dummy * 1000) / 1000;
+                    qtyDef.setText(String.valueOf(roundOff) + " " + b);
+            }
         } catch (Exception e) {
 
             System.out.println(e);
         }
     }
 
+    public static double eval(final String str) {
+        return new Object() {
+            int pos = -1, ch;
+
+            void nextChar() {
+                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+            }
+
+            boolean eat(int charToEat) {
+                while (ch == ' ') {
+                    nextChar();
+                }
+                if (ch == charToEat) {
+                    nextChar();
+                    return true;
+                }
+                return false;
+            }
+
+            double parse() {
+                nextChar();
+                double x = parseExpression();
+                if (pos < str.length()) {
+                    throw new RuntimeException("Unexpected: " + (char) ch);
+                }
+                return x;
+            }
+
+            // Grammar:
+            // expression = term | expression `+` term | expression `-` term
+            // term = factor | term `*` factor | term `/` factor
+            // factor = `+` factor | `-` factor | `(` expression `)`
+            //        | number | functionName factor | factor `^` factor
+            double parseExpression() {
+                double x = parseTerm();
+                for (;;) {
+                    if (eat('+')) {
+                        x += parseTerm(); // addition
+                    } else if (eat('-')) {
+                        x -= parseTerm(); // subtraction
+                    } else {
+                        return x;
+                    }
+                }
+            }
+
+            double parseTerm() {
+                double x = parseFactor();
+                for (;;) {
+                    if (eat('*')) {
+                        x *= parseFactor(); // multiplication
+                    } else if (eat('/')) {
+                        x /= parseFactor(); // division
+                    } else {
+                        return x;
+                    }
+                }
+            }
+
+            double parseFactor() {
+                if (eat('+')) {
+                    return parseFactor(); // unary plus
+                }
+                if (eat('-')) {
+                    return -parseFactor(); // unary minus
+                }
+                double x;
+                int startPos = this.pos;
+                if (eat('(')) { // parentheses
+                    x = parseExpression();
+                    eat(')');
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                    while ((ch >= '0' && ch <= '9') || ch == '.') {
+                        nextChar();
+                    }
+                    x = Double.parseDouble(str.substring(startPos, this.pos));
+                } else if (ch >= 'a' && ch <= 'z') { // functions
+                    while (ch >= 'a' && ch <= 'z') {
+                        nextChar();
+                    }
+                    String func = str.substring(startPos, this.pos);
+                    x = parseFactor();
+                    if (func.equals("sqrt")) {
+                        x = Math.sqrt(x);
+                    } else if (func.equals("sin")) {
+                        x = Math.sin(Math.toRadians(x));
+                    } else if (func.equals("cos")) {
+                        x = Math.cos(Math.toRadians(x));
+                    } else if (func.equals("tan")) {
+                        x = Math.tan(Math.toRadians(x));
+                    } else {
+                        throw new RuntimeException("Unknown function: " + func);
+                    }
+                } else {
+                    throw new RuntimeException("Unexpected: " + (char) ch);
+                }
+
+                if (eat('^')) {
+                    x = Math.pow(x, parseFactor()); // exponentiation
+                }
+                return x;
+            }
+        }.parse();
+    }
 }
