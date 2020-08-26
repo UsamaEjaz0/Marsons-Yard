@@ -4,9 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/addItem/AddItemScreenController.java</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/InvoiceIncrement.txt</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/EditSale.fxml</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/Items.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/SalesController.java</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/Pitems.java</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/PurchasesController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/addItem/AddItemContainerController.java</file>
+            <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/purchase/AddPurchaseController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/AddSaleController.java</file>
             <file>file:/C:/Users/uejaz/Documents/NetBeansProjects/Marsons%20Yard/src/marsons/yard/sale/EditSaleController.java</file>
         </group>
