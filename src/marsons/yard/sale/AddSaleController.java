@@ -529,7 +529,7 @@ public class AddSaleController implements Initializable {
                 //fdfdfdf
                 for (int j = 0; j < itemTable.getItems().size(); j++) {
 
-                    String iNum = invNum.getText();
+                    String iNum = invPrefix.getValue() +invNum.getText();
                     String iName = itemTable.getItems().get(j).getName();
                     String desc = itemTable.getItems().get(j).getDescription();
                     String quantity = itemTable.getItems().get(j).getQuantity();

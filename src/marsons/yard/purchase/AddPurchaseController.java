@@ -213,7 +213,7 @@ public class AddPurchaseController implements Initializable {
                 "SR-INV");
 
         try {
-            File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
+            File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
             Scanner myReader = new Scanner(myObj);
             count = myReader.nextInt();
         } catch (FileNotFoundException ex) {
@@ -456,7 +456,7 @@ public class AddPurchaseController implements Initializable {
         Connection c;
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT Name from customers";
+            String SQL = "SELECT Name from vendors";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             customerList.getItems().add(addParty);
             while (rs.next()) {
@@ -519,7 +519,7 @@ public class AddPurchaseController implements Initializable {
             if (event.getSource() == save) {
                 Button b = new Button("Added");
                 con = MyConnection.getConnection();
-                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`) "
+                String query = "INSERT INTO `purchases`(`invoiceNum`, `purchaseType`, `vendorName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`) "
                         + "VALUES ('" + invPrefix.getValue() + invNum.getText() + "','" + saleType.getValue() + "','" + customerList.getValue() + "',"
                         + "'" + billingName.getText() + "','" + invDate.getValue() + "','" + dueDate.getValue() + "'"
                         + ",'" + paymentTerms.getValue() + "', '"+ tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() +    "')";
@@ -529,7 +529,7 @@ public class AddPurchaseController implements Initializable {
                 //fdfdfdf
                 for (int j = 0; j < itemTable.getItems().size(); j++) {
 
-                    String iNum = invNum.getText();
+                    String iNum = invPrefix.getValue() +invNum.getText();
                     String iName = itemTable.getItems().get(j).getName();
                     String desc = itemTable.getItems().get(j).getDescription();
                     String quantity = itemTable.getItems().get(j).getQuantity();
@@ -538,7 +538,7 @@ public class AddPurchaseController implements Initializable {
                     String amount = itemTable.getItems().get(j).getAmount();
                     String itemSource = itemTable.getItems().get(j).getPrimaryItem();
 
-                    String query1 = "INSERT INTO `salesinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
+                    String query1 = "INSERT INTO `purchaseinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
                             + "VALUES ('" + iNum + "','" + iName + "','" + desc + "',"
                             + "'" + quantity + "','" + unit + "','" + pricePerUnit + "'"
                             + ",'" + amount + "','" + itemSource + "')";
@@ -548,8 +548,8 @@ public class AddPurchaseController implements Initializable {
 
                 con.close();
                 count++;
-                File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
-                FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
+                File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
+                FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
                 myWriter.write(String.valueOf(count));
                 myWriter.close();
                 

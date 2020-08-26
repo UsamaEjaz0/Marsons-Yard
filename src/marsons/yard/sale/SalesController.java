@@ -32,6 +32,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
@@ -57,6 +58,11 @@ public class SalesController implements Initializable {
 
     @FXML
     private TableView saleTransactions;
+    @FXML
+    private DatePicker customStartDate;
+
+    @FXML
+    private DatePicker customEndDate;
 
     public void salesTable(String SQL) {
         saleTransactions.getColumns().clear();
@@ -127,7 +133,13 @@ public class SalesController implements Initializable {
                         if ((salesFilter.getItems().get((Integer) number2)) == "All Sale Invoices") {
 
                             query = "Select * from sales ";
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
+                            customStartDate.setValue(null);
+                            customEndDate.setValue(null);
                         } else if ((salesFilter.getItems().get((Integer) number2)) == "This Month") {
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
                             Calendar cal = Calendar.getInstance();
                             int m = cal.getInstance().get(cal.MONTH) + 1;
                             int y = cal.getInstance().get(cal.YEAR);
@@ -142,16 +154,18 @@ public class SalesController implements Initializable {
                             String endDate = y + "-" + m + "-" + endDay;
                             System.out.print(endDate);
                             query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
-                        }
-                        else if ((salesFilter.getItems().get((Integer) number2)) == "Last Month") {
+                        } else if ((salesFilter.getItems().get((Integer) number2)) == "Last Month") {
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
+                            customStartDate.setValue(null);
+                            customEndDate.setValue(null);
                             Calendar cal = Calendar.getInstance();
                             cal.add(Calendar.MONTH, -1);
-                            
-                            
+
                             int m = cal.get(cal.MONTH) + 1;
                             int y = cal.get(cal.YEAR);
                             int d = 1;
-                                
+
                             Calendar mycal = new GregorianCalendar(y, m - 1, d);
 
                             // Get the number of days in that month
@@ -159,75 +173,102 @@ public class SalesController implements Initializable {
 
                             String startDate = y + "-" + m + "-01";
                             String endDate = y + "-" + m + "-" + endDay;
-                            System.out.print(startDate +"  "+endDate);
+                            System.out.print(startDate + "  " + endDate);
                             query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
-                        }
-                        else if ((salesFilter.getItems().get((Integer) number2)) == "This Quarter") {
+                        } else if ((salesFilter.getItems().get((Integer) number2)) == "This Quarter") {
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
+                            customStartDate.setValue(null);
+                            customEndDate.setValue(null);
                             try {
                                 Calendar cal = Calendar.getInstance();
-                                
+
                                 ObservableList dates = null;
                                 Connection c = MyConnection.getConnection();
-                                String sql = "SELECT `startDate`, `endDate` FROM `financialyear`" ;
+                                String sql = "SELECT `startDate`, `endDate` FROM `financialyear`";
                                 ResultSet rs3 = c.createStatement().executeQuery(sql);
-                                
+
                                 while (rs3.next()) {
                                     dates = FXCollections.observableArrayList();
                                     for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
                                         dates.add(rs3.getString(i));
                                     }
-                                    
+
                                 }
-                              
+
                                 String start = (String) dates.get(0);
                                 String end = (String) dates.get(1);
-                                
+
                                 String[] startArr = start.split("-");
                                 String[] endArr = end.split("-");
-                                
-                                Calendar mycal = new GregorianCalendar(Integer.parseInt(startArr[0]), 
-                                        Integer.parseInt(startArr[1])-1, Integer.parseInt(startArr[2]));
-                               
-                                
-                                
-                               int quarter =(LocalDate.now().plusMonths(6).get(IsoFields.QUARTER_OF_YEAR));
-                               String q1startDate = null, q1endDate= null, q2startDate= null, q2endDate= null, q3startDate= null, q3endDate= null, q4startDate= null, q4endDate = null;
-                               System.out.println(quarter); 
-                               if (quarter == 1){
-                                    q1startDate =  mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
+
+                                Calendar mycal = new GregorianCalendar(Integer.parseInt(startArr[0]),
+                                        Integer.parseInt(startArr[1]) - 1, Integer.parseInt(startArr[2]));
+
+                                int quarter = (LocalDate.now().plusMonths(6).get(IsoFields.QUARTER_OF_YEAR));
+                                String q1startDate = null, q1endDate = null, q2startDate = null, q2endDate = null, q3startDate = null, q3endDate = null, q4startDate = null, q4endDate = null;
+                                System.out.println(quarter);
+                                if (quarter == 1) {
+                                    q1startDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
                                     mycal.add(mycal.MONTH, 3);
                                     mycal.add(mycal.DATE, -1);
-                                    q1endDate = mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
-                                    System.out.println(q1startDate + "  " + q1endDate );
-                                    
-                                }
-                                else if (quarter == 2){
+                                    q1endDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
+                                    System.out.println(q1startDate + "  " + q1endDate);
+                                    query = "SELECT * from sales where InvoiceDate BETWEEN '" + q1startDate + "' and '" + q1endDate + "'";
+                                } else if (quarter == 2) {
                                     mycal.add(mycal.MONTH, 3);
-                                    q2startDate =  mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
+                                    q2startDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
                                     mycal.add(mycal.MONTH, 3);
                                     mycal.add(mycal.DATE, -1);
-                                    q2endDate = mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
-                                    System.out.println(q2startDate + "  " + q2endDate );
-                                    
-                                }else if (quarter == 3){
+                                    q2endDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
+                                    System.out.println(q2startDate + "  " + q2endDate);
+                                    query = "SELECT * from sales where InvoiceDate BETWEEN '" + q2startDate + "' and '" + q2endDate + "'";
+                                } else if (quarter == 3) {
                                     mycal.add(mycal.MONTH, 6);
-                                    q3startDate =  mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
+                                    q3startDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
                                     mycal.add(mycal.MONTH, 3);
                                     mycal.add(mycal.DATE, -1);
-                                    q3endDate = mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
-                                    System.out.println(q3startDate + "  " + q3endDate );
-                                }else if (quarter == 4){
+                                    q3endDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
+                                    System.out.println(q3startDate + "  " + q3endDate);
+                                    query = "SELECT * from sales where InvoiceDate BETWEEN '" + q3startDate + "' and '" + q3endDate + "'";
+                                } else if (quarter == 4) {
                                     mycal.add(mycal.MONTH, 9);
-                                    q4startDate = mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
+                                    q4startDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
                                     mycal.add(mycal.MONTH, 3);
                                     mycal.add(mycal.DATE, -1);
-                                    q4endDate =mycal.get(mycal.YEAR)+ "-" + (mycal.get(mycal.MONTH)+1) + "-" +mycal.get(mycal.DATE) ;
-                                    System.out.println(q4startDate + "  " + q4endDate );
+                                    q4endDate = mycal.get(mycal.YEAR) + "-" + (mycal.get(mycal.MONTH) + 1) + "-" + mycal.get(mycal.DATE);
+                                    System.out.println(q4startDate + "  " + q4endDate);
+                                    query = "SELECT * from sales where InvoiceDate BETWEEN '" + q4startDate + "' and '" + q4endDate + "'";
                                 }
-                              
+
 //                              
                             } catch (SQLException ex) {
                                 Logger.getLogger(SalesController.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        } else if ((salesFilter.getItems().get((Integer) number2)) == "This Fiscal Year") {
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
+                            customStartDate.setValue(null);
+                            customEndDate.setValue(null);
+                            String startDate = LocalDate.now().getYear() + "-" + 07 + "-" + 01;
+                            String endDate = (LocalDate.now().getYear() + 1) + "-" + 06 + "-" + 30;
+                            query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+
+                        } else if ((salesFilter.getItems().get((Integer) number2)) == "This Calendar Year") {
+                            customStartDate.getEditor().clear();
+                            customEndDate.getEditor().clear();
+                            customStartDate.setValue(null);
+                            customEndDate.setValue(null);
+                            String startDate = LocalDate.now().getYear() + "-" + 01 + "-" + 01;
+                            String endDate = (LocalDate.now().getYear()) + "-" + 12 + "-" + 31;
+                            query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+
+                        } else if ((salesFilter.getItems().get((Integer) number2)) == "Custom") {
+
+                            if(customStartDate!=null && customEndDate!= null){
+                            String startDate = customStartDate.getValue().toString();
+                            String endDate = customEndDate.getValue().toString();
+                            query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
                             }
                         }
                         salesTable(query);
@@ -243,6 +284,39 @@ public class SalesController implements Initializable {
                 }
 
             } catch (Exception ex) {
+            }
+        });
+
+        customStartDate.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                try {
+                    String startDate = customStartDate.getValue().toString();
+                    String endDate = customEndDate.getValue().toString();
+
+                    if (endDate != null) {
+                        String query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                        salesTable(query);
+                    }
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
+            }
+        });
+        customEndDate.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                try {
+                    String startDate = customStartDate.getValue().toString();
+                    String endDate = customEndDate.getValue().toString();
+
+                    if (startDate != null) {
+                        String query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                        salesTable(query);
+                    }
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
             }
         });
     }

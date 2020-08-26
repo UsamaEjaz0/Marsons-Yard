@@ -19,7 +19,7 @@
          <children>
             <Pane layoutX="12.0" layoutY="10.0" prefHeight="172.0" prefWidth="1064.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="12.0">
                <children>
-                  <ChoiceBox layoutX="17.0" layoutY="27.0" prefHeight="25.0" prefWidth="158.0" />
+                  <ChoiceBox fx:id="purFilter" layoutX="17.0" layoutY="27.0" prefHeight="25.0" prefWidth="158.0" />
                   <HBox layoutX="17.0" layoutY="82.0" prefHeight="86.0" prefWidth="1034.0">
                      <children>
                         <VBox prefHeight="86.0" prefWidth="167.0">
@@ -133,13 +133,13 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker layoutX="258.0" layoutY="27.0" prefHeight="25.0" prefWidth="147.0" />
+                  <DatePicker fx:id="customStartDate" layoutX="258.0" layoutY="27.0" prefHeight="25.0" prefWidth="147.0" />
                   <Label layoutX="430.0" layoutY="31.0" prefHeight="20.0" prefWidth="23.0" text="To">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <DatePicker layoutX="462.0" layoutY="27.0" prefHeight="25.0" prefWidth="147.0" />
+                  <DatePicker fx:id="customEndDate" layoutX="462.0" layoutY="27.0" prefHeight="25.0" prefWidth="147.0" />
                </children>
             </Pane>
             <Label layoutX="362.0" layoutY="299.0" text="+" />

@@ -32,7 +32,7 @@
                   <ChoiceBox fx:id="saleType" layoutX="142.0" layoutY="9.0" prefHeight="22.0" prefWidth="126.0" />
                </children>
             </Pane>
-            <Label fx:id="customerLabel" layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Customer">
+            <Label fx:id="customerLabel" layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Vendor">
                <font>
                   <Font size="15.0" />
                </font>
@@ -55,12 +55,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Invoice Number">
+                  <Label text="Bill Number">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Invoice Date" GridPane.rowIndex="1">
+                  <Label text="Bill Date" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -213,7 +213,7 @@
                   <Font size="15.0" />
                </font>
             </Button>
-            <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
+            <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Vendor Name" visibleRowCount="5" />
             <TableView fx:id="itemTable" layoutX="11.0" layoutY="393.0" prefHeight="146.0" prefWidth="1325.0">
                <columns>
                   <TableColumn fx:id="Delete" prefWidth="75.0" />
