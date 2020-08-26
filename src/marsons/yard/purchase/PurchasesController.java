@@ -48,7 +48,7 @@ public class PurchasesController implements Initializable {
     /**
      * Initializes the controller class.
      */
-        @FXML
+    @FXML
     private ChoiceBox<String> purFilter;
 
     @FXML
@@ -58,16 +58,17 @@ public class PurchasesController implements Initializable {
     private DatePicker customEndDate;
     @FXML
     private Button addPurchase;
-private ObservableList<ObservableList> data;
+    private ObservableList<ObservableList> data;
     @FXML
     private TableView purTransactions;
+
     public void purTable(String SQL) {
         purTransactions.getColumns().clear();
         Connection c;
         data = FXCollections.observableArrayList();
         try {
             c = MyConnection.getConnection();
-            
+
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -97,18 +98,21 @@ private ObservableList<ObservableList> data;
             System.out.println("Error on Building Data");
         }
     }
+
     @FXML
     void handleAction(ActionEvent event) throws IOException {
-FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddPurchase.fxml"));
-            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root1));  
-            stage.setMaximized(true);
-            stage.show();    }
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddPurchase.fxml"));
+        Parent root1 = (Parent) fxmlLoader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root1));
+        stage.setMaximized(true);
+        stage.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-       String query = "Select * from purchases";
+        String query = "Select * from purchases";
         purTable(query);
         purFilter.getItems().addAll("All Purchase Bills", "This Month", "Last Month", "This Quarter", "This Fiscal Year",
                 "This Calendar Year", "Custom");
@@ -253,20 +257,52 @@ FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("AddPurchase.fxml"
                             customEndDate.setValue(null);
                             String startDate = LocalDate.now().getYear() + "-" + 01 + "-" + 01;
                             String endDate = (LocalDate.now().getYear()) + "-" + 12 + "-" + 31;
-                            query = "SELECT * from purchases InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                            query = "SELECT * from purchases where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
                             System.out.println(query);
                         } else if ((purFilter.getItems().get((Integer) number2)) == "Custom") {
 
-                            if(customStartDate!=null && customEndDate!= null){
-                            String startDate = customStartDate.getValue().toString();
-                            String endDate = customEndDate.getValue().toString();
-                            query = "SELECT * from purchases where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                            if (customStartDate != null && customEndDate != null) {
+                                String startDate = customStartDate.getValue().toString();
+                                String endDate = customEndDate.getValue().toString();
+                                query = "SELECT * from purchases where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
                             }
                         }
                         purTable(query);
                     }
                 }
                 );
-    }    
-    
+         customStartDate.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                try {
+                    String startDate = customStartDate.getValue().toString();
+                    String endDate = customEndDate.getValue().toString();
+
+                    if (endDate != null) {
+                        String query = "SELECT * from purchases where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                        purTable(query);
+                    }
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
+            }
+        });
+        customEndDate.valueProperty().addListener(new ChangeListener<LocalDate>() {
+            @Override
+            public void changed(ObservableValue<? extends LocalDate> observable, LocalDate oldValue, LocalDate newValue) {
+                try {
+                    String startDate = customStartDate.getValue().toString();
+                    String endDate = customEndDate.getValue().toString();
+
+                    if (startDate != null) {
+                        String query = "SELECT * from purchases where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                        purTable(query);
+                    }
+                } catch (Exception e) {
+                    System.out.print(e);
+                }
+            }
+        });
+    }
+
 }
