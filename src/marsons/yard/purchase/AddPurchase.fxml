@@ -3,9 +3,12 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -17,34 +20,33 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.purchase.AddPurchaseController">
    <children>
-      <AnchorPane id="AnchorPane" fx:id="screen" onMouseClicked="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0">
+      <AnchorPane id="AnchorPane" fx:id="screen" layoutX="10.0" layoutY="10.0" onMouseMoved="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0">
          <children>
-            <Pane layoutX="125.0" layoutY="68.0" prefHeight="80.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Pane layoutX="125.0" layoutY="68.0" prefHeight="43.0" prefWidth="1348.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label layoutX="16.0" layoutY="20.0" text="Purchase">
+                  <Label layoutX="16.0" layoutY="-12.0" prefHeight="67.0" prefWidth="126.0" text="Purchase">
                      <font>
                         <Font name="Calibri" size="30.0" />
                      </font>
                   </Label>
-                  <ChoiceBox fx:id="purchaseType" layoutX="138.0" layoutY="25.0" prefHeight="25.0" prefWidth="126.0" />
+                  <ChoiceBox fx:id="saleType" layoutX="142.0" layoutY="9.0" prefHeight="22.0" prefWidth="126.0" />
                </children>
             </Pane>
-            <Label layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Vendor">
+            <Label fx:id="customerLabel" layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Customer">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="customerList" layoutX="19.0" layoutY="136.0" prefHeight="25.0" prefWidth="148.0" />
             <TextField fx:id="billingName" layoutX="198.0" layoutY="136.0" prefHeight="25.0" prefWidth="151.0" promptText="(Optional)" />
             <Label layoutX="201.0" layoutY="106.0" prefHeight="27.0" prefWidth="95.0" text="Billing Name">
                <font>
                   <Font size="15.0" />
                </font>
             </Label>
-            <GridPane layoutX="952.0" layoutY="95.0" prefHeight="182.0" prefWidth="292.0">
+            <GridPane layoutX="956.0" layoutY="46.0" prefHeight="149.0" prefWidth="292.0">
                <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="118.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -53,12 +55,12 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label text="Bill Number">
+                  <Label text="Invoice Number">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label text="Bill Date" GridPane.rowIndex="1">
+                  <Label text="Invoice Date" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -73,19 +75,20 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="invNum" GridPane.columnIndex="1" />
+                  <TextField fx:id="invNum" alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="86.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                   <DatePicker fx:id="invDate" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <DatePicker fx:id="dueDate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <ChoiceBox fx:id="paymentTerms" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ChoiceBox fx:id="invPrefix" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
-            <Pane layoutX="196.0" layoutY="314.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <Pane layoutY="242.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="65.0" prefWidth="1350.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="10.0" prefWidth="308.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="395.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="454.6666564941406" minWidth="10.0" prefWidth="454.6666564941406" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="268.3333435058594" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -100,7 +103,7 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
-                        <Label text="Item" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                        <Label text="Item Name" GridPane.columnIndex="1" GridPane.halignment="CENTER">
                            <font>
                               <Font size="14.0" />
                            </font>
@@ -141,11 +144,11 @@
                   </GridPane>
                </children>
             </Pane>
-            <GridPane layoutX="-2.0" layoutY="369.0" prefHeight="53.0" prefWidth="1350.0">
+            <GridPane layoutX="-2.0" layoutY="297.0" prefHeight="53.0" prefWidth="1350.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="10.0" prefWidth="308.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="395.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0000305175781" minWidth="10.0" prefWidth="456.0000305175781" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="395.0" minWidth="10.0" prefWidth="266.9999694824219" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="181.0" minWidth="10.0" prefWidth="181.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -167,12 +170,7 @@
                   <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="4" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="5" />
                   <Separator orientation="VERTICAL" prefHeight="200.0" GridPane.columnIndex="6" />
-                  <ChoiceBox fx:id="itemName" prefHeight="25.0" prefWidth="168.0" GridPane.columnIndex="1">
-                     <GridPane.margin>
-                        <Insets left="40.0" />
-                     </GridPane.margin>
-                  </ChoiceBox>
-                  <Button fx:id="addItem" mnemonicParsing="false" text="Add New" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
+                  <Button fx:id="addItem" mnemonicParsing="false" onAction="#handleAction" text="Add New" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.valignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -180,7 +178,7 @@
                         <Insets right="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <TextField fx:id="desc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="313.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
+                  <TextField fx:id="desc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
                   <TextField fx:id="quantity" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
                   <TextField fx:id="priceOfUnit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
                   <Text fx:id="amount" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" GridPane.columnIndex="6" GridPane.halignment="CENTER">
@@ -188,24 +186,65 @@
                         <Font size="14.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="4">
+                  <ChoiceBox fx:id="unit" prefHeight="25.0" prefWidth="99.0" GridPane.columnIndex="4">
                      <GridPane.margin>
                         <Insets left="5.0" />
                      </GridPane.margin>
                   </ChoiceBox>
-                  <Button fx:id="addUnit" mnemonicParsing="false" text="Add" GridPane.columnIndex="4" GridPane.halignment="RIGHT" />
+                  <ComboBox fx:id="itemName" editable="true" prefHeight="25.0" prefWidth="187.0" promptText="Item" GridPane.columnIndex="1" GridPane.halignment="LEFT">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </ComboBox>
+                  <ComboBox fx:id="primaryItem" prefHeight="25.0" prefWidth="112.0" promptText="Primary Item" GridPane.columnIndex="1" GridPane.halignment="CENTER">
+                     <GridPane.margin>
+                        <Insets left="100.0" />
+                     </GridPane.margin>
+                  </ComboBox>
                </children>
             </GridPane>
-            <Button fx:id="save" layoutX="1220.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1D88FC;" text="Save" textFill="WHITE">
+            <Button fx:id="save" layoutX="1220.0" layoutY="666.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1D88FC;" text="Save" textFill="WHITE">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
-            <Button fx:id="cancel" layoutX="1110.0" layoutY="658.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: white; -fx-border-color: #1D88FC; -fx-border-width: 2;" text="Cancel" textFill="#1d88fc">
+            <Button fx:id="cancel" layoutX="1110.0" layoutY="669.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: white; -fx-border-color: #1D88FC; -fx-border-width: 2;" text="Cancel" textFill="#1d88fc">
                <font>
                   <Font size="15.0" />
                </font>
             </Button>
+            <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
+            <TableView fx:id="itemTable" layoutX="11.0" layoutY="393.0" prefHeight="146.0" prefWidth="1325.0">
+               <columns>
+                  <TableColumn fx:id="Delete" prefWidth="75.0" />
+                  <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
+                  <TableColumn fx:id="pItemCol" prefWidth="241.0" text="PrimaryItem" />
+                  <TableColumn fx:id="descCol" prefWidth="353.0" text="Description" />
+                  <TableColumn fx:id="qtyCol" prefWidth="184.0" text="Quantity" />
+                  <TableColumn fx:id="unitCol" prefWidth="120.0" text="Unit" />
+                  <TableColumn fx:id="ppuCol" prefWidth="108.0" text="PricePerUnit" />
+                  <TableColumn fx:id="amountCol" prefWidth="121.0" text="Amount" />
+               </columns>
+            </TableView>
+            <Button fx:id="addRow" layoutX="1250.0" layoutY="351.0" mnemonicParsing="false" onAction="#loadData" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Add Item" textFill="WHITE" />
+            <Button layoutX="11.0" layoutY="543.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #e40808;" text="Delete Item" textFill="WHITE" />
+            <GridPane hgap="20.0" layoutX="60.0" layoutY="582.0" prefHeight="122.0" prefWidth="296.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextField fx:id="tName" promptText="Transport Name" />
+                  <TextField fx:id="dLoc" prefHeight="25.0" prefWidth="121.0" promptText="Delivery Location" GridPane.columnIndex="1" />
+                  <TextField fx:id="vNum" promptText="Vehicle Number" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+            <Label layoutX="1088.0" layoutY="552.0" prefHeight="32.0" prefWidth="47.0" text="Discount" />
          </children>
       </AnchorPane>
    </children>
