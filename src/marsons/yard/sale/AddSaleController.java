@@ -154,6 +154,15 @@ public class AddSaleController implements Initializable {
     @FXML
     private ComboBox<String> primaryItem;
 
+    @FXML
+    private TextField tName;
+
+    @FXML
+    private TextField dLoc;
+
+    @FXML
+    private TextField vNum;
+
     Connection con;
 
     @FXML
@@ -510,10 +519,10 @@ public class AddSaleController implements Initializable {
             if (event.getSource() == save) {
                 Button b = new Button("Added");
                 con = MyConnection.getConnection();
-                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`) "
+                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`) "
                         + "VALUES ('" + invPrefix.getValue() + invNum.getText() + "','" + saleType.getValue() + "','" + customerList.getValue() + "',"
                         + "'" + billingName.getText() + "','" + invDate.getValue() + "','" + dueDate.getValue() + "'"
-                        + ",'" + paymentTerms.getValue() + "')";
+                        + ",'" + paymentTerms.getValue() + "', '"+ tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() +    "')";
                 Statement st = con.createStatement();
                 st.executeUpdate(query);
 

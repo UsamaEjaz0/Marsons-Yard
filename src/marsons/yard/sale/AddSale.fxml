@@ -20,14 +20,14 @@
 
 <AnchorPane id="AnchorPane" fx:id="screen" onMouseMoved="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.AddSaleController">
    <children>
-      <Pane layoutX="125.0" layoutY="68.0" prefHeight="80.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="125.0" layoutY="68.0" prefHeight="43.0" prefWidth="1348.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label layoutX="16.0" layoutY="20.0" text="Sale">
+            <Label layoutX="16.0" layoutY="-12.0" prefHeight="67.0" prefWidth="50.0" text="Sale">
                <font>
                   <Font name="Calibri" size="30.0" />
                </font>
             </Label>
-            <ChoiceBox fx:id="saleType" layoutX="81.0" layoutY="25.0" prefHeight="25.0" prefWidth="126.0" />
+            <ChoiceBox fx:id="saleType" layoutX="81.0" layoutY="11.0" prefHeight="22.0" prefWidth="126.0" />
          </children>
       </Pane>
       <Label fx:id="customerLabel" layoutX="18.0" layoutY="106.0" prefHeight="21.0" prefWidth="95.0" text="Customer">
@@ -41,7 +41,7 @@
             <Font size="15.0" />
          </font>
       </Label>
-      <GridPane layoutX="952.0" layoutY="95.0" prefHeight="182.0" prefWidth="292.0">
+      <GridPane layoutX="956.0" layoutY="46.0" prefHeight="149.0" prefWidth="292.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="141.0" minWidth="10.0" prefWidth="118.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="174.0" />
@@ -80,7 +80,7 @@
             <ChoiceBox fx:id="invPrefix" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Pane layoutX="196.0" layoutY="314.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <Pane layoutY="242.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="65.0" prefWidth="1350.0">
               <columnConstraints>
@@ -142,7 +142,7 @@
             </GridPane>
          </children>
       </Pane>
-      <GridPane layoutX="-2.0" layoutY="369.0" prefHeight="53.0" prefWidth="1350.0">
+      <GridPane layoutX="-2.0" layoutY="297.0" prefHeight="53.0" prefWidth="1350.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0000305175781" minWidth="10.0" prefWidth="456.0000305175781" />
@@ -201,18 +201,18 @@
             </ComboBox>
          </children>
       </GridPane>
-      <Button fx:id="save" layoutX="1220.0" layoutY="658.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1D88FC;" text="Save" textFill="WHITE">
+      <Button fx:id="save" layoutX="1220.0" layoutY="666.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="40.0" prefWidth="105.0" style="-fx-background-color: #1D88FC;" text="Save" textFill="WHITE">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="cancel" layoutX="1110.0" layoutY="658.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: white; -fx-border-color: #1D88FC; -fx-border-width: 2;" text="Cancel" textFill="#1d88fc">
+      <Button fx:id="cancel" layoutX="1110.0" layoutY="669.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="98.0" style="-fx-background-color: white; -fx-border-color: #1D88FC; -fx-border-width: 2;" text="Cancel" textFill="#1d88fc">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
       <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
-      <TableView fx:id="itemTable" layoutX="13.0" layoutY="456.0" prefHeight="190.0" prefWidth="1325.0">
+      <TableView fx:id="itemTable" layoutX="11.0" layoutY="393.0" prefHeight="146.0" prefWidth="1325.0">
         <columns>
           <TableColumn fx:id="Delete" prefWidth="75.0" text="Button" />
           <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
@@ -224,7 +224,24 @@
             <TableColumn fx:id="amountCol" prefWidth="121.0" text="Amount" />
         </columns>
       </TableView>
-      <Button fx:id="addRow" layoutX="1261.0" layoutY="422.0" mnemonicParsing="false" onAction="#loadData" prefHeight="25.0" prefWidth="78.0" text="Add Item" />
-      <Button layoutX="31.0" layoutY="656.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="95.0" text="Delete Item" />
+      <Button fx:id="addRow" layoutX="1250.0" layoutY="351.0" mnemonicParsing="false" onAction="#loadData" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Add Item" textFill="WHITE" />
+      <Button layoutX="11.0" layoutY="543.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #e40808;" text="Delete Item" textFill="WHITE" />
+      <GridPane hgap="20.0" layoutX="60.0" layoutY="582.0" prefHeight="122.0" prefWidth="296.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <TextField fx:id="tName" promptText="Transport Name" />
+            <TextField fx:id="dLoc" prefHeight="25.0" prefWidth="121.0" promptText="Delivery Location" GridPane.columnIndex="1" />
+            <TextField fx:id="vNum" promptText="Vehicle Number" GridPane.rowIndex="1" />
+         </children>
+      </GridPane>
+      <Label layoutX="1088.0" layoutY="552.0" prefHeight="32.0" prefWidth="47.0" text="Discount" />
    </children>
 </AnchorPane>
