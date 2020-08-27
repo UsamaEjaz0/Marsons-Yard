@@ -80,7 +80,7 @@ public class PurchasesController implements Initializable {
                 });
 
                 purTransactions.getColumns().addAll(col);
-                System.out.print(col);
+                
 
             }
             while (rs.next()) {

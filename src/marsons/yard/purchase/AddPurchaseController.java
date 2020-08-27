@@ -64,32 +64,11 @@ public class AddPurchaseController implements Initializable {
     ObservableList pItemList = FXCollections.observableArrayList();
     ObservableList iList = FXCollections.observableArrayList();
     ObservableList pList = FXCollections.observableArrayList();
-     ObservableList convList = FXCollections.observableArrayList();
+    ObservableList convList = FXCollections.observableArrayList();
     /**
      * Initializes the controller class.
      */
 
-    @FXML
-    private TableColumn<Pitems, Button> Delete;
-    @FXML
-    private TableColumn<Pitems, String> iNameCol;
-    @FXML
-    private TableColumn<Pitems, String> pItemCol;
-
-    @FXML
-    private TableColumn<Pitems, String> descCol;
-
-    @FXML
-    private TableColumn<Pitems, String> qtyCol;
-
-    @FXML
-    private TableColumn<Pitems, String> unitCol;
-
-    @FXML
-    private TableColumn<Pitems, String> ppuCol;
-
-    @FXML
-    private TableColumn<Pitems, String> amountCol;
     @FXML
     private Label customerLabel;
     @FXML
@@ -115,6 +94,12 @@ public class AddPurchaseController implements Initializable {
     private DatePicker dueDate;
 
     @FXML
+    private Label cash;
+
+    @FXML
+    private Label dueDateLabel;
+
+    @FXML
     private ChoiceBox<String> paymentTerms;
 
     @FXML
@@ -131,29 +116,10 @@ public class AddPurchaseController implements Initializable {
 
     @FXML
     private TextField priceOfUnit;
- 
+
     @FXML
     private Text amount;
-   @FXML
-    private TextField discPer;
 
-    @FXML
-    private TextField discRupees;
-
-    @FXML
-    private TextField total;
-
-    @FXML
-    private Text subTotalField;
-
-    @FXML
-    private ComboBox<String> taxTypes;
-
-    @FXML
-    private Text taxValue;
-
-    @FXML
-    private TextField miscFreight;
     @FXML
     private ChoiceBox<String> unit;
 
@@ -166,8 +132,7 @@ public class AddPurchaseController implements Initializable {
     @FXML
     private Button cancel;
 
-    @FXML
-    private TableView<Pitems> itemTable;
+ 
     @FXML
     private Button addRow;
     @FXML
@@ -181,12 +146,63 @@ public class AddPurchaseController implements Initializable {
 
     @FXML
     private TextField vNum;
-    
 
     Connection con;
+    @FXML
+    private TextField cashReceived;
 
     @FXML
+    private Label addDisc;
+    @FXML
+    private Text subTotalField;
+    @FXML
     private Button addParty = new Button("Add Party");
+
+    @FXML
+    private TextField discPer;
+
+    @FXML
+    private TextField discRupees;
+
+    @FXML
+    private Text total;
+    @FXML
+    private ComboBox<String> taxTypes;
+
+    @FXML
+    private Text taxValue;
+    @FXML
+    private Label asterisk;
+        @FXML
+    private ComboBox<String> paymentMode;
+    @FXML
+    private TextField miscFreight;
+    @FXML
+    private TableColumn<Pitems, Button> Delete;
+    @FXML
+    private TableColumn<Pitems, String> iNameCol;
+    @FXML
+    private TableColumn<Pitems, String> pItemCol;
+
+    @FXML
+    private TableColumn<Pitems, String> descCol;
+
+    @FXML
+    private TableColumn<Pitems, String> qtyCol;
+
+    @FXML
+    private TableColumn<Pitems, String> unitCol;
+
+    @FXML
+    private TableColumn<Pitems, String> ppuCol;
+
+    @FXML
+    private TableColumn<Pitems, String> amountCol;
+    
+
+    @FXML
+    private TableView<Pitems> itemTable;
+    
 
     int count = 0;
 
@@ -207,6 +223,8 @@ public class AddPurchaseController implements Initializable {
             }
         }
         );
+        paymentMode.getItems().addAll("Cash", "Cheque", "Bank Transfer", "Third Party Payout");
+        paymentMode.setValue("Cash");
         paymentTermsList.addAll(
                 "Custom", "Due on Receipt", "Net 15", "Net 30", "Net 45", "Net 60");
         saleTypeList.addAll(
@@ -288,53 +306,61 @@ public class AddPurchaseController implements Initializable {
                             Number number2
                     ) {
                         if ((saleType.getItems().get((Integer) number2)) == "Cash") {
-                            customerLabel.setText("Customer");
+                            asterisk.setText("");
+                            asterisk.setStyle("-fx-text-fill: black");
+                            paymentTerms.setVisible(false);
+                            dueDate.setVisible(false);
+                            dueDateLabel.setVisible(false);
+                            cash.setVisible(true);
+                            
+                            
+                            
                         } else if ((saleType.getItems().get((Integer) number2)) == "Credit") {
-                            customerLabel.setText("Customer*");
+                            asterisk.setText("*");
+                            asterisk.setStyle("-fx-text-fill: red");
+                            paymentTerms.setVisible(true);
+                            dueDate.setVisible(true);
+                            dueDateLabel.setVisible(true);
+                            cash.setVisible(false);
 
                         }
                     }
                 }
                 );
-        
-        
+
         unit.getSelectionModel()
                 .selectedIndexProperty().addListener(new ChangeListener<Number>() {
                     double ppu;
                     boolean check = true;
+
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number number,
                             Number number2) {
                         try {
                             String baseUnit = unit.getItems().get(0);
                             double qty = Double.parseDouble(quantity.getText());
-                            if (check){
-                            ppu = Double.parseDouble(priceOfUnit.getText());
-                            check = false;
+                            if (check) {
+                                ppu = Double.parseDouble(priceOfUnit.getText());
+                                check = false;
                             }
                             String newUnit = unit.getItems().get((Integer) observableValue.getValue());
-                            
+
                             String SQL3 = "";
-                            if (observableValue.getValue().equals(1)){
-                                SQL3 = "select conversionOne from items where pUnit = '"+baseUnit+"' and sUnitOne = '"+newUnit+"'";
-                            }
-                            else if (observableValue.getValue().equals(2)){
-                                SQL3 = "select conversionTwo from items where pUnit = '"+baseUnit+"' and sUnitTwo = '"+newUnit+"'";
-                            }
-                            else if (observableValue.getValue().equals(3)){
-                                SQL3 = "select conversionThree from items where pUnit = '"+baseUnit+"' and sUnitThree = '"+newUnit+"'";
-                            }
-                            else {
+                            if (observableValue.getValue().equals(1)) {
+                                SQL3 = "select conversionOne from items where pUnit = '" + baseUnit + "' and sUnitOne = '" + newUnit + "'";
+                            } else if (observableValue.getValue().equals(2)) {
+                                SQL3 = "select conversionTwo from items where pUnit = '" + baseUnit + "' and sUnitTwo = '" + newUnit + "'";
+                            } else if (observableValue.getValue().equals(3)) {
+                                SQL3 = "select conversionThree from items where pUnit = '" + baseUnit + "' and sUnitThree = '" + newUnit + "'";
+                            } else {
                                 priceOfUnit.setText(String.valueOf(ppu));
-                            } 
-                            
-                            
+                            }
+
                             System.out.println("Base Unit " + baseUnit);
                             System.out.println("New Unit " + newUnit);
-                            
-                            
+
                             Connection c = MyConnection.getConnection();
-                            
+
                             ResultSet rs3 = c.createStatement().executeQuery(SQL3);
 
                             while (rs3.next()) {
@@ -344,10 +370,22 @@ public class AddPurchaseController implements Initializable {
                                 }
 
                             }
-                            
-                            double conv = eval((String)convList.get(0));
+
+                            double conv = eval((String) convList.get(0));
                             System.out.println(conv);
-                            priceOfUnit.setText(String.valueOf(ppu/ conv));
+                            priceOfUnit.setText(String.valueOf(ppu / conv));
+                            
+                            
+                            
+                            
+                            try {
+            if (quantity.getText() != "" && priceOfUnit.getText() != "") {
+                amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
+            }
+
+        } catch (Exception e) {
+            System.out.println("Compute Amount : " + e);
+        }
                         } catch (Exception e) {
                             System.out.println(e);
                         }
@@ -361,7 +399,7 @@ public class AddPurchaseController implements Initializable {
                             Number number2
                     ) {
                         try {
-                            
+
                             unit.getItems().clear();
                             Connection c = MyConnection.getConnection();
                             String SQL3 = "SELECT `pUnit` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
@@ -470,11 +508,12 @@ public class AddPurchaseController implements Initializable {
                 );
 
     }
-@FXML
+
+    @FXML
     void calPer(KeyEvent event) {
         double subTotal = 0;
         try {
-            
+
             for (Pitems item : itemTable.getItems()) {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
@@ -485,28 +524,28 @@ public class AddPurchaseController implements Initializable {
         } catch (Exception e) {
             System.out.print(e);
         }
-        
+
     }
-    
+
     @FXML
     void calRupees(KeyEvent event) {
         double subTotal = 0;
         try {
-            
+
             for (Pitems item : itemTable.getItems()) {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
             discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
-            
+
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
         } catch (Exception e) {
             System.out.print(e);
         }
-        
+
     }
-    
+
     public void init() {
 
         Connection c;
@@ -573,19 +612,20 @@ public class AddPurchaseController implements Initializable {
                 //To be added
             }
             if (event.getSource() == save) {
-                Button b = new Button("Added");
+                
                 con = MyConnection.getConnection();
                 String query = "INSERT INTO `purchases`(`invoiceNum`, `purchaseType`, `vendorName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`) "
                         + "VALUES ('" + invPrefix.getValue() + invNum.getText() + "','" + saleType.getValue() + "','" + customerList.getValue() + "',"
                         + "'" + billingName.getText() + "','" + invDate.getValue() + "','" + dueDate.getValue() + "'"
-                        + ",'" + paymentTerms.getValue() + "', '"+ tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() +    "')";
+                        + ",'" + paymentTerms.getValue() + "', '" + tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() + "')";
                 Statement st = con.createStatement();
+                
                 st.executeUpdate(query);
-
+System.out.println("Added------------------------------");
                 //fdfdfdf
                 for (int j = 0; j < itemTable.getItems().size(); j++) {
 
-                    String iNum = invPrefix.getValue() +invNum.getText();
+                    String iNum = invPrefix.getValue() + invNum.getText();
                     String iName = itemTable.getItems().get(j).getName();
                     String desc = itemTable.getItems().get(j).getDescription();
                     String quantity = itemTable.getItems().get(j).getQuantity();
@@ -608,18 +648,25 @@ public class AddPurchaseController implements Initializable {
                 FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
                 myWriter.write(String.valueOf(count));
                 myWriter.close();
-                
+
                 Stage stage = (Stage) save.getScene().getWindow();
-            stage.close();
+                stage.close();
 
             }
         } catch (Exception e) {
             System.out.print(e);
         }
     }
-
     @FXML
-    void ComputeAmount(MouseEvent event) {
+    void calAddDisc(KeyEvent event) {
+        try{
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText())- Double.parseDouble(cashReceived.getText()))));
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    @FXML
+    void ComputeAmount(KeyEvent event) {
         try {
             if (quantity.getText() != "" && priceOfUnit.getText() != "") {
                 amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
@@ -629,7 +676,7 @@ public class AddPurchaseController implements Initializable {
             System.out.println("Compute Amount : " + e);
         }
     }
-    
+
     private void openAddParty() throws IOException {
         System.out.print("Clicked");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quotations.fxml"));
@@ -639,7 +686,8 @@ public class AddPurchaseController implements Initializable {
 
         stage.show();
     }
-   @FXML
+
+    @FXML
     void deleteItem(ActionEvent event) {
         itemTable.getItems().removeAll(itemTable.getSelectionModel().getSelectedItems());
         double subTotal = 0;
@@ -651,12 +699,11 @@ public class AddPurchaseController implements Initializable {
         } catch (Exception e) {
             System.out.print(e);
         }
-        
+
         try {
-            
-            
+
             discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
-            
+
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
@@ -664,7 +711,6 @@ public class AddPurchaseController implements Initializable {
             System.out.print(e);
         }
     }
-    
 
     @FXML
     void loadData(ActionEvent event) {
@@ -677,7 +723,7 @@ public class AddPurchaseController implements Initializable {
         ppuCol.setCellValueFactory(new PropertyValueFactory<Pitems, String>("PricePerUnit"));
         amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
         //Delete.setCellValueFactory(new PropertyValueFactory("b"));
-        
+
         ObservableList<String> itemData = FXCollections.observableArrayList();
         itemData.add(itemName.getValue());
         itemData.add(primaryItem.getValue());
@@ -686,13 +732,10 @@ public class AddPurchaseController implements Initializable {
         itemData.add(unit.getValue());
         itemData.add(priceOfUnit.getText());
         itemData.add(amount.getText());
-        Pitems i = new Pitems( itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), unit.getValue(), priceOfUnit.getText(), amount.getText());
-        
-        
+        Pitems i = new Pitems(itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), unit.getValue(), priceOfUnit.getText(), amount.getText());
+
         itemTable.getItems().addAll(i);
         System.out.print(itemTable);
-        
-        
 
         desc.setText("");
         quantity.setText("");
@@ -705,89 +748,119 @@ public class AddPurchaseController implements Initializable {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
             subTotalField.setText(String.valueOf((subTotal * 100) / 100));
+            total.setText(String.valueOf(subTotal));
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
+
     public static double eval(final String str) {
-    return new Object() {
-        int pos = -1, ch;
+        return new Object() {
+            int pos = -1, ch;
 
-        void nextChar() {
-            ch = (++pos < str.length()) ? str.charAt(pos) : -1;
-        }
+            void nextChar() {
+                ch = (++pos < str.length()) ? str.charAt(pos) : -1;
+            }
 
-        boolean eat(int charToEat) {
-            while (ch == ' ') nextChar();
-            if (ch == charToEat) {
+            boolean eat(int charToEat) {
+                while (ch == ' ') {
+                    nextChar();
+                }
+                if (ch == charToEat) {
+                    nextChar();
+                    return true;
+                }
+                return false;
+            }
+
+            double parse() {
                 nextChar();
-                return true;
-            }
-            return false;
-        }
-
-        double parse() {
-            nextChar();
-            double x = parseExpression();
-            if (pos < str.length()) throw new RuntimeException("Unexpected: " + (char)ch);
-            return x;
-        }
-
-        // Grammar:
-        // expression = term | expression `+` term | expression `-` term
-        // term = factor | term `*` factor | term `/` factor
-        // factor = `+` factor | `-` factor | `(` expression `)`
-        //        | number | functionName factor | factor `^` factor
-
-        double parseExpression() {
-            double x = parseTerm();
-            for (;;) {
-                if      (eat('+')) x += parseTerm(); // addition
-                else if (eat('-')) x -= parseTerm(); // subtraction
-                else return x;
-            }
-        }
-
-        double parseTerm() {
-            double x = parseFactor();
-            for (;;) {
-                if      (eat('*')) x *= parseFactor(); // multiplication
-                else if (eat('/')) x /= parseFactor(); // division
-                else return x;
-            }
-        }
-
-        double parseFactor() {
-            if (eat('+')) return parseFactor(); // unary plus
-            if (eat('-')) return -parseFactor(); // unary minus
-
-            double x;
-            int startPos = this.pos;
-            if (eat('(')) { // parentheses
-                x = parseExpression();
-                eat(')');
-            } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
-                while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
-                x = Double.parseDouble(str.substring(startPos, this.pos));
-            } else if (ch >= 'a' && ch <= 'z') { // functions
-                while (ch >= 'a' && ch <= 'z') nextChar();
-                String func = str.substring(startPos, this.pos);
-                x = parseFactor();
-                if (func.equals("sqrt")) x = Math.sqrt(x);
-                else if (func.equals("sin")) x = Math.sin(Math.toRadians(x));
-                else if (func.equals("cos")) x = Math.cos(Math.toRadians(x));
-                else if (func.equals("tan")) x = Math.tan(Math.toRadians(x));
-                else throw new RuntimeException("Unknown function: " + func);
-            } else {
-                throw new RuntimeException("Unexpected: " + (char)ch);
+                double x = parseExpression();
+                if (pos < str.length()) {
+                    throw new RuntimeException("Unexpected: " + (char) ch);
+                }
+                return x;
             }
 
-            if (eat('^')) x = Math.pow(x, parseFactor()); // exponentiation
+            // Grammar:
+            // expression = term | expression `+` term | expression `-` term
+            // term = factor | term `*` factor | term `/` factor
+            // factor = `+` factor | `-` factor | `(` expression `)`
+            //        | number | functionName factor | factor `^` factor
+            double parseExpression() {
+                double x = parseTerm();
+                for (;;) {
+                    if (eat('+')) {
+                        x += parseTerm(); // addition
+                    } else if (eat('-')) {
+                        x -= parseTerm(); // subtraction
+                    } else {
+                        return x;
+                    }
+                }
+            }
 
-            return x;
-        }
-    }.parse();
-}
+            double parseTerm() {
+                double x = parseFactor();
+                for (;;) {
+                    if (eat('*')) {
+                        x *= parseFactor(); // multiplication
+                    } else if (eat('/')) {
+                        x /= parseFactor(); // division
+                    } else {
+                        return x;
+                    }
+                }
+            }
+
+            double parseFactor() {
+                if (eat('+')) {
+                    return parseFactor(); // unary plus
+                }
+                if (eat('-')) {
+                    return -parseFactor(); // unary minus
+                }
+                double x;
+                int startPos = this.pos;
+                if (eat('(')) { // parentheses
+                    x = parseExpression();
+                    eat(')');
+                } else if ((ch >= '0' && ch <= '9') || ch == '.') { // numbers
+                    while ((ch >= '0' && ch <= '9') || ch == '.') {
+                        nextChar();
+                    }
+                    x = Double.parseDouble(str.substring(startPos, this.pos));
+                } else if (ch >= 'a' && ch <= 'z') { // functions
+                    while (ch >= 'a' && ch <= 'z') {
+                        nextChar();
+                    }
+                    String func = str.substring(startPos, this.pos);
+                    x = parseFactor();
+                    if (func.equals("sqrt")) {
+                        x = Math.sqrt(x);
+                    } else if (func.equals("sin")) {
+                        x = Math.sin(Math.toRadians(x));
+                    } else if (func.equals("cos")) {
+                        x = Math.cos(Math.toRadians(x));
+                    } else if (func.equals("tan")) {
+                        x = Math.tan(Math.toRadians(x));
+                    } else {
+                        throw new RuntimeException("Unknown function: " + func);
+                    }
+                } else {
+                    throw new RuntimeException("Unexpected: " + (char) ch);
+                }
+
+                if (eat('^')) {
+                    x = Math.pow(x, parseFactor()); // exponentiation
+                }
+                return x;
+            }
+        }.parse();
+    }
 
 }
 
@@ -872,6 +945,5 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
         }
         moveCaretToPos = false;
     }
-    
 
 }

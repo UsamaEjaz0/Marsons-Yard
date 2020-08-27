@@ -265,10 +265,14 @@ public class SalesController implements Initializable {
 
                         } else if ((salesFilter.getItems().get((Integer) number2)) == "Custom") {
 
-                            if(customStartDate!=null && customEndDate!= null){
+                            try{
+                                if(customStartDate!=null && customEndDate!= null){
                             String startDate = customStartDate.getValue().toString();
                             String endDate = customEndDate.getValue().toString();
                             query = "SELECT * from sales where InvoiceDate BETWEEN '" + startDate + "' and '" + endDate + "'";
+                            }}
+                            catch(Exception e){
+                                System.out.println(e);
                             }
                         }
                         salesTable(query);
