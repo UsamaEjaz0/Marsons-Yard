@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" fx:id="screen" onMouseMoved="#ComputeAmount" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.AddSaleController">
+<AnchorPane id="AnchorPane" fx:id="screen" prefHeight="728.0" prefWidth="1346.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.AddSaleController">
    <children>
       <Pane layoutX="125.0" layoutY="68.0" prefHeight="43.0" prefWidth="1348.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -80,9 +80,9 @@
             <ChoiceBox fx:id="invPrefix" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="72.0" GridPane.columnIndex="1" />
          </children>
       </GridPane>
-      <Pane layoutX="-1.0" layoutY="213.0" prefHeight="58.0" prefWidth="1346.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0">
+      <Pane layoutX="-1.0" layoutY="213.0" prefHeight="35.0" prefWidth="1348.0" style="-fx-background-color: white;" AnchorPane.leftAnchor="-1.0" AnchorPane.rightAnchor="1.0">
          <children>
-            <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="65.0" prefWidth="1350.0">
+            <GridPane layoutX="-2.0" layoutY="-2.0" prefHeight="35.0" prefWidth="1350.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="454.6666564941406" minWidth="10.0" prefWidth="454.6666564941406" />
@@ -142,7 +142,7 @@
             </GridPane>
          </children>
       </Pane>
-      <GridPane layoutX="-2.0" layoutY="277.0" prefHeight="53.0" prefWidth="1350.0">
+      <GridPane layoutX="-2.0" layoutY="248.0" prefHeight="31.0" prefWidth="1350.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="217.0" minWidth="10.0" prefWidth="67.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0000305175781" minWidth="10.0" prefWidth="456.0000305175781" />
@@ -177,8 +177,8 @@
                </GridPane.margin>
             </Button>
             <TextField fx:id="desc" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="240.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" />
-            <TextField fx:id="quantity" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
-            <TextField fx:id="priceOfUnit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
+            <TextField fx:id="quantity" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#ComputeAmount" onKeyPressed="#ComputeAmount" onKeyReleased="#ComputeAmount" onKeyTyped="#ComputeAmount" prefHeight="25.0" prefWidth="111.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" />
+            <TextField fx:id="priceOfUnit" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#ComputeAmount" onKeyPressed="#ComputeAmount" onKeyReleased="#ComputeAmount" onKeyTyped="#ComputeAmount" prefHeight="25.0" prefWidth="65.0" GridPane.columnIndex="5" GridPane.halignment="CENTER" />
             <Text fx:id="amount" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" GridPane.columnIndex="6" GridPane.halignment="CENTER">
                <font>
                   <Font size="14.0" />
@@ -212,7 +212,7 @@
          </font>
       </Button>
       <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
-      <TableView fx:id="itemTable" layoutX="12.0" layoutY="365.0" prefHeight="135.0" prefWidth="1325.0">
+      <TableView fx:id="itemTable" layoutX="11.0" layoutY="326.0" prefHeight="129.0" prefWidth="1325.0">
         <columns>
           <TableColumn fx:id="Delete" prefWidth="75.0" text="Button" />
           <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
@@ -224,8 +224,8 @@
             <TableColumn fx:id="amountCol" prefWidth="92.0" text="Amount" />
         </columns>
       </TableView>
-      <Button fx:id="addRow" layoutX="1245.0" layoutY="330.0" mnemonicParsing="false" onAction="#loadData" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Add Item" textFill="WHITE" />
-      <Button layoutX="12.0" layoutY="503.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #e40808;" text="Delete Item" textFill="WHITE" />
+      <Button fx:id="addRow" layoutX="1243.0" layoutY="288.0" mnemonicParsing="false" onAction="#loadData" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Add Item" textFill="WHITE" />
+      <Button layoutX="11.0" layoutY="461.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #e40808;" text="Delete Item" textFill="WHITE" />
       <GridPane hgap="20.0" layoutX="60.0" layoutY="582.0" prefHeight="122.0" prefWidth="296.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -245,22 +245,27 @@
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Label layoutX="1082.0" layoutY="527.0" prefHeight="32.0" prefWidth="54.0" text="Discount" />
-      <TextField fx:id="discPer" layoutX="1154.0" layoutY="528.0" onInputMethodTextChanged="#calRupees" onKeyPressed="#calRupees" onKeyReleased="#calRupees" onKeyTyped="#calRupees" prefHeight="25.0" prefWidth="54.0" promptText="(%)" />
-      <Label layoutX="1210.0" layoutY="570.0" text="-" />
-      <TextField fx:id="discRupees" layoutX="1222.0" layoutY="528.0" onInputMethodTextChanged="#calPer" onKeyPressed="#calPer" onKeyReleased="#calPer" onKeyTyped="#calPer" prefHeight="25.0" prefWidth="84.0" promptText="(Rs)" />
-      <Label layoutX="1098.0" layoutY="568.0" text="Tax" />
-      <Label layoutX="1098.0" layoutY="645.0" text="Total" />
-      <TextField fx:id="total" layoutX="1154.0" layoutY="640.0" />
-      <Label layoutX="1081.0" layoutY="508.0" prefHeight="17.0" prefWidth="62.0" text="Sub Total" />
-      <Text fx:id="subTotalField" fill="#655d5d" layoutX="1282.0" layoutY="521.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <ComboBox fx:id="taxTypes" layoutX="1154.0" layoutY="564.0" prefHeight="25.0" prefWidth="62.0" />
-      <Text fx:id="taxValue" fill="#5e5e5e" layoutX="1265.0" layoutY="577.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="40.999986469745636" AnchorPane.bottomAnchor="148.0" AnchorPane.topAnchor="564.0" />
-      <Label layoutX="1072.0" layoutY="607.0" prefHeight="17.0" prefWidth="72.0" text="Misc/ Freight" />
-      <TextField fx:id="miscFreight" layoutX="1154.0" layoutY="603.0" onInputMethodTextChanged="#calRupees" onKeyPressed="#calRupees" onKeyReleased="#calRupees" onKeyTyped="#calRupees" />
+      <Label layoutX="1087.0" layoutY="480.0" prefHeight="32.0" prefWidth="54.0" text="Discount" />
+      <TextField fx:id="discPer" layoutX="1159.0" layoutY="481.0" onInputMethodTextChanged="#calRupees" onKeyPressed="#calRupees" onKeyReleased="#calRupees" onKeyTyped="#calRupees" prefHeight="25.0" prefWidth="54.0" promptText="(%)" />
+      <Label layoutX="1218.0" layoutY="485.0" text="-" />
+      <TextField fx:id="discRupees" layoutX="1227.0" layoutY="481.0" onInputMethodTextChanged="#calPer" onKeyPressed="#calPer" onKeyReleased="#calPer" onKeyTyped="#calPer" prefHeight="25.0" prefWidth="84.0" promptText="(Rs)" />
+      <Label layoutX="1104.0" layoutY="513.0" text="Tax" />
+      <Label layoutX="1103.0" layoutY="578.0" text="Total" />
+      <TextField fx:id="total" editable="false" layoutX="1159.0" layoutY="575.0" onInputMethodTextChanged="#calAddDisc" onKeyPressed="#calAddDisc" onKeyReleased="#calAddDisc" onKeyTyped="#calAddDisc" />
+      <Label layoutX="1086.0" layoutY="461.0" prefHeight="17.0" prefWidth="62.0" text="Sub Total" />
+      <Text fx:id="subTotalField" fill="#655d5d" layoutX="1287.0" layoutY="474.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <ComboBox fx:id="taxTypes" layoutX="1158.0" layoutY="515.0" prefHeight="25.0" prefWidth="62.0" />
+      <Text fx:id="taxValue" fill="#5e5e5e" layoutX="1267.0" layoutY="532.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" textAlignment="CENTER" wrappingWidth="40.999986469745636" />
+      <Label layoutX="1074.0" layoutY="549.0" prefHeight="17.0" prefWidth="72.0" text="Misc/ Freight" />
+      <TextField fx:id="miscFreight" layoutX="1159.0" layoutY="546.0" onInputMethodTextChanged="#calRupees" onKeyPressed="#calRupees" onKeyReleased="#calRupees" onKeyTyped="#calRupees" />
       <Label fx:id="asterisk" layoutX="83.0" layoutY="100.0" prefHeight="25.0" prefWidth="13.0">
          <font>
             <Font size="20.0" />
          </font></Label>
+      <Label layoutX="1069.0" layoutY="607.0" prefHeight="17.0" prefWidth="86.0" text="Cash Received" />
+      <TextField fx:id="cashReceived" layoutX="1159.0" layoutY="604.0" onInputMethodTextChanged="#calAddDisc" onKeyPressed="#calAddDisc" onKeyReleased="#calAddDisc" onKeyTyped="#calAddDisc" />
+      <Label layoutX="1047.0" layoutY="634.0" prefHeight="17.0" prefWidth="111.0" text="Addtional Discount" />
+      <TextField fx:id="addDisc" layoutX="1159.0" layoutY="631.0" prefHeight="25.0" prefWidth="78.0" />
+      <Text fill="#5b4d4d" layoutX="1234.0" layoutY="647.0" strokeType="OUTSIDE" strokeWidth="0.0" text="  Rs" wrappingWidth="27.000003814697266" />
    </children>
 </AnchorPane>

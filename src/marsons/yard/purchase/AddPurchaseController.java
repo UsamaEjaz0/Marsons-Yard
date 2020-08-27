@@ -131,10 +131,29 @@ public class AddPurchaseController implements Initializable {
 
     @FXML
     private TextField priceOfUnit;
-
+ 
     @FXML
     private Text amount;
+   @FXML
+    private TextField discPer;
 
+    @FXML
+    private TextField discRupees;
+
+    @FXML
+    private TextField total;
+
+    @FXML
+    private Text subTotalField;
+
+    @FXML
+    private ComboBox<String> taxTypes;
+
+    @FXML
+    private Text taxValue;
+
+    @FXML
+    private TextField miscFreight;
     @FXML
     private ChoiceBox<String> unit;
 
@@ -162,6 +181,7 @@ public class AddPurchaseController implements Initializable {
 
     @FXML
     private TextField vNum;
+    
 
     Connection con;
 
@@ -450,7 +470,43 @@ public class AddPurchaseController implements Initializable {
                 );
 
     }
-
+@FXML
+    void calPer(KeyEvent event) {
+        double subTotal = 0;
+        try {
+            
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            discPer.setText(String.valueOf(Math.round((Double.parseDouble(discRupees.getText()) / (subTotal * 0.01)) * 100.00) / 100.00));
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+        
+    }
+    
+    @FXML
+    void calRupees(KeyEvent event) {
+        double subTotal = 0;
+        try {
+            
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
+            
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+        
+    }
+    
     public void init() {
 
         Connection c;
@@ -586,7 +642,30 @@ public class AddPurchaseController implements Initializable {
    @FXML
     void deleteItem(ActionEvent event) {
         itemTable.getItems().removeAll(itemTable.getSelectionModel().getSelectedItems());
+        double subTotal = 0;
+        try {
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            subTotalField.setText(String.valueOf(subTotal));
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+        
+        try {
+            
+            
+            discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
+            
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
     }
+    
+
     @FXML
     void loadData(ActionEvent event) {
         itemTable.setEditable(true);
@@ -620,6 +699,15 @@ public class AddPurchaseController implements Initializable {
         priceOfUnit.setText("");
         amount.setText("");
 
+        try {
+            double subTotal = 0;
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            subTotalField.setText(String.valueOf((subTotal * 100) / 100));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
     public static double eval(final String str) {
     return new Object() {

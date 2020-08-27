@@ -164,7 +164,11 @@ public class AddSaleController implements Initializable {
     private TextField vNum;
     
     Connection con;
-    
+       @FXML
+    private TextField cashReceived;
+
+    @FXML
+    private TextField addDisc;
     @FXML
     private Text subTotalField;
     @FXML
@@ -535,10 +539,10 @@ public class AddSaleController implements Initializable {
             if (event.getSource() == save) {
                 Button b = new Button("Added");
                 con = MyConnection.getConnection();
-                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`,  `total`, `discount`, `miscFreight`, `discountedRupees`)"
+                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`,  `total`, `discount`, `miscFreight`, `discountedRupees`,`CashReceived`, `addDiscount`)"
                         + "VALUES ('" + invPrefix.getValue() + invNum.getText() + "','" + saleType.getValue() + "','" + customerList.getValue() + "',"
                         + "'" + billingName.getText() + "','" + invDate.getValue() + "','" + dueDate.getValue() + "'"
-                        + ",'" + paymentTerms.getValue() + "', '" + tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() + "','" + total.getText() + "','" + discPer.getText() + "','"+ miscFreight.getText() + "','"+ discRupees.getText()+   "')";
+                        + ",'" + paymentTerms.getValue() + "', '" + tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() + "','" + total.getText() + "','" + discPer.getText() + "','"+ miscFreight.getText() + "','"+ discRupees.getText()+   "','" + cashReceived.getText() +"','" + addDisc.getText()+ "')";
                 Statement st = con.createStatement();
                 st.executeUpdate(query);
 
@@ -579,7 +583,7 @@ public class AddSaleController implements Initializable {
     }
     
     @FXML
-    void ComputeAmount(MouseEvent event) {
+    void ComputeAmount(KeyEvent event) {
         try {
             if (quantity.getText() != "" && priceOfUnit.getText() != "") {
                 amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
@@ -632,7 +636,14 @@ public class AddSaleController implements Initializable {
         }
         
     }
-    
+        @FXML
+    void calAddDisc(KeyEvent event) {
+        try{
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText())- Double.parseDouble(cashReceived.getText()))));
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
     @FXML
     void calRupees(KeyEvent event) {
         double subTotal = 0;
