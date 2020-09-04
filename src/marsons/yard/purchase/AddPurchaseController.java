@@ -44,6 +44,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -69,6 +70,27 @@ public class AddPurchaseController implements Initializable {
      * Initializes the controller class.
      */
 
+    @FXML
+    private TableColumn<Pitems, Button> Delete;
+    @FXML
+    private TableColumn<Pitems, String> iNameCol;
+    @FXML
+    private TableColumn<Pitems, String> pItemCol;
+
+    @FXML
+    private TableColumn<Pitems, String> descCol;
+
+    @FXML
+    private TableColumn<Pitems, String> qtyCol;
+
+    @FXML
+    private TableColumn<Pitems, String> unitCol;
+
+    @FXML
+    private TableColumn<Pitems, String> ppuCol;
+
+    @FXML
+    private TableColumn<Pitems, String> amountCol;
     @FXML
     private Label customerLabel;
     @FXML
@@ -132,7 +154,8 @@ public class AddPurchaseController implements Initializable {
     @FXML
     private Button cancel;
 
- 
+    @FXML
+    private TableView<Pitems> itemTable;
     @FXML
     private Button addRow;
     @FXML
@@ -177,41 +200,18 @@ public class AddPurchaseController implements Initializable {
     private ComboBox<String> paymentMode;
     @FXML
     private TextField miscFreight;
-    @FXML
-    private TableColumn<Pitems, Button> Delete;
-    @FXML
-    private TableColumn<Pitems, String> iNameCol;
-    @FXML
-    private TableColumn<Pitems, String> pItemCol;
-
-    @FXML
-    private TableColumn<Pitems, String> descCol;
-
-    @FXML
-    private TableColumn<Pitems, String> qtyCol;
-
-    @FXML
-    private TableColumn<Pitems, String> unitCol;
-
-    @FXML
-    private TableColumn<Pitems, String> ppuCol;
-
-    @FXML
-    private TableColumn<Pitems, String> amountCol;
-    
-
-    @FXML
-    private TableView<Pitems> itemTable;
-    
-
     int count = 0;
 
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
 
         init();
-
+paymentTerms.setVisible(false);
+                            dueDate.setVisible(false);
+                            dueDateLabel.setVisible(false);
+                            cash.setVisible(true);
         new AutoCompleteComboBoxListener<>(itemName);
 
         addParty.setOnAction(
@@ -223,6 +223,7 @@ public class AddPurchaseController implements Initializable {
             }
         }
         );
+        
         paymentMode.getItems().addAll("Cash", "Cheque", "Bank Transfer", "Third Party Payout");
         paymentMode.setValue("Cash");
         paymentTermsList.addAll(
@@ -251,7 +252,7 @@ public class AddPurchaseController implements Initializable {
                 "SR-INV");
 
         try {
-            File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
+            File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
             Scanner myReader = new Scanner(myObj);
             count = myReader.nextInt();
         } catch (FileNotFoundException ex) {
@@ -374,22 +375,16 @@ public class AddPurchaseController implements Initializable {
                             double conv = eval((String) convList.get(0));
                             System.out.println(conv);
                             priceOfUnit.setText(String.valueOf(ppu / conv));
-                            
-                            
-                            
-                            
-                            try {
-            if (quantity.getText() != "" && priceOfUnit.getText() != "") {
-                amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
-            }
 
-        } catch (Exception e) {
-            System.out.println("Compute Amount : " + e);
-        }
+                            if (quantity.getText() != "" && priceOfUnit.getText() != "") {
+                                amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
+                            }
+
                         } catch (Exception e) {
                             System.out.println(e);
                         }
                     }
+
                 }
                 );
         itemName.getSelectionModel()
@@ -509,49 +504,12 @@ public class AddPurchaseController implements Initializable {
 
     }
 
-    @FXML
-    void calPer(KeyEvent event) {
-        double subTotal = 0;
-        try {
-
-            for (Pitems item : itemTable.getItems()) {
-                subTotal = subTotal + Double.parseDouble(item.getAmount());
-            }
-            discPer.setText(String.valueOf(Math.round((Double.parseDouble(discRupees.getText()) / (subTotal * 0.01)) * 100.00) / 100.00));
-            if (!(miscFreight.getText() == null)) {
-                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
-            }
-        } catch (Exception e) {
-            System.out.print(e);
-        }
-
-    }
-
-    @FXML
-    void calRupees(KeyEvent event) {
-        double subTotal = 0;
-        try {
-
-            for (Pitems item : itemTable.getItems()) {
-                subTotal = subTotal + Double.parseDouble(item.getAmount());
-            }
-            discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
-
-            if (!(miscFreight.getText() == null)) {
-                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
-            }
-        } catch (Exception e) {
-            System.out.print(e);
-        }
-
-    }
-
     public void init() {
 
         Connection c;
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT Name from vendors";
+            String SQL = "SELECT Name from customers";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             customerList.getItems().add(addParty);
             while (rs.next()) {
@@ -612,16 +570,15 @@ public class AddPurchaseController implements Initializable {
                 //To be added
             }
             if (event.getSource() == save) {
-                
+                Button b = new Button("Added");
                 con = MyConnection.getConnection();
-                String query = "INSERT INTO `purchases`(`invoiceNum`, `purchaseType`, `vendorName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`) "
+                String query = "INSERT INTO `sales`(`InvoiceNum`, `saleType`, `customerName`, `billingName`, `InvoiceDate`, `DueDate`, `paymentTerms`, `transport`, `deliveryLocation`, `vehicleNumber`,  `total`, `discount`, `miscFreight`, `discountedRupees`,`CashReceived`, `addDiscount`)"
                         + "VALUES ('" + invPrefix.getValue() + invNum.getText() + "','" + saleType.getValue() + "','" + customerList.getValue() + "',"
                         + "'" + billingName.getText() + "','" + invDate.getValue() + "','" + dueDate.getValue() + "'"
-                        + ",'" + paymentTerms.getValue() + "', '" + tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() + "')";
+                        + ",'" + paymentTerms.getValue() + "', '" + tName.getText() + "','" + dLoc.getText() + "','" + vNum.getText() + "','" + total.getText() + "','" + discPer.getText() + "','" + miscFreight.getText() + "','" + discRupees.getText() + "','" + cashReceived.getText() + "','" + addDisc.getText() + "')";
                 Statement st = con.createStatement();
-                
                 st.executeUpdate(query);
-System.out.println("Added------------------------------");
+
                 //fdfdfdf
                 for (int j = 0; j < itemTable.getItems().size(); j++) {
 
@@ -634,7 +591,7 @@ System.out.println("Added------------------------------");
                     String amount = itemTable.getItems().get(j).getAmount();
                     String itemSource = itemTable.getItems().get(j).getPrimaryItem();
 
-                    String query1 = "INSERT INTO `purchaseinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
+                    String query1 = "INSERT INTO `salesinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
                             + "VALUES ('" + iNum + "','" + iName + "','" + desc + "',"
                             + "'" + quantity + "','" + unit + "','" + pricePerUnit + "'"
                             + ",'" + amount + "','" + itemSource + "')";
@@ -644,8 +601,8 @@ System.out.println("Added------------------------------");
 
                 con.close();
                 count++;
-                File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
-                FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\purchase\\InvoiceIncrement.txt");
+                File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
+                FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
                 myWriter.write(String.valueOf(count));
                 myWriter.close();
 
@@ -657,14 +614,7 @@ System.out.println("Added------------------------------");
             System.out.print(e);
         }
     }
-    @FXML
-    void calAddDisc(KeyEvent event) {
-        try{
-            addDisc.setText(String.valueOf((Double.parseDouble(total.getText())- Double.parseDouble(cashReceived.getText()))));
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    }
+
     @FXML
     void ComputeAmount(KeyEvent event) {
         try {
@@ -675,6 +625,7 @@ System.out.println("Added------------------------------");
         } catch (Exception e) {
             System.out.println("Compute Amount : " + e);
         }
+
     }
 
     private void openAddParty() throws IOException {
@@ -699,19 +650,59 @@ System.out.println("Added------------------------------");
         } catch (Exception e) {
             System.out.print(e);
         }
+    }
 
+    @FXML
+    void calPer(KeyEvent event) {
+        double subTotal = 0;
         try {
 
-            discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
-
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            discPer.setText(String.valueOf(Math.round((Double.parseDouble(discRupees.getText()) / (subTotal * 0.01)) * 100.00) / 100.00));
+            total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText())));
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
         } catch (Exception e) {
             System.out.print(e);
         }
+
     }
 
+    @FXML
+    void calAddDisc(KeyEvent event) {
+        try {
+            if(cashReceived.getText().equals("")){
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    @FXML
+    void calRupees(KeyEvent event) {
+        double subTotal = 0;
+        try {
+
+            for (Pitems item : itemTable.getItems()) {
+                subTotal = subTotal + Double.parseDouble(item.getAmount());
+            }
+            discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
+
+            total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText())));
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+
+    }
+    
     @FXML
     void loadData(ActionEvent event) {
         itemTable.setEditable(true);
@@ -722,8 +713,11 @@ System.out.println("Added------------------------------");
         unitCol.setCellValueFactory(new PropertyValueFactory<Pitems, String>("Unit"));
         ppuCol.setCellValueFactory(new PropertyValueFactory<Pitems, String>("PricePerUnit"));
         amountCol.setCellValueFactory(new PropertyValueFactory<>("Amount"));
-        //Delete.setCellValueFactory(new PropertyValueFactory("b"));
-
+        //Delete.setCellValueFactory(new PropertyValueFactory("b"));    
+        qtyCol.setStyle("-fx-alignment: CENTER;");
+        unitCol.setStyle("-fx-alignment: CENTER;");
+        ppuCol.setStyle("-fx-alignment: CENTER;");
+        amountCol.setStyle("-fx-alignment: CENTER;");
         ObservableList<String> itemData = FXCollections.observableArrayList();
         itemData.add(itemName.getValue());
         itemData.add(primaryItem.getValue());
@@ -863,7 +857,6 @@ System.out.println("Added------------------------------");
     }
 
 }
-
 class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
 
     private ComboBox comboBox;
@@ -947,3 +940,5 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
     }
 
 }
+
+

@@ -153,18 +153,6 @@
                      </children>
                   </GridPane>
                   <ComboBox fx:id="customerList" editable="true" layoutX="18.0" layoutY="136.0" prefWidth="150.0" promptText="Customer Name" visibleRowCount="5" />
-                  <TableView fx:id="itemTable" layoutX="11.0" layoutY="334.0" prefHeight="130.0" prefWidth="1325.0">
-                     <columns>
-                        <TableColumn fx:id="Delete" prefWidth="75.0" />
-                        <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
-                        <TableColumn fx:id="pItemCol" prefWidth="241.0" text="PrimaryItem" />
-                        <TableColumn fx:id="descCol" prefWidth="286.0" text="Description" />
-                        <TableColumn fx:id="qtyCol" prefWidth="100.0" text="Quantity" />
-                        <TableColumn fx:id="unitCol" prefWidth="100.0" text="Unit" />
-                        <TableColumn fx:id="ppuCol" prefWidth="100.0" text="PricePerUnit" />
-                        <TableColumn fx:id="amountCol" prefWidth="209.0" text="Amount" />
-                     </columns>
-                  </TableView>
                   <Button fx:id="addRow" layoutX="1247.0" layoutY="293.0" mnemonicParsing="false" onAction="#loadData" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Add" textFill="WHITE" />
                   <Button layoutX="11.0" layoutY="468.0" mnemonicParsing="false" onAction="#deleteItem" prefHeight="27.0" prefWidth="84.0" style="-fx-background-color: #e40808;" text="Delete Item" textFill="WHITE" />
                   <GridPane hgap="20.0" layoutX="30.0" layoutY="517.0" prefHeight="122.0" prefWidth="296.0">
@@ -328,6 +316,19 @@
                   <Button layoutX="421.0" layoutY="566.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="147.0" text="Attach Document" />
                   <Button layoutX="422.0" layoutY="607.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="146.0" text="Attach Document" />
                   <ComboBox fx:id="paymentMode" layoutX="419.0" layoutY="524.0" prefWidth="150.0" />
+                  <TableView fx:id="itemTable" layoutX="11.0" layoutY="333.0" prefHeight="127.0" prefWidth="1339.0">
+                     <columns>
+                        <TableColumn fx:id="Delete" prefWidth="75.0" />
+                        <TableColumn fx:id="iNameCol" prefWidth="213.0" text="Name" />
+                        <TableColumn fx:id="pItemCol" prefWidth="241.0" text="PrimaryItem" />
+                        <TableColumn fx:id="descCol" prefWidth="286.0" text="Description" />
+                        <TableColumn fx:id="qtyCol" prefWidth="100.0" text="Quantity" />
+                        <TableColumn fx:id="unitCol" prefWidth="100.0" text="Unit" />
+                        <TableColumn fx:id="ppuCol" prefWidth="100.0" text="PricePerUnit" />
+                        <TableColumn fx:id="amountCol" prefWidth="209.0" text="Amount" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="editRow" layoutX="1155.0" layoutY="293.0" mnemonicParsing="false" onAction="#editRow" prefHeight="32.0" prefWidth="84.0" style="-fx-background-color: #1D88FC;" text="Edit" textFill="WHITE" />
                </children>
             </AnchorPane>
          </content>

@@ -74,6 +74,8 @@ public class AddItemScreenController implements Initializable {
     private TextField itemName;
 
     @FXML
+    private Button saveNewComponent;
+    @FXML
     private TextField salePrice;
 
     @FXML
@@ -121,7 +123,7 @@ public class AddItemScreenController implements Initializable {
 
                 String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                         + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                        + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                        + "VALUES ('" + pItems.getValue() + "','" + itemName.getText() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                         + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                         + "','" + d + "','" + e + "','" + f+ "','" + g + "')";
                 Statement st = con.createStatement();
@@ -141,7 +143,7 @@ public class AddItemScreenController implements Initializable {
             if (event.getSource() == saveAndNew) {
                 String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
                         + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
-                        + "VALUES ('" + itemName.getText() + "','" + pItems.getValue() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                        + "VALUES ('" + pItems.getValue() + "','" + itemName.getText() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
                         + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
                         + "','" + d + "','" + eval(e) + "','" + eval(f) + "','" + eval(g) + "')";
                 Statement st = con.createStatement();
@@ -155,6 +157,7 @@ public class AddItemScreenController implements Initializable {
                 pPrice.setText("");
                 minStock.setText("");
                 atPrice.setText("");
+                pItems.setValue("");
                 a = "";
                 b = "";
                 c = "";
@@ -165,14 +168,40 @@ public class AddItemScreenController implements Initializable {
                 h = "";
                 date.setValue(LocalDate.now());
             }
+            if (event.getSource() == saveNewComponent){
+                String query = "INSERT INTO `items`(`Name`, `ComponentOf`, `MainCat`, `ItemCode`, `SalePrice`, `OpeningQty`, `MinStock`, `pUnit`, `pPrice`, `AtPrice`, `Date`, `sUnitOne`, `sUnitTwo`, "
+                        + "`sUnitThree`, `conversionOne`, `conversionTwo`, `conversionThree`) "
+                        + "VALUES ('" + pItems.getValue() + "','" + itemName.getText() + "','" + categoryList.getValue() + "','" + code.getText() + "','" + salePrice.getText() + "',"
+                        + "'" + qty.getText() + "','" + minStock.getText() + "','" + a + "','" + pPrice.getText() + "','" + atPrice.getText() + "','" + date.getValue() + "','" + b + "','" + c
+                        + "','" + d + "','" + eval(e) + "','" + eval(f) + "','" + eval(g) + "')";
+                Statement st = con.createStatement();
+                st.executeUpdate(query);
+                con.close();
+                pItems.setValue("");
+                code.setText("");
+                salePrice.setText("");
+                qty.setText("");
+                /*unit.setValue("");*/
+                pPrice.setText("");
+                minStock.setText("");
+                atPrice.setText("");
+                
+                date.setValue(LocalDate.now());
+            }
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
+    @FXML
+    void setComponent(KeyEvent event) {
+        pItems.setValue(itemName.getText());
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
+        
         date.setValue(LocalDate.now());
         init();
         s1.setText("");

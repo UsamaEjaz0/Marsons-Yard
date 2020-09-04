@@ -49,7 +49,7 @@ public class EditItemController implements Initializable {
     @FXML
     private ComboBox<String> categoryList;
     @FXML
-    private ComboBox<String> pItems;
+    private TextField pItems;
     @FXML
     private Text s1;
 
@@ -113,10 +113,10 @@ public class EditItemController implements Initializable {
             check = true;
         }
         if (event.getSource() == update) {
-            String query = "UPDATE `items` SET `Name`='" + itemName.getText() + "' ,`ComponentOf`='" + pItems.getValue() + "',`MainCat`= '" + categoryList.getValue() + "',`ItemCode`= '" + code.getText() + "',"
+            String query = "UPDATE `items` SET `Name`='" + itemName.getText() + "' ,`ComponentOf`='" + pItems.getText() + "',`MainCat`= '" + categoryList.getValue() + "',`ItemCode`= '" + code.getText() + "',"
                     + "`SalePrice`= '" + salePrice.getText() + "' ,`OpeningQty`= '" + qty.getText() + "' ,`MinStock`= '" + minStock.getText() + "' ,`pUnit`= '" + a + "' ,`pPrice`= '" + pPrice.getText() + "' ,`AtPrice`= '" + atPrice.getText() + "',"
                     + "`Date`= '" + date.getValue() + "' ,`sUnitOne`= '" + b + "' ,`sUnitTwo`= '" + c + "' ,`sUnitThree`= '" + d + "' ,`conversionOne`= '" + e + "' ,"
-                    + "`conversionTwo`= '" + f + "' ,`conversionThree`= '" + g + "' where name = '" + itemName.getText() + "' and ComponentOf = '" + pItems.getValue() + "'";
+                    + "`conversionTwo`= '" + f + "' ,`conversionThree`= '" + g + "' where name = '" + itemName.getText() + "' and ComponentOf = '" + pItems.getText() + "'";
             Statement st = con.createStatement();
             st.executeUpdate(query);
             con.close();
@@ -138,7 +138,7 @@ public class EditItemController implements Initializable {
         check = false;
 
         itemName.setText(iName);
-        pItems.setValue(pName);
+        pItems.setText(pName);
         Connection c;
         try {
             c = MyConnection.getConnection();
@@ -251,7 +251,7 @@ public class EditItemController implements Initializable {
                     pItemList.add(rs2.getString(i));
                 }
 
-                pItems.getItems().addAll(pItemList);
+                
 
             }
             String SQL = "SELECT distinct ComponentOf from items";

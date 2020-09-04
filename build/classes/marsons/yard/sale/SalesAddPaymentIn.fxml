@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -13,71 +15,187 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="457.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.SalesAddPaymentInController">
+<AnchorPane id="AnchorPane" fx:id="screen" onMouseDragged="#AutoFill" onMouseEntered="#AutoFill" prefHeight="457.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="marsons.yard.sale.SalesAddPaymentInController">
    <children>
-      <GridPane layoutX="14.0" layoutY="11.0" prefHeight="196.0" prefWidth="200.0">
+      <GridPane layoutX="14.0" layoutY="11.0" prefHeight="285.0" prefWidth="274.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
+          <RowConstraints maxHeight="55.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="43.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="44.0" minHeight="10.0" prefHeight="5.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="56.0" minHeight="10.0" prefHeight="5.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="5.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Party" GridPane.valignment="TOP">
+            <Label text="Received From" GridPane.valignment="TOP">
                <GridPane.margin>
-                  <Insets top="15.0" />
+                  <Insets />
                </GridPane.margin>
             </Label>
-            <Label text="Payment Type" GridPane.rowIndex="1" GridPane.valignment="TOP">
+            <Label text="Mode of Payment" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
-                  <Insets top="15.0" />
+                  <Insets top="6.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Description" GridPane.rowIndex="2" GridPane.valignment="TOP">
+            <Button fx:id="linkPay" mnemonicParsing="false" onAction="#linkPayment" prefHeight="28.0" prefWidth="87.0" text="Link Payment" GridPane.rowIndex="1" GridPane.valignment="CENTER" />
+            <ComboBox fx:id="party" editable="true" prefWidth="150.0" GridPane.valignment="BOTTOM" />
+            <TextField fx:id="cash" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#setReceivedPayment" onKeyPressed="#setReceivedPayment" onKeyReleased="#setReceivedPayment" onKeyTyped="#setReceivedPayment" prefHeight="25.0" prefWidth="131.0" promptText="(Rs)" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
                <GridPane.margin>
-                  <Insets top="15.0" />
+                  <Insets bottom="6.0" right="34.0" />
+               </GridPane.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TextField>
+            <Label fx:id="rupees" prefHeight="17.0" prefWidth="28.0" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="10.0" />
                </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="party" prefWidth="150.0" GridPane.valignment="BOTTOM" />
-            <ChoiceBox fx:id="paymentType" prefWidth="150.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-            <TextField fx:id="desc" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+            <TextField fx:id="totalAmount" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="106.0" promptText="(Rs)" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="90.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="edit" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openChequeWindow" prefHeight="20.0" prefWidth="20.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+               <graphic>
+                  <FontAwesomeIcon iconName="PENCIL" />
+               </graphic></Button>
+            <Label prefHeight="14.0" prefWidth="3.0" text="*" textFill="#e40303" GridPane.halignment="CENTER" GridPane.valignment="TOP">
+               <GridPane.margin>
+                  <Insets right="70.0" />
+               </GridPane.margin>
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="totalCheques" prefHeight="17.0" prefWidth="18.0" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="25.0" />
+               </GridPane.margin></Label>
+            <Label prefHeight="17.0" prefWidth="43.0" text="Cheque" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label text="Bank Transfer" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Label prefHeight="17.0" prefWidth="132.0" text="Credit Note (Contra A/C)" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets left="30.0" />
+               </GridPane.margin>
+            </Label>
+            <Button fx:id="cheque" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="20.0" prefWidth="20.0" GridPane.rowIndex="3">
+               <graphic>
+                  <FontAwesomeIcon iconName="PLUS" wrappingWidth="11.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="bank" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="20.0" prefWidth="20.0" GridPane.rowIndex="4">
+               <graphic>
+                  <FontAwesomeIcon iconName="PLUS" wrappingWidth="11.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="cNote" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#add" prefHeight="20.0" prefWidth="20.0" GridPane.rowIndex="5">
+               <graphic>
+                  <FontAwesomeIcon iconName="PLUS" wrappingWidth="11.0" />
+               </graphic>
+            </Button>
+            <Button fx:id="editCNote" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openChequeWindow" prefHeight="20.0" prefWidth="20.0" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <graphic>
+                  <FontAwesomeIcon iconName="PENCIL" />
+               </graphic>
+            </Button>
+            <Button fx:id="editBank" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#openChequeWindow" prefHeight="20.0" prefWidth="20.0" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <graphic>
+                  <FontAwesomeIcon iconName="PENCIL" />
+               </graphic>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Button>
+            <TextField fx:id="totalBank" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#setReceivedPayment" onKeyPressed="#setReceivedPayment" onKeyReleased="#setReceivedPayment" onKeyTyped="#setReceivedPayment" prefHeight="25.0" prefWidth="122.0" promptText="(Rs)" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="contraAmount" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onInputMethodTextChanged="#setReceivedPayment" onKeyPressed="#setReceivedPayment" onKeyReleased="#setReceivedPayment" onKeyTyped="#setReceivedPayment" prefHeight="25.0" prefWidth="64.0" promptText="(Rs)" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <GridPane.margin>
+                  <Insets right="30.0" />
+               </GridPane.margin>
+            </TextField>
+            <FontAwesomeIcon iconName="MONEY" size="1.5em" wrappingWidth="12.857142448425293" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets right="65.0" />
+               </GridPane.margin>
+            </FontAwesomeIcon>
+            <Label text="Cash" GridPane.rowIndex="2" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="9.0" left="30.0" />
+               </GridPane.margin>
+            </Label>
          </children>
       </GridPane>
-      <GridPane layoutX="362.0" layoutY="19.0" prefHeight="75.0" prefWidth="200.0">
+      <GridPane layoutX="303.0" layoutY="19.0" prefHeight="116.0" prefWidth="259.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="116.0" minWidth="10.0" prefWidth="77.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="164.0" minWidth="10.0" prefWidth="164.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Receipt No." />
             <Label text="Date" GridPane.rowIndex="1" />
-            <TextField fx:id="receiptNum" GridPane.columnIndex="1" />
+            <TextField fx:id="receiptNum" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="84.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
             <DatePicker fx:id="date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <ComboBox fx:id="preFix" prefHeight="25.0" prefWidth="73.0" GridPane.columnIndex="1" />
+            <Label fx:id="invDateLabel" text="Invoice Date" GridPane.rowIndex="3" />
+            <Label fx:id="invNumLabel" text="Invoice Number" GridPane.rowIndex="2" />
+            <TextField fx:id="invNum" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="invDate" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
-      <GridPane layoutX="386.0" layoutY="231.0" prefHeight="102.0" prefWidth="200.0">
+      <GridPane layoutX="358.0" layoutY="231.0" prefHeight="132.0" prefWidth="228.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="10.0" prefWidth="65.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.0" minWidth="10.0" prefWidth="135.0" />
         </columnConstraints>
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
             <Label text="Received" />
-            <Label text="Discount" GridPane.rowIndex="1" />
-            <Label text="Total" GridPane.rowIndex="2" />
-            <TextField fx:id="received" prefHeight="25.0" prefWidth="121.0" GridPane.columnIndex="1" />
-            <TextField fx:id="disc" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Text fx:id="total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Discount" GridPane.rowIndex="2" />
+            <Label text="Total" GridPane.rowIndex="3" />
+            <TextField id="txt" fx:id="received" editable="false" prefHeight="25.0" prefWidth="121.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" />
+            <TextField fx:id="disc" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Text fx:id="total" strokeType="OUTSIDE" strokeWidth="0.0" text="0.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Remaining Bal" GridPane.rowIndex="1" />
+            <TextField id="txt" fx:id="remBal" editable="false" prefHeight="25.0" prefWidth="121.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <Button fx:id="save" layoutX="485.0" layoutY="385.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: #1789FC;" text="Save" textFill="WHITE">
@@ -85,6 +203,9 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="369.0" layoutY="385.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="100.0" style="-fx-background-color: white; -fx-border-width: 1; -fx-border-color: #1789FC;" text="Cancel" textFill="#1789fc" />
+      <TextArea fx:id="desc" layoutX="51.0" layoutY="344.0" prefHeight="83.0" prefWidth="157.0" />
+      <Label layoutX="51.0" layoutY="316.0" text="Description" />
+      <Button layoutX="222.0" layoutY="392.0" mnemonicParsing="false" text="Attachment" />
+      <ComboBox fx:id="test" editable="true" layoutX="358.0" layoutY="167.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

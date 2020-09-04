@@ -55,10 +55,10 @@ public class AddItemContainerController implements Initializable {
     public void miscTable() {
         Connection c;
         data = FXCollections.observableArrayList();
-        String[] itemColNames = {"Item","Primary Item", "Quantity"};
+        String[] itemColNames = {"Primary Item", "Item", "Quantity"};
         try {
             c = MyConnection.getConnection();
-            String SQL = "SELECT name,componentOf, openingQty from items";
+            String SQL = "SELECT componentOf,name, openingQty from items";
             ResultSet rs = c.createStatement().executeQuery(SQL);
             for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
                 final int j = i;
@@ -145,7 +145,7 @@ public class AddItemContainerController implements Initializable {
             if (event.getClickCount() > 0) {
                 ObservableList x = (ObservableList) (itemTable.getSelectionModel().getSelectedItems().get(0));
                 itemTransactionTable.getColumns().clear();
-                buildItemTransactionsTable(x.get(0) + "");
+                buildItemTransactionsTable(x.get(1) + "");
 
             }
             if (event.getClickCount() == 2) {
@@ -154,7 +154,7 @@ public class AddItemContainerController implements Initializable {
 
                 
                     EditItemController e = new EditItemController();
-                        e.setEditData((String) x.get(0), (String)x.get(1));
+                        e.setEditData((String) x.get(1), (String)x.get(0));
                     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditItem.fxml"));
 
                     Parent root1 = (Parent) fxmlLoader.load();

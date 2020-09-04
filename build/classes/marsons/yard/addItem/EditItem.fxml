@@ -43,7 +43,6 @@
                   <Label text="SALE PRICE" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                   <Label text="MINIMUM STOCK" GridPane.rowIndex="6" />
                   <Label text="OPENING QUANTITY" GridPane.rowIndex="3" />
-                  <TextField fx:id="itemName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="179.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" />
                   <TextField fx:id="salePrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="173.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
                   <TextField fx:id="minStock" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="193.0" stylesheets="@TextFields.css" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
                      <GridPane.margin>
@@ -64,7 +63,7 @@
                   <Button fx:id="selectUnit" mnemonicParsing="false" onAction="#handleAction" prefHeight="25.0" prefWidth="124.0" text="EDIT UNIT" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <Label text="AT PRICE" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                   <TextField fx:id="atPrice" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="174.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-                  <Label text="PRIMARY ITEM" GridPane.columnIndex="1" />
+                  <Label text="COMPONENT NAME" GridPane.columnIndex="1" />
                   <Label fx:id="cat" text="CATEGORY" GridPane.rowIndex="2" />
                   <Text fx:id="s1" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                      <GridPane.margin>
@@ -78,8 +77,9 @@
                   </Text>
                   <Text fx:id="s2" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                   <Text fx:id="qtyDef" fill="#a19b9b" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="105.13671875" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-                  <ComboBox fx:id="pItems" editable="true" prefWidth="150.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" />
                   <ComboBox fx:id="categoryList" editable="true" prefHeight="25.0" prefWidth="179.0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                  <TextField fx:id="pItems" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="179.0" stylesheets="@TextFields.css" GridPane.halignment="CENTER" />
+                  <TextField fx:id="itemName" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="208.0" stylesheets="@TextFields.css" GridPane.columnIndex="1" GridPane.halignment="RIGHT" />
                </children>
             </GridPane>
             <Button fx:id="update" layoutX="614.0" layoutY="461.0" mnemonicParsing="false" onAction="#handleAction" prefHeight="36.0" prefWidth="93.0" style="-fx-background-color: #0B8FC5;" text="UPDATE" textFill="WHITE">

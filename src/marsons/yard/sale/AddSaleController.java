@@ -55,7 +55,7 @@ import javafx.scene.input.KeyEvent;
  * @author uejaz
  */
 public class AddSaleController implements Initializable {
-
+    
     ObservableList saleTypeList = FXCollections.observableArrayList();
     ObservableList customerNameList;
     ObservableList paymentTermsList = FXCollections.observableArrayList();
@@ -69,26 +69,26 @@ public class AddSaleController implements Initializable {
     /**
      * Initializes the controller class.
      */
-
+    
     @FXML
     private TableColumn<Items, Button> Delete;
     @FXML
     private TableColumn<Items, String> iNameCol;
     @FXML
     private TableColumn<Items, String> pItemCol;
-
+    
     @FXML
     private TableColumn<Items, String> descCol;
-
+    
     @FXML
     private TableColumn<Items, String> qtyCol;
-
+    
     @FXML
     private TableColumn<Items, String> unitCol;
-
+    
     @FXML
     private TableColumn<Items, String> ppuCol;
-
+    
     @FXML
     private TableColumn<Items, String> amountCol;
     @FXML
@@ -99,121 +99,130 @@ public class AddSaleController implements Initializable {
     private AnchorPane screen;
     @FXML
     private ChoiceBox<String> saleType;
-
+    
     @FXML
     private ComboBox customerList;
-
+    
     @FXML
     private TextField billingName;
-
+    
     @FXML
     private TextField invNum;
-
+    
     @FXML
     private DatePicker invDate;
-
+    
     @FXML
     private DatePicker dueDate;
-
+    
     @FXML
     private Label cash;
-
+    
     @FXML
     private Label dueDateLabel;
-
+    
     @FXML
     private ChoiceBox<String> paymentTerms;
-
+    
     @FXML
     private ComboBox<String> itemName;
-
+    
     @FXML
     private Button addItem;
-
+    
     @FXML
     private TextField desc;
-
+    
     @FXML
     private TextField quantity;
-
+    
     @FXML
     private TextField priceOfUnit;
-
+    
     @FXML
     private Text amount;
-
+    
     @FXML
     private ChoiceBox<String> unit;
-
+    
     @FXML
     private Button addUnit;
-
+    
     @FXML
     private Button save;
-
+    
     @FXML
     private Button cancel;
-
+    @FXML
+    private Button editRow;
     @FXML
     private TableView<Items> itemTable;
     @FXML
     private Button addRow;
     @FXML
     private ComboBox<String> primaryItem;
-
+    
     @FXML
     private TextField tName;
-
+    
     @FXML
     private TextField dLoc;
-
+    
     @FXML
     private TextField vNum;
-
+    
     Connection con;
     @FXML
     private TextField cashReceived;
-
+    
     @FXML
     private Label addDisc;
     @FXML
     private Text subTotalField;
     @FXML
     private Button addParty = new Button("Add Party");
-
+    
     @FXML
     private TextField discPer;
-
+    
     @FXML
     private TextField discRupees;
-
+    
     @FXML
     private Text total;
     @FXML
     private ComboBox<String> taxTypes;
-
+    
     @FXML
     private Text taxValue;
     @FXML
     private Label asterisk;
-        @FXML
+    @FXML
     private ComboBox<String> paymentMode;
     @FXML
     private TextField miscFreight;
     int count = 0;
-
     
+    @FXML
+    void editRow(ActionEvent event) {
+        deleteItem(event);
+        loadData(event);
+        
+        editRow.setVisible(false);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+        editRow.setVisible(false);
         init();
-paymentTerms.setVisible(false);
-                            dueDate.setVisible(false);
-                            dueDateLabel.setVisible(false);
-                            cash.setVisible(true);
+        
+        paymentTerms.setVisible(false);
+        dueDate.setVisible(false);
+        dueDateLabel.setVisible(false);
+        cash.setVisible(true);
         new AutoCompleteComboBoxListener<>(itemName);
-
+        
         addParty.setOnAction(
                 new EventHandler<ActionEvent>() {
             @Override
@@ -229,8 +238,8 @@ paymentTerms.setVisible(false);
         paymentTermsList.addAll(
                 "Custom", "Due on Receipt", "Net 15", "Net 30", "Net 45", "Net 60");
         saleTypeList.addAll(
-                "Cash", "Credit");
-
+                "Cash", "Credit", "Semi-Cash");
+        
         saleType.getItems()
                 .addAll(saleTypeList);
         saleType.setValue(
@@ -250,7 +259,7 @@ paymentTerms.setVisible(false);
                 .addAll(invPrefixList);
         invPrefix.setValue(
                 "SR-INV");
-
+        
         try {
             File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
             Scanner myReader = new Scanner(myObj);
@@ -258,14 +267,14 @@ paymentTerms.setVisible(false);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(AddSaleController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        
         String date = invDate.getValue().toString();
         String year = date.substring(2, 4);
         String month = date.substring(5, 7);
-        String defaultInvoiceNum1 = year + "-" + month + "-" + String.valueOf(count);
-
+        String defaultInvoiceNum1 = year + "" + month + "-" + String.valueOf(count);
+        
         invNum.setText(defaultInvoiceNum1);
-
+        
         invDate.valueProperty()
                 .addListener((ov, oldValue, newValue) -> {
                     String date1 = newValue.toString();
@@ -299,7 +308,7 @@ paymentTerms.setVisible(false);
                     }
                 }
                 );
-
+        
         saleType.getSelectionModel()
                 .selectedIndexProperty().addListener(new ChangeListener<Number>() {
                     @Override
@@ -314,8 +323,6 @@ paymentTerms.setVisible(false);
                             dueDateLabel.setVisible(false);
                             cash.setVisible(true);
                             
-                            
-                            
                         } else if ((saleType.getItems().get((Integer) number2)) == "Credit") {
                             asterisk.setText("*");
                             asterisk.setStyle("-fx-text-fill: red");
@@ -323,17 +330,17 @@ paymentTerms.setVisible(false);
                             dueDate.setVisible(true);
                             dueDateLabel.setVisible(true);
                             cash.setVisible(false);
-
+                            
                         }
                     }
                 }
                 );
-
+        
         unit.getSelectionModel()
                 .selectedIndexProperty().addListener(new ChangeListener<Number>() {
                     double ppu;
                     boolean check = true;
-
+                    
                     @Override
                     public void changed(ObservableValue<? extends Number> observableValue, Number number,
                             Number number2) {
@@ -345,7 +352,7 @@ paymentTerms.setVisible(false);
                                 check = false;
                             }
                             String newUnit = unit.getItems().get((Integer) observableValue.getValue());
-
+                            
                             String SQL3 = "";
                             if (observableValue.getValue().equals(1)) {
                                 SQL3 = "select conversionOne from items where pUnit = '" + baseUnit + "' and sUnitOne = '" + newUnit + "'";
@@ -356,35 +363,35 @@ paymentTerms.setVisible(false);
                             } else {
                                 priceOfUnit.setText(String.valueOf(ppu));
                             }
-
+                            
                             System.out.println("Base Unit " + baseUnit);
                             System.out.println("New Unit " + newUnit);
-
+                            
                             Connection c = MyConnection.getConnection();
-
+                            
                             ResultSet rs3 = c.createStatement().executeQuery(SQL3);
-
+                            
                             while (rs3.next()) {
                                 convList = FXCollections.observableArrayList();
                                 for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
                                     convList.add(rs3.getString(i));
                                 }
-
+                                
                             }
-
+                            
                             double conv = eval((String) convList.get(0));
                             System.out.println(conv);
                             priceOfUnit.setText(String.valueOf(ppu / conv));
-
+                            
                             if (quantity.getText() != "" && priceOfUnit.getText() != "") {
                                 amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
                             }
-
+                            
                         } catch (Exception e) {
                             System.out.println(e);
                         }
                     }
-
+                    
                 }
                 );
         itemName.getSelectionModel()
@@ -394,7 +401,7 @@ paymentTerms.setVisible(false);
                             Number number2
                     ) {
                         try {
-
+                            
                             unit.getItems().clear();
                             Connection c = MyConnection.getConnection();
                             String SQL3 = "SELECT `pUnit` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
@@ -411,16 +418,16 @@ paymentTerms.setVisible(false);
                                     }
                                 }
                                 if (unitList.get(0).equals("NONE") || unitList.get(0).equals("")) {
-
+                                    
                                 } else {
                                     unit.getItems().addAll(unitList);
                                 }
                             }
                             if (observableValue.getValue().equals(-1)) {
-
+                                
                             } else {
                                 primaryItem.getItems().clear();
-
+                                
                                 String SQL2 = "select ComponentOf from items where name = '" + itemName.getValue() + "'";
                                 ResultSet rs2 = c.createStatement().executeQuery(SQL2);
                                 while (rs2.next()) {
@@ -431,10 +438,10 @@ paymentTerms.setVisible(false);
                                             System.out.println(rs2.getString(i));
                                             pList.add(rs2.getString(i));
                                         }
-
+                                        
                                     }
                                     if (pList.get(0).equals("NONE") || pList.get(0).equals("")) {
-
+                                        
                                     } else {
                                         primaryItem.getItems().addAll(pList);
                                     }
@@ -453,10 +460,9 @@ paymentTerms.setVisible(false);
                     public void changed(ObservableValue<? extends Number> observableValue, Number number,
                             Number number2
                     ) {
-
+                        
                         try {
                             unit.getItems().clear();
-                            System.out.println("Clicked P Item");
                             Connection c = MyConnection.getConnection();
                             String SQL3 = "SELECT `pUnit` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
                                     + "select`sUnitOne` from items where ComponentOf = '" + primaryItem.getValue() + "' and name = '" + itemName.getValue() + "' union "
@@ -465,7 +471,7 @@ paymentTerms.setVisible(false);
                             ResultSet rs3 = c.createStatement().executeQuery(SQL3);
                             System.out.println(primaryItem.getValue());
                             System.out.println(itemName.getValue());
-
+                            
                             while (rs3.next()) {
                                 System.out.println("HERE");
                                 unitList = FXCollections.observableArrayList();
@@ -475,14 +481,14 @@ paymentTerms.setVisible(false);
                                         unitList.add(rs3.getString(i));
                                     }
                                     System.out.println(unitList);
-
+                                    
                                 }
                                 if (unitList.get(0).equals("NONE") || unitList.get(0).equals("")) {
-
+                                    
                                 } else {
                                     unit.getItems().addAll(unitList);
                                 }
-
+                                
                             }
                         } catch (SQLException ex) {
                             Logger.getLogger(AddSaleController.class.getName()).log(Level.SEVERE, null, ex);
@@ -501,11 +507,31 @@ paymentTerms.setVisible(false);
                     }
                 }
                 );
-
+        itemTable.setOnMouseClicked((MouseEvent event) -> {
+            try {
+                if (event.getClickCount() > 0) {
+                    editRow.setVisible(true);
+                    Items x = (itemTable.getSelectionModel().getSelectedItem());
+                    
+                    itemName.setValue(x.getName());
+                    primaryItem.setValue(x.getPrimaryItem());
+                    desc.setText(x.getDescription());
+                    quantity.setText(x.getQuantity());
+                    unit.setValue(x.getUnit());
+                    priceOfUnit.setText(x.getPricePerUnit());
+                    amount.setText(x.getAmount());
+                    
+                }
+                
+            } catch (Exception ex) {
+                System.out.println(ex);
+            }
+        });
+        
     }
-
+    
     public void init() {
-
+        
         Connection c;
         try {
             c = MyConnection.getConnection();
@@ -517,33 +543,33 @@ paymentTerms.setVisible(false);
                 for (int i = 1; i <= rs.getMetaData().getColumnCount(); i++) {
                     customerNameList.add(rs.getString(i));
                 }
-
+                
                 customerList.getItems().addAll(customerNameList);
             }
-
+            
             String SQL2 = "select distinct name from items";
             ResultSet rs2 = c.createStatement().executeQuery(SQL2);
-
+            
             while (rs2.next()) {
                 itemList = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs2.getMetaData().getColumnCount(); i++) {
                     itemList.add(rs2.getString(i));
                 }
-
+                
                 itemName.getItems().addAll(itemList);
                 System.out.println(itemList);
             }
             String SQL3 = "select distinct ComponentOf from items";
             ResultSet rs3 = c.createStatement().executeQuery(SQL3);
-
+            
             while (rs3.next()) {
                 pItemList = FXCollections.observableArrayList();
                 for (int i = 1; i <= rs3.getMetaData().getColumnCount(); i++) {
                     pItemList.add(rs3.getString(i));
                 }
-
+                
                 primaryItem.getItems().addAll(pItemList);
-
+                
             }
 //            String SQL2 = "select distinct name from items";
 //            ResultSet rs2 = c.createStatement().executeQuery(SQL2);
@@ -560,9 +586,9 @@ paymentTerms.setVisible(false);
             e.printStackTrace();
             System.out.println("Error on Building Data");
         }
-
+        
     }
-
+    
     @FXML
     void handleAction(ActionEvent event) throws SQLException {
         try {
@@ -582,6 +608,7 @@ paymentTerms.setVisible(false);
                 //fdfdfdf
                 for (int j = 0; j < itemTable.getItems().size(); j++) {
 
+                    //System.out.println(itemTable.getItems().get(j).amount);
                     String iNum = invPrefix.getValue() + invNum.getText();
                     String iName = itemTable.getItems().get(j).getName();
                     String desc = itemTable.getItems().get(j).getDescription();
@@ -590,7 +617,7 @@ paymentTerms.setVisible(false);
                     String pricePerUnit = itemTable.getItems().get(j).getPricePerUnit();
                     String amount = itemTable.getItems().get(j).getAmount();
                     String itemSource = itemTable.getItems().get(j).getPrimaryItem();
-
+                    
                     String query1 = "INSERT INTO `salesinvanditems`(`invoiceNum`, `itemName`, `description`, `quantity`, `unit`, `pricePerUnit`, `amount`, `PrimaryItem`)"
                             + "VALUES ('" + iNum + "','" + iName + "','" + desc + "',"
                             + "'" + quantity + "','" + unit + "','" + pricePerUnit + "'"
@@ -598,65 +625,74 @@ paymentTerms.setVisible(false);
                     Statement st1 = con.createStatement();
                     st1.executeUpdate(query1);
                 }
-
+                
                 con.close();
                 count++;
                 File myObj = new File("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
                 FileWriter myWriter = new FileWriter("C:\\Users\\uejaz\\Documents\\NetBeansProjects\\Marsons Yard\\src\\marsons\\yard\\sale\\InvoiceIncrement.txt");
                 myWriter.write(String.valueOf(count));
                 myWriter.close();
-
+                
                 Stage stage = (Stage) save.getScene().getWindow();
                 stage.close();
-
+                
             }
         } catch (Exception e) {
             System.out.print(e);
         }
     }
-
+    
     @FXML
     void ComputeAmount(KeyEvent event) {
         try {
             if (quantity.getText() != "" && priceOfUnit.getText() != "") {
                 amount.setText(String.valueOf(Long.parseLong(quantity.getText()) * Double.parseDouble(priceOfUnit.getText())));
             }
-
+            
         } catch (Exception e) {
             System.out.println("Compute Amount : " + e);
         }
-
+        
     }
-
+    
     private void openAddParty() throws IOException {
         System.out.print("Clicked");
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("quotations.fxml"));
         Parent root1 = (Parent) fxmlLoader.load();
         Stage stage = new Stage();
         stage.setScene(new Scene(root1));
-
+        
         stage.show();
     }
-
+    
     @FXML
     void deleteItem(ActionEvent event) {
         itemTable.getItems().removeAll(itemTable.getSelectionModel().getSelectedItems());
         double subTotal = 0;
         try {
+            
             for (Items item : itemTable.getItems()) {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
-            subTotalField.setText(String.valueOf(subTotal));
+            subTotalField.setText(String.valueOf((subTotal * 100) / 100));
+            total.setText(String.valueOf(subTotal));
+            if (!(miscFreight.getText() == null)) {
+                total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
+            }
+            if (cashReceived.getText().equals("")) {
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
         } catch (Exception e) {
-            System.out.print(e);
+            System.out.println(e);
         }
     }
-
+    
     @FXML
     void calPer(KeyEvent event) {
         double subTotal = 0;
         try {
-
+            
             for (Items item : itemTable.getItems()) {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
@@ -665,16 +701,24 @@ paymentTerms.setVisible(false);
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
+            if (cashReceived.getText().equals("")) {
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
         } catch (Exception e) {
             System.out.print(e);
         }
-
+        
     }
-
+    
     @FXML
     void calAddDisc(KeyEvent event) {
         try {
-            if(cashReceived.getText().equals("")){
+            if (cashReceived.getText().equals("")) {
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
+            if (cashReceived.getText().equals("")) {
                 addDisc.setText(total.getText());
             }
             addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
@@ -682,25 +726,29 @@ paymentTerms.setVisible(false);
             System.out.println(e);
         }
     }
-
+    
     @FXML
     void calRupees(KeyEvent event) {
         double subTotal = 0;
         try {
-
+            
             for (Items item : itemTable.getItems()) {
                 subTotal = subTotal + Double.parseDouble(item.getAmount());
             }
             discRupees.setText(String.valueOf(Math.round((subTotal * 0.01 * Double.parseDouble(discPer.getText())) * 100.00) / 100.00));
-
+            
             total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText())));
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
+            if (cashReceived.getText().equals("")) {
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
         } catch (Exception e) {
             System.out.print(e);
         }
-
+        
     }
     
     @FXML
@@ -727,15 +775,15 @@ paymentTerms.setVisible(false);
         itemData.add(priceOfUnit.getText());
         itemData.add(amount.getText());
         Items i = new Items(itemName.getValue(), primaryItem.getValue(), desc.getText(), quantity.getText(), unit.getValue(), priceOfUnit.getText(), amount.getText());
-
+        
         itemTable.getItems().addAll(i);
         System.out.print(itemTable);
-
+        
         desc.setText("");
         quantity.setText("");
         priceOfUnit.setText("");
         amount.setText("");
-
+        
         try {
             double subTotal = 0;
             for (Items item : itemTable.getItems()) {
@@ -746,19 +794,23 @@ paymentTerms.setVisible(false);
             if (!(miscFreight.getText() == null)) {
                 total.setText(String.valueOf(subTotal - Double.parseDouble(discRupees.getText()) + Double.parseDouble(miscFreight.getText())));
             }
+            if (cashReceived.getText().equals("")) {
+                addDisc.setText(total.getText());
+            }
+            addDisc.setText(String.valueOf((Double.parseDouble(total.getText()) - Double.parseDouble(cashReceived.getText()))));
         } catch (Exception e) {
             System.out.println(e);
         }
     }
-
+    
     public static double eval(final String str) {
         return new Object() {
             int pos = -1, ch;
-
+            
             void nextChar() {
                 ch = (++pos < str.length()) ? str.charAt(pos) : -1;
             }
-
+            
             boolean eat(int charToEat) {
                 while (ch == ' ') {
                     nextChar();
@@ -769,7 +821,7 @@ paymentTerms.setVisible(false);
                 }
                 return false;
             }
-
+            
             double parse() {
                 nextChar();
                 double x = parseExpression();
@@ -796,7 +848,7 @@ paymentTerms.setVisible(false);
                     }
                 }
             }
-
+            
             double parseTerm() {
                 double x = parseFactor();
                 for (;;) {
@@ -809,7 +861,7 @@ paymentTerms.setVisible(false);
                     }
                 }
             }
-
+            
             double parseFactor() {
                 if (eat('+')) {
                     return parseFactor(); // unary plus
@@ -847,7 +899,7 @@ paymentTerms.setVisible(false);
                 } else {
                     throw new RuntimeException("Unexpected: " + (char) ch);
                 }
-
+                
                 if (eat('^')) {
                     x = Math.pow(x, parseFactor()); // exponentiation
                 }
@@ -855,25 +907,25 @@ paymentTerms.setVisible(false);
             }
         }.parse();
     }
-
+    
 }
 
 class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
-
+    
     private ComboBox comboBox;
     private StringBuilder sb;
     private ObservableList<T> data;
     private boolean moveCaretToPos = false;
     private int caretPos;
-
+    
     public AutoCompleteComboBoxListener(final ComboBox comboBox) {
         this.comboBox = comboBox;
         sb = new StringBuilder();
         data = comboBox.getItems();
-
+        
         this.comboBox.setEditable(true);
         this.comboBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
-
+            
             @Override
             public void handle(KeyEvent t) {
                 comboBox.hide();
@@ -881,10 +933,10 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
         });
         this.comboBox.setOnKeyReleased(AutoCompleteComboBoxListener.this);
     }
-
+    
     @Override
     public void handle(KeyEvent event) {
-
+        
         if (event.getCode() == KeyCode.UP) {
             caretPos = -1;
             moveCaret(comboBox.getEditor().getText().length());
@@ -903,13 +955,13 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
             moveCaretToPos = true;
             caretPos = comboBox.getEditor().getCaretPosition();
         }
-
+        
         if (event.getCode() == KeyCode.RIGHT || event.getCode() == KeyCode.LEFT
                 || event.isControlDown() || event.getCode() == KeyCode.HOME
                 || event.getCode() == KeyCode.END || event.getCode() == KeyCode.TAB) {
             return;
         }
-
+        
         ObservableList list = FXCollections.observableArrayList();
         for (int i = 0; i < data.size(); i++) {
             if (data.get(i).toString().toLowerCase().startsWith(
@@ -919,7 +971,7 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
             }
         }
         String t = comboBox.getEditor().getText();
-
+        
         comboBox.setItems(list);
         comboBox.getEditor().setText(t);
         if (!moveCaretToPos) {
@@ -930,7 +982,7 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
             comboBox.show();
         }
     }
-
+    
     private void moveCaret(int textLength) {
         if (caretPos == -1) {
             comboBox.getEditor().positionCaret(textLength);
@@ -939,5 +991,5 @@ class AutoCompleteComboBoxListener<T> implements EventHandler<KeyEvent> {
         }
         moveCaretToPos = false;
     }
-
+    
 }

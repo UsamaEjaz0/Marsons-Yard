@@ -112,7 +112,7 @@ public class PurchasesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        String query = "Select * from purchases";
+        String query = "Select * from sales";
         purTable(query);
         purFilter.getItems().addAll("All Purchase Bills", "This Month", "Last Month", "This Quarter", "This Fiscal Year",
                 "This Calendar Year", "Custom");

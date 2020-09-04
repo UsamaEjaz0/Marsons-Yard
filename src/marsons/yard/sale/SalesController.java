@@ -323,6 +323,33 @@ public class SalesController implements Initializable {
                 }
             }
         });
+        
+        saleTransactions.setOnMouseClicked((MouseEvent event) -> {
+           try { 
+            
+            if (event.getClickCount() == 2) {
+                ObservableList x = (ObservableList) (saleTransactions.getSelectionModel().getSelectedItems().get(0));
+                System.out.print(x.get(0) + " " + x.get(1));
+
+                
+                    EditSaleController e = new EditSaleController();
+                        e.setEditData((String)x.get(0));
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EditSale.fxml"));
+
+                    Parent root1 = (Parent) fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.setScene(new Scene(root1));
+                      
+
+                    stage.show();
+
+                    
+                } 
+
+            } catch (Exception ex) {
+                Logger.getLogger(AddItemContainerController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
     }
 
 }

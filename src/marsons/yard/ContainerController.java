@@ -30,6 +30,21 @@ public class ContainerController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+        @FXML
+    private Button salesReturn;
+
+        @FXML
+    private Button bank;
+
+    @FXML
+    private Button cash;
+
+    @FXML
+    private Button cheque;
+
+    @FXML
+    private Button loanAcc;
     @FXML
     private Button addItem;
     @FXML
@@ -188,6 +203,17 @@ public class ContainerController implements Initializable {
             Pane view = object.getPage("serviceProvider/ServiceProviders");
             pane.setCenter(view);
         }
+        else if (event.getSource()== bank){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("CashAndBank/Accounts");
+            pane.setCenter(view);
+        }
+        else if (event.getSource()== salesReturn){
+            fxmlLoader object = new fxmlLoader();
+            Pane view = object.getPage("salesReturn/ReturnScreen");
+            pane.setCenter(view);
+        }
+        
     }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
